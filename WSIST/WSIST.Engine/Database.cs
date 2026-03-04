@@ -1,22 +1,24 @@
 using System.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
+using MySql.Data.MySqlClient;
 
 namespace WSIST.Engine;
-using Microsoft.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 public class Database
 {
-    public readonly SqlConnection Connection;
+    public readonly MySqlConnection Connection;
 
     public Database(IOptions<DatabaseOption> options)
     {
-        Connection = new SqlConnection(options.Value.ConnectionString);
+        Connection = new MySqlConnection(options.Value.ConnectionString);
         Connection.Open();
     }
 
     public DataTable Query(string sqlQuery, Dictionary<string, object>? parameters = null)
     {
-        using var command = new SqlCommand(
+        using var command = new MySqlCommand(
             sqlQuery,
             Connection
         );

@@ -10,7 +10,7 @@ public partial class Home(TestManagement management)
 
     protected override void OnInitialized()
     {
-        tests = management.Tests.ToList();
+        tests = management.LoadAllTests();
     }
 
     public enum Modes
@@ -92,7 +92,7 @@ public partial class Home(TestManagement management)
     private void Refresh()
     {
         management.Refresh();
-        tests = management.Tests.ToList();
+        tests = management.LoadAllTests();
         StateHasChanged();
     }
 
