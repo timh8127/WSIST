@@ -9,6 +9,8 @@ public class Test
     public TestVolume Volume { get; set; }
     public PersonalUnderstanding Understanding { get; set; }
     public double? Grade { get; set; }
+    public int UserId { get; set; }
+    public User User { get; set; } = null!;
 
     public enum Subjects
     {

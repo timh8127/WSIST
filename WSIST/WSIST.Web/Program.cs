@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using WSIST.Engine;
 using WSIST.Web.Components;
 
@@ -5,7 +6,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
-builder.Services.AddSingleton<TestManagement>();
+
+// Replace the Singleton with Scoped
+var connStr = builder.Configuration.GetConnectionString("DatabaseConnection")
+              ?? throw new InvalidOperationException("DatabaseConnection string is missing.");
+
+builder.Services.AddDbContext<WsistContext>(options =>
+    options.UseMySql(connStr, ServerVersion.AutoDetect(connStr)));
+
+builder.Services.AddScoped<TestManagement>();
 
 var app = builder.Build();
 

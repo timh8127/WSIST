@@ -5,6 +5,11 @@ namespace WSIST.UnitTests;
 
 public class UnitTests
 {
+    /*TODO: COMPLETE OVERHAUL
+        - Rewrite All Test to now work with Database.
+        - Clean out Tests that arent needed
+        - add checks future checks
+    */
     [Test]
     public void TestIfNewTestGetsMade()
     {
@@ -14,12 +19,13 @@ public class UnitTests
         manager.NewTestMaker(
             "Math Tets",
             Test.Subjects.Math,
-            new DateOnly(2026, 02,04),
+            new DateOnly(2026, 02, 04),
             Test.TestVolume.VeryHigh,
             Test.PersonalUnderstanding.VeryLow,
-            4.5
+            4.5,
+            1
         );
-        
+
         //assert
         Assert.That(manager.Tests.Any(t => t.Title == "Math Tets"));
     }
@@ -32,7 +38,11 @@ public class UnitTests
         Guid id = new Guid("3a5cd0af-7c40-425c-8235-c47b5b9596ec");
         //act
         manager.TestRemover(id);
-        Assert.That(manager.Tests.Any(t => t.Id == id), Is.False, "The Test with the given ID should no longer exist");
+        Assert.That(
+            manager.Tests.Any(t => t.Id == id),
+            Is.False,
+            "The Test with the given ID should no longer exist"
+        );
     }
 
     [Test]
@@ -44,9 +54,13 @@ public class UnitTests
         //act
         var result = TestAssistants.GradeVerifier(DueDate, grade);
         //Assert
-        Assert.That(result, Is.Not.Null, "Its Possible for a test to have a grade if the test was in the Past");
+        Assert.That(
+            result,
+            Is.Not.Null,
+            "Its Possible for a test to have a grade if the test was in the Past"
+        );
     }
-    
+
     [Test]
     public static void CheckIfGradeIsNullIfInTheFuture()
     {
