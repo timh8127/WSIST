@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using WSIST.Engine;
+using WSIST.
 
 namespace WSIST.UnitTests;
 
