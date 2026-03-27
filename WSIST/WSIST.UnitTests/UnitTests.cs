@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using WSIST.
+using WSIST.Engine;
 
 namespace WSIST.UnitTests;
 
@@ -22,7 +22,8 @@ public class UnitTests
             new DateOnly(2026, 02, 04),
             Test.TestVolume.VeryHigh,
             Test.PersonalUnderstanding.VeryLow,
-            4.5
+            4.5,
+            1
         );
 
         //assert

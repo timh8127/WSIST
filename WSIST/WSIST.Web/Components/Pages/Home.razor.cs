@@ -10,7 +10,7 @@ public partial class Home(TestManagement management)
 
     protected override void OnInitialized()
     {
-        tests = management.LoadAllTests();
+        tests = management.Tests;
     }
 
     public enum Modes
@@ -62,7 +62,8 @@ public partial class Home(TestManagement management)
                     temporaryTest.DueDate,
                     temporaryTest.Volume,
                     temporaryTest.Understanding,
-                    temporaryTest.Grade
+                    temporaryTest.Grade,
+                    1
                 );
                 break;
             }
@@ -92,12 +93,11 @@ public partial class Home(TestManagement management)
 
     private void Refresh()
     {
-        management.Refresh();
-        tests = management.LoadAllTests();
+        tests = management.Tests;
         StateHasChanged();
     }
 
-    private void DeleteTest(int id)
+    private void DeleteTest(Guid id)
     {
         management.TestRemover(id);
         Refresh();

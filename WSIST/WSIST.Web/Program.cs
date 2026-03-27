@@ -8,11 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 // Replace the Singleton with Scoped
+var connStr = builder.Configuration.GetConnectionString("DatabaseConnection");
 builder.Services.AddDbContext<WsistContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySql(connStr, ServerVersion.AutoDetect(connStr)));
 
-builder.Services.AddScoped<TestManagement>(); // Scoped, not Singleton!
-builder.Services.AddSingleton<TestManagement>();
+builder.Services.AddScoped<TestManagement>();
 
 var app = builder.Build();
 
