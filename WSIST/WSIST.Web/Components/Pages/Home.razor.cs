@@ -1,8 +1,9 @@
+using System.Security.Claims;
 using WSIST.Engine;
 
 namespace WSIST.Web.Components.Pages;
 
-public partial class Home(TestManagement management)
+public partial class Home(TestManagement management, IHttpContextAccessor httpContextAccessor)
 {
     private List<Test> tests = [];
     private Test? temporaryTest;
@@ -10,7 +11,9 @@ public partial class Home(TestManagement management)
 
     protected override void OnInitialized()
     {
-        tests = management.LoadAllTests();
+        var email = httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value;
+        // look up or create user by email, get their Id
+        tests = management.LoadAllTests(currentUserId);
     }
 
     public enum Modes

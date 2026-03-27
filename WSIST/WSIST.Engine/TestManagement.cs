@@ -51,4 +51,21 @@ public class TestManagement
         context.Tests.Remove(test);
         context.SaveChanges();
     }
+    
+    public User GetOrCreateUser(string email, string displayName, string googleId)
+    {
+        var user = context.Users.FirstOrDefault(u => u.Email == email);
+        if (user is not null) return user;
+
+        user = new User
+        {
+            Email = email,
+            DisplayName = displayName,
+            GoogleId = googleId,
+            CreatedAt = DateTime.UtcNow
+        };
+        context.Users.Add(user);
+        context.SaveChanges();
+        return user;
+    }
 }
