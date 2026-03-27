@@ -8,7 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 // Replace the Singleton with Scoped
-var connStr = builder.Configuration.GetConnectionString("DatabaseConnection");
+var connStr = builder.Configuration.GetConnectionString("DatabaseConnection")
+              ?? throw new InvalidOperationException("DatabaseConnection string is missing.");
+
 builder.Services.AddDbContext<WsistContext>(options =>
     options.UseMySql(connStr, ServerVersion.AutoDetect(connStr)));
 
