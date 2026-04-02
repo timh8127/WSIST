@@ -11,10 +11,19 @@ public partial class Home(TestManagement management, IHttpContextAccessor httpCo
 
     protected override void OnInitialized()
     {
-        var email = httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value;
-        // look up or create user by email, get their Id
+        var httpContext = httpContextAccessor.HttpContext;
+        var email = httpContext?.User?.FindFirst(ClaimTypes.Email)?.Value;
+        var name = httpContext?.User?.FindFirst(ClaimTypes.Name)?.Value ?? "Unknown";
+        var googleId = httpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+
+        if (email is null) return; // not logged in
+
+        var user = management.GetOrCreateUser(email, name, googleId);
+        currentUserId = user.Id;
         tests = management.LoadAllTests(currentUserId);
     }
+
+    private int currentUserId;
 
     public enum Modes
     {
@@ -66,7 +75,7 @@ public partial class Home(TestManagement management, IHttpContextAccessor httpCo
                     temporaryTest.Volume,
                     temporaryTest.Understanding,
                     temporaryTest.Grade,
-                    1
+                    currentUserId
                 );
                 break;
             }
@@ -96,7 +105,7 @@ public partial class Home(TestManagement management, IHttpContextAccessor httpCo
 
     private void Refresh()
     {
-        tests = management.LoadAllTests();
+        tests = management.LoadAllTests(currentUserId);
         StateHasChanged();
     }
 

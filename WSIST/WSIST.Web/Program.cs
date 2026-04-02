@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 using WSIST.Engine;
@@ -14,7 +14,22 @@ var connStr = builder.Configuration.GetConnectionString("DatabaseConnection")
 builder.Services.AddDbContext<WsistContext>(options =>
     options.UseMySql(connStr, ServerVersion.AutoDetect(connStr)));
 
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+    })
+    .AddCookie()
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration["Google:ClientId"]
+                           ?? throw new InvalidOperationException("Google:ClientId is missing");
+        options.ClientSecret = builder.Configuration["Google:ClientSecret"]
+                               ?? throw new InvalidOperationException("Google:ClientSecret is missing");
+    });
+
 builder.Services.AddScoped<TestManagement>();
+builder.Services.AddHttpContextAccessor();
 
 // ADD HERE — before builder.Build()
 builder.Services.AddAuthentication(options =>
@@ -39,6 +54,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 

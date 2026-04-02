@@ -8,6 +8,5 @@
   <ItemGroup>
     <ProjectReference Include="..\WSIST.Engine\WSIST.Engine.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
   </ItemGroup>
 </Project>

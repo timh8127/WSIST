@@ -9,7 +9,7 @@ public class TestManagement
         this.context = context;
     }
 
-    public List<Test> LoadAllTests() => context.Tests.ToList();
+    public List<Test> LoadAllTests(int userId) => context.Tests.Where(t => t.UserId == userId).ToList();
 
     public void NewTestMaker(string title, Test.Subjects subject, DateOnly dueDate,
         Test.TestVolume volume, Test.PersonalUnderstanding understanding, double? grade, int userId)
@@ -51,7 +51,6 @@ public class TestManagement
         context.Tests.Remove(test);
         context.SaveChanges();
     }
-    
     public User GetOrCreateUser(string email, string displayName, string googleId)
     {
         var user = context.Users.FirstOrDefault(u => u.Email == email);

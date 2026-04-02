@@ -1,7 +1,18 @@
 ﻿@page "/"
 @rendermode InteractiveServer
 @using WSIST.Engine
+@attribute [Authorize]
+@using Microsoft.AspNetCore.Authorization
 <PageTitle>Home</PageTitle>
+<AuthorizeView>
+    <Authorized>
+        <span>@context.User.Identity?.Name</span>
+        <a href="/logout" class="button-primary">Logout</a>
+    </Authorized>
+    <NotAuthorized>
+        <a href="/login" class="button-primary">Login with Google</a>
+    </NotAuthorized>
+</AuthorizeView>
 <div class="page">
     <div class="top-row">
         <h3 class="title">WSIST</h3>
