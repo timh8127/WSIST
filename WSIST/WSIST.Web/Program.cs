@@ -19,7 +19,13 @@ builder.Services.AddAuthentication(options =>
         options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
     })
-    .AddCookie()
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = ".AspNetCore.Cookies";
+        options.Cookie.Path = "/";
+        options.Cookie.SameSite = SameSiteMode.Lax;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+    })
     .AddGoogle(options =>
     {
         options.ClientId = builder.Configuration["Google:ClientId"]
@@ -45,6 +51,23 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseAntiforgery();
 
+app.Use(async (context, next) =>
+{
+    var isAuthenticated = context.User?.Identity?.IsAuthenticated ?? false;
+    if (context.Request.Path == "/")
+    {
+        Console.WriteLine($"PATH: / | AUTH: {isAuthenticated}");
+        foreach (var cookie in context.Request.Cookies)
+            Console.WriteLine($"  COOKIE: {cookie.Key} = {cookie.Value[..Math.Min(20, cookie.Value.Length)]}...");
+    }
+    if (context.Request.Path == "/" && !isAuthenticated)
+    {
+        context.Response.Redirect("/login-page");
+        return;
+    }
+    await next();
+});
+
 app.MapStaticAssets();
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 
@@ -55,6 +78,11 @@ app.MapGet("/login", () => Results.Challenge(
 app.MapGet("/logout", async (HttpContext ctx) =>
 {
     await ctx.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+    ctx.Response.Cookies.Delete(".AspNetCore.Cookies", new CookieOptions 
+    { 
+        Path = "/",
+        IsEssential = true
+    });
     return Results.Redirect("/login-page");
 }).AllowAnonymous();
 

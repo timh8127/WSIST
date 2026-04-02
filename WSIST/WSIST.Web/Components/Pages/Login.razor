@@ -1,7 +1,5 @@
 @page "/login-page"
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
-@inject NavigationManager Nav
-@inject IHttpContextAccessor HttpContextAccessor
 <PageTitle>Login – WSIST</PageTitle>
 
 <div class="login-container">
@@ -14,11 +12,3 @@
         </a>
     </div>
 </div>
-
-@code {
-    protected override void OnInitialized()
-    {
-        if (HttpContextAccessor.HttpContext?.User?.Identity?.IsAuthenticated == true)
-            Nav.NavigateTo("/");
-    }
-}
