@@ -8,7 +8,10 @@
 <div class="page">
     <div class="top-row">
         <h3 class="title">WSIST</h3>
-        <a href="/logout" class="button-primary" data-enhance-nav="false">Logout</a>
+        <form method="post" action="/logout">
+            <input type="hidden" name="__RequestVerificationToken" value="" />
+            <button type="submit" class="button-primary">Logout</button>
+        </form>
         <button class="button-primary" @onclick="Refresh">🔄️</button>
     </div>
 

@@ -12,11 +12,18 @@ public partial class Home(TestManagement management, IHttpContextAccessor httpCo
     protected override void OnInitialized()
     {
         var httpContext = httpContextAccessor.HttpContext;
-        var email = httpContext?.User?.FindFirst(ClaimTypes.Email)?.Value;
-        var name = httpContext?.User?.FindFirst(ClaimTypes.Name)?.Value ?? "Unknown";
-        var googleId = httpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+    
+        if (httpContext?.User?.Identity?.IsAuthenticated != true)
+        {
+            httpContext?.Response.Redirect("/login-page");
+            return;
+        }
 
-        if (email is null) return; // not logged in
+        var email = httpContext.User.FindFirst(ClaimTypes.Email)?.Value;
+        var name = httpContext.User.FindFirst(ClaimTypes.Name)?.Value ?? "Unknown";
+        var googleId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+
+        if (email is null) return;
 
         var user = management.GetOrCreateUser(email, name, googleId);
         currentUserId = user.Id;
