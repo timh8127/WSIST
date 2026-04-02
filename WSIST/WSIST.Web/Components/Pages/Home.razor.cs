@@ -1,36 +1,38 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using WSIST.Engine;
 
 namespace WSIST.Web.Components.Pages;
 
-public partial class Home(TestManagement management, IHttpContextAccessor httpContextAccessor)
+public partial class Home(TestManagement management, AuthenticationStateProvider authStateProvider, NavigationManager navigation)
 {
     private List<Test> tests = [];
     private Test? temporaryTest;
     private Modes Mode { get; set; }
+    private int currentUserId;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        var httpContext = httpContextAccessor.HttpContext;
-    
-        if (httpContext?.User?.Identity?.IsAuthenticated != true)
+        var authState = await authStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user?.Identity?.IsAuthenticated != true)
         {
-            httpContext?.Response.Redirect("/login-page");
+            navigation.NavigateTo("/login-page", forceLoad: true);
             return;
         }
 
-        var email = httpContext.User.FindFirst(ClaimTypes.Email)?.Value;
-        var name = httpContext.User.FindFirst(ClaimTypes.Name)?.Value ?? "Unknown";
-        var googleId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+        var email = user.FindFirst(ClaimTypes.Email)?.Value;
+        var name = user.FindFirst(ClaimTypes.Name)?.Value ?? "Unknown";
+        var googleId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
 
         if (email is null) return;
 
-        var user = management.GetOrCreateUser(email, name, googleId);
-        currentUserId = user.Id;
+        var dbUser = management.GetOrCreateUser(email, name, googleId);
+        currentUserId = dbUser.Id;
         tests = management.LoadAllTests(currentUserId);
     }
-
-    private int currentUserId;
 
     public enum Modes
     {
