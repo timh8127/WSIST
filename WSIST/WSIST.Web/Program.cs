@@ -35,6 +35,7 @@ builder.Services.AddAuthentication(options =>
     });
 
 builder.Services.AddScoped<TestManagement>();
+builder.Services.AddScoped<PriorityCalculator>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddCascadingAuthenticationState();
 
@@ -54,7 +55,8 @@ app.UseAntiforgery();
 app.Use(async (context, next) =>
 {
     var isAuthenticated = context.User?.Identity?.IsAuthenticated ?? false;
-    if (context.Request.Path == "/" && !isAuthenticated)
+    var protectedPaths = new[] { "/", "/study" };
+    if (protectedPaths.Contains(context.Request.Path.Value) && !isAuthenticated)
     {
         context.Response.Redirect("/login-page");
         return;

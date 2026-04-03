@@ -5,14 +5,13 @@ using WSIST.Engine;
 
 namespace WSIST.Web.Components.Pages;
 
-public partial class Study(TestManagement management, AuthenticationStateProvider authStateProvider, NavigationManager navigation)
+public partial class Study(TestManagement management, AuthenticationStateProvider authStateProvider, NavigationManager navigation, PriorityCalculator calculator)
 {
     private List<Test> allTests = [];
     private List<Test> recommendations = [];
     private double hoursAvailable = 1;
     private bool calculated = false;
     private int currentUserId;
-    private PriorityCalculator calculator = new();
 
     protected override async Task OnInitializedAsync()
     {
