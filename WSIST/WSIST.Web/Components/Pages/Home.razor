@@ -1,117 +1,103 @@
 ﻿@page "/"
-@rendermode InteractiveServer
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 @using WSIST.Engine
-<PageTitle>Home</PageTitle>
+<PageTitle>WSIST - Home</PageTitle>
+
 <div class="page">
     <div class="top-row">
         <h3 class="title">WSIST</h3>
-        <button class="button-primary refresh" @onclick="Refresh">
-            Temporary Refresh
-        </button>
-
+        <a href="/logout" class="button-primary" data-enhance-nav="false">Logout</a>
+        <button class="button-primary" @onclick="Refresh">🔄️</button>
     </div>
-</div>
 
-<div class="top">
-    <div class="top-title">
-        <h1>Your upcoming Tests</h1>
-        <p class="top-subtitle">Welcome to your Overview.</p>
-    </div>
-    
-    <button class="button-primary refresh" @onclick="Refresh">
-        🔄️
-    </button>
-</div>
-
-<div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Title</th>
-            <th>Subject</th>
-            <th>Date</th>
-            <th>Volume</th>
-            <th>Understanding</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var test in tests)
-        {
-            <tr>
-                <td>@test.Title</td>
-                <td>@test.Subject</td>
-                <td>@test.DueDate.ToShortDateString()</td>
-                <td>@Test.VolumeHelper(test.Volume)</td>
-                <td>@Test.UnderstandingHelper(test.Understanding)</td>
-                <td>
-                    <button class="button-primary button-danger" @onclick="() => DeleteTest(test.Id)">🗑️</button>
-                    <button class="button-primary" @bind="temporaryTest" @onclick="() => OpenEditTestModal(test)">
-                        ✏️
-                    </button>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-    <button class="button-primary" @onclick="OpenAddTestModal">
-        Add test
-    </button>
-
-    @if (showModal && temporaryTest is not null)
-    {
-        <div class="wsist-modal">
-            <div class="wsist-modal-content">
-                <div class="wsist-modal-header">
-                    <h2 class="wsist-modal-title">
-                        @(Mode == Modes.AddTest ? "Add test" : "Edit test")
-                    </h2>
-                    <button class="wsist-modal-close" @onclick="CloseModal">×</button>
-                </div>
-                <form class="text-center" @onsubmit="ModalSubmit">
-                    <label for="testTitle">Test Title</label><br>
-                    <input type="text" id="testTitle" name="Title" @bind="@temporaryTest.Title"><br>
-                    <label>Subject</label><br>
-                    <select @bind="temporaryTest.Subject">
-                        @foreach (var subject in Enum.GetValues<Test.Subjects>())
-                        {
-                            <option value="@subject">@subject</option>
-                        }
-                    </select><br/>
-                    <label for="TestDueDate">Due Date</label><br>
-                    <input type="date" id="TestDueDate" name="dueDate" @bind="@temporaryTest.DueDate" @bind:event="oninput"><br/>
-                    <label>Volume</label><br>
-                    <select @bind="temporaryTest.Volume">
-                        @foreach (var testVolume in Enum.GetValues<Test.TestVolume>())
-                        {
-                            <option value="@testVolume">@Test.VolumeHelper(testVolume)</option>
-                        }
-                    </select><br/>
-                    <label>Personal Understanding</label><br>
-                    <select @bind="temporaryTest.Understanding">
-                        @foreach (var personalUnderstanding in Enum.GetValues<Test.PersonalUnderstanding>())
-                        {
-                            <option
-                                value="@personalUnderstanding">@Test.UnderstandingHelper(personalUnderstanding)</option>
-                        }
-                    </select><br/>
-                    <label>Grade</label><br>
-                    <input type="number"
-                           min="1"
-                           max="6"
-                           step="0.1"
-                           @bind="temporaryTest.Grade"
-                           disabled="@(temporaryTest.DueDate > DateOnly.FromDateTime(DateTime.Today))"/><br>
-                    @if (temporaryTest.DueDate > DateOnly.FromDateTime(DateTime.Today))
-                    {
-                        <small class="text-warning">
-                            Grade can be entered after the test date.
-                        </small>
-                    }
-                    <br/>
-                    <input type="submit" value="Finish">
-                </form>
+    <div class="content px-4">
+        <div class="top">
+            <div class="top-title">
+                <h1>Your upcoming Tests</h1>
+                <p class="top-subtitle">Welcome to your Overview.</p>
             </div>
         </div>
-    }
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Subject</th>
+                    <th>Date</th>
+                    <th>Volume</th>
+                    <th>Understanding</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var test in tests)
+                {
+                    <tr>
+                        <td>@test.Title</td>
+                        <td>@test.Subject</td>
+                        <td>@test.DueDate.ToShortDateString()</td>
+                        <td>@Test.VolumeHelper(test.Volume)</td>
+                        <td>@Test.UnderstandingHelper(test.Understanding)</td>
+                        <td>
+                            <button class="button-primary button-danger" @onclick="() => DeleteTest(test.Id)">🗑️</button>
+                            <button class="button-primary" @onclick="() => OpenEditTestModal(test)">✏️</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <button class="button-primary" @onclick="OpenAddTestModal">Add test</button>
+
+        @if (showModal && temporaryTest is not null)
+        {
+            <div class="wsist-modal">
+                <div class="wsist-modal-content">
+                    <div class="wsist-modal-header">
+                        <h2 class="wsist-modal-title">
+                            @(Mode == Modes.AddTest ? "Add test" : "Edit test")
+                        </h2>
+                        <button class="wsist-modal-close" @onclick="CloseModal">×</button>
+                    </div>
+                    <form class="text-center" @onsubmit="ModalSubmit">
+                        <label for="testTitle">Test Title</label><br>
+                        <input type="text" id="testTitle" @bind="@temporaryTest.Title"><br>
+                        <label>Subject</label><br>
+                        <select @bind="temporaryTest.Subject">
+                            @foreach (var subject in Enum.GetValues<Test.Subjects>())
+                            {
+                                <option value="@subject">@subject</option>
+                            }
+                        </select><br/>
+                        <label for="TestDueDate">Due Date</label><br>
+                        <input type="date" id="TestDueDate" @bind="@temporaryTest.DueDate" @bind:event="oninput"><br/>
+                        <label>Volume</label><br>
+                        <select @bind="temporaryTest.Volume">
+                            @foreach (var testVolume in Enum.GetValues<Test.TestVolume>())
+                            {
+                                <option value="@testVolume">@Test.VolumeHelper(testVolume)</option>
+                            }
+                        </select><br/>
+                        <label>Personal Understanding</label><br>
+                        <select @bind="temporaryTest.Understanding">
+                            @foreach (var personalUnderstanding in Enum.GetValues<Test.PersonalUnderstanding>())
+                            {
+                                <option value="@personalUnderstanding">@Test.UnderstandingHelper(personalUnderstanding)</option>
+                            }
+                        </select><br/>
+                        <label>Grade</label><br>
+                        <input type="number" min="1" max="6" step="0.1"
+                               @bind="temporaryTest.Grade"
+                               disabled="@(temporaryTest.DueDate > DateOnly.FromDateTime(DateTime.Today))"/><br>
+                        @if (temporaryTest.DueDate > DateOnly.FromDateTime(DateTime.Today))
+                        {
+                            <small class="text-warning">Grade can be entered after the test date.</small>
+                        }
+                        <br/>
+                        <input type="submit" value="Finish">
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
 </div>

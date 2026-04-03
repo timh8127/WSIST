@@ -1,16 +1,37 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using WSIST.Engine;
 
 namespace WSIST.Web.Components.Pages;
 
-public partial class Home(TestManagement management)
+public partial class Home(TestManagement management, AuthenticationStateProvider authStateProvider, NavigationManager navigation)
 {
     private List<Test> tests = [];
     private Test? temporaryTest;
     private Modes Mode { get; set; }
+    private int currentUserId;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        tests = management.LoadAllTests();
+        var authState = await authStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user?.Identity?.IsAuthenticated != true)
+        {
+            navigation.NavigateTo("/login-page", forceLoad: true);
+            return;
+        }
+
+        var email = user.FindFirst(ClaimTypes.Email)?.Value;
+        var name = user.FindFirst(ClaimTypes.Name)?.Value ?? "Unknown";
+        var googleId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+
+        if (email is null) return;
+
+        var dbUser = management.GetOrCreateUser(email, name, googleId);
+        currentUserId = dbUser.Id;
+        tests = management.LoadAllTests(currentUserId);
     }
 
     public enum Modes
@@ -63,7 +84,7 @@ public partial class Home(TestManagement management)
                     temporaryTest.Volume,
                     temporaryTest.Understanding,
                     temporaryTest.Grade,
-                    1
+                    currentUserId
                 );
                 break;
             }
@@ -93,7 +114,7 @@ public partial class Home(TestManagement management)
 
     private void Refresh()
     {
-        tests = management.LoadAllTests();
+        tests = management.LoadAllTests(currentUserId);
         StateHasChanged();
     }
 

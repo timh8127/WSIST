@@ -15,7 +15,7 @@ public class WsistContext : DbContext
         {
             entity.ToTable("Tests");
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Id).ValueGeneratedNever(); // Guid set by app, not DB
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Title).HasMaxLength(255).IsRequired();
             entity.Property(e => e.Subject).HasConversion<int>();
             entity.Property(e => e.Volume).HasConversion<int>();
