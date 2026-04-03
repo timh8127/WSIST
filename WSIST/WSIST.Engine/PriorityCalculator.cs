@@ -44,4 +44,52 @@ public class PriorityCalculator
             _ => 0
         };
     }
+    
+    public int CalculateGradeScore(Test.Subjects subject, List<Test> allTests)
+    {
+        var gradedTests = allTests
+            .Where(t => t.Subject == subject && t.Grade != null)
+            .ToList();
+
+        if (gradedTests.Count == 0)
+            return 0;
+
+        var average = gradedTests.Average(t => t.Grade!.Value);
+
+        return average switch
+        {
+            >= 5 => 2,
+            >= 4 => 4,
+            >= 3 => 6,
+            _ => 0
+        };
+    }
+
+    public int CalculateTotalScore(Test test, List<Test> allTests)
+    {
+        var sum = 0;
+        sum += CalculateUrgencyScore(test.DueDate);
+        sum += CalculateVolumeScore(test.Volume);
+        sum += CalculateUnderstandingScore(test.Understanding);
+        sum += CalculateGradeScore(test.Subject, allTests);
+        return sum;
+    }
+    
+    public List<Test> GetStudyRecommendations(List<Test> allTests, double hoursAvailable)
+    {
+        var topCount = hoursAvailable switch
+        {
+            < 1 => 1,
+            < 2 => 1,
+            < 3 => 3,
+            < 4 => 3,
+            _ => 5
+        };
+
+        return allTests
+            .Where(t => t.DueDate >= DateOnly.FromDateTime(DateTime.Today)) // exclude past tests
+            .OrderByDescending(t => CalculateTotalScore(t, allTests))
+            .Take(topCount)
+            .ToList();
+    }
 }
