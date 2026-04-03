@@ -89,6 +89,7 @@ public class PriorityCalculator
         return allTests
             .Where(t => t.DueDate >= DateOnly.FromDateTime(DateTime.Today)) // exclude past tests
             .OrderByDescending(t => CalculateTotalScore(t, allTests))
+            .ThenBy(t => t.DueDate)
             .Take(topCount)
             .ToList();
     }

@@ -266,3 +266,89 @@ h1:focus {
     width: 100%;
     justify-content: center;
 }
+
+.study-input-section {
+    padding: 2rem 0 1rem 0;
+}
+
+.study-input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 1rem;
+}
+
+.study-input-row input {
+    width: 100px;
+}
+
+.study-results {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.study-empty {
+    margin-top: 2rem;
+    color: var(--text-secondary);
+}
+
+.study-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 20px 24px;
+}
+
+.study-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.study-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.study-card-score {
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.study-card-subject {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin: 4px 0 8px 0;
+}
+
+.study-card-because {
+    color: var(--text-primary);
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.study-card-bar-bg {
+    background: var(--border-subtle);
+    border-radius: 99px;
+    height: 6px;
+    width: 100%;
+}
+
+.study-card-bar {
+    background: var(--accent);
+    border-radius: 99px;
+    height: 6px;
+    transition: width 0.4s ease;
+}
+
+.study-input-row input {
+    background: #11141a;
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 12px 14px;
+}
