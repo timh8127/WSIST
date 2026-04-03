@@ -1,0 +1,58 @@
+﻿@page "/study"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+<PageTitle>WSIST - Study</PageTitle>
+
+<div class="page">
+    <div class="top-row">
+        <h3 class="title">WSIST</h3>
+        <a href="/" class="button-primary" data-enhance-nav="false">← Back</a>
+        <a href="/logout" class="button-primary" data-enhance-nav="false">Logout</a>
+    </div>
+
+    <div class="content px-4">
+        <div class="study-input-section">
+            <h1>What Should I Study Today?</h1>
+            <p class="top-subtitle">Tell us how much time you have and we'll figure out the rest.</p>
+
+            <div class="study-input-row">
+                <label for="hours">How many hours can you study today?</label>
+                <input type="number" id="hours" min="0.5" max="12" step="0.5" @bind="hoursAvailable" />
+                <button class="button-primary" @onclick="Calculate">Calculate</button>
+            </div>
+        </div>
+
+        @if (calculated)
+        {
+            @if (recommendations.Count == 0)
+            {
+                <div class="study-empty">
+                    <p>No upcoming tests found — enjoy your free time! 🎉</p>
+                </div>
+            }
+            else
+            {
+                <div class="study-results">
+                    <h2>Today you should study:</h2>
+                    @foreach (var test in recommendations)
+                    {
+                        var score = calculator.CalculateTotalScore(test, allTests);
+                        var days = test.DueDate.DayNumber - DateOnly.FromDateTime(DateTime.Today).DayNumber;
+                        <div class="study-card">
+                            <div class="study-card-header">
+                                <h3 class="study-card-title">@test.Title</h3>
+                                <span class="study-card-score">@score / 40 pts</span>
+                            </div>
+                            <p class="study-card-subject">@test.Subject · in @days day@(days == 1 ? "" : "s")</p>
+                            <p class="study-card-because">
+                                <strong>Because:</strong> @GetBecauseText(test)
+                            </p>
+                            <div class="study-card-bar-bg">
+                                <div class="study-card-bar" style="width: @(score / 40.0 * 100)%"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>

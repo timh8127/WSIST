@@ -45,6 +45,8 @@ The system is designed with a strong separation between:
 - Middleware-based auth guard on protected routes
 - Dedicated login page with empty layout
 - Fully testable business logic
+- Priority calculation engine (urgency, volume, understanding, grade — max 40 pts)
+- "What should I study today" recommendation page with hours-based capacity
 
 ### Planned
 
@@ -85,6 +87,7 @@ Core system logic:
 - GetOrCreateUser (first-time user provisioning)
 - EF Core DbContext (Pomelo/MySQL)
 - Domain models (Test, User)
+- PriorityCalculator
 
 Fully independent of UI.
 
@@ -218,7 +221,9 @@ WSIST/
 │   │   ├── Pages/
 │   │   │   ├── Home.razor
 │   │   │   ├── Home.razor.cs
-│   │   │   └── Login.razor
+│   │   │   ├── Login.razor
+│   │   │   ├── Study.razor
+│   │   │   └── Study.razor.cs
 │   │   ├── App.razor
 │   │   └── Routes.razor
 │   ├── wwwroot/
@@ -230,6 +235,7 @@ WSIST/
 │   ├── User.cs
 │   ├── TestManagement.cs
 │   ├── TestAssistants.cs
+│   ├── PriorityCalculator.cs
 │   └── WsistContext.cs
 │
 ├── WSIST.UnitTests/
