@@ -1,0 +1,4 @@
+﻿[phases.setup]
+nixPkgs = ["dotnet-sdk_10"]
+nixLibs = []
+nixpkgsArchive = "nixos-unstable"
