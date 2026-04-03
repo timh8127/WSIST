@@ -1,0 +1,6 @@
+﻿[build]
+builder = "NIXPACKS"
+buildCommand = "dotnet publish WSIST.Web/WSIST.Web.csproj -c Release -o out"
+
+[deploy]
+startCommand = "dotnet out/WSIST.Web.dll"
