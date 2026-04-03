@@ -9,6 +9,12 @@ using WSIST.Web.Components;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
 var connStr = builder.Configuration.GetConnectionString("DatabaseConnection")
     ?? throw new InvalidOperationException("DatabaseConnection string is missing.");
@@ -47,12 +53,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     app.UseHsts();
 }
-
-app.UseForwardedHeaders(new ForwardedHeadersOptions
-{
-    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-});
-
+app.UseForwardedHeaders();  
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseAntiforgery();
