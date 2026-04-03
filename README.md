@@ -1,12 +1,12 @@
 # WSIST — What Should I Study Today
 
-WSIST (*What Should I Study Today*) is a Blazor‑based study planner designed to help students organize tests, track understanding, and decide what to study next based on urgency and preparedness.
+WSIST (*What Should I Study Today*) is a Blazor Server-based study planner designed to help students organize tests, track understanding, and prioritize what to study based on urgency and preparedness.
 
-This project was built as part of my software engineering learning journey and focuses heavily on clean architecture, separation of concerns, and maintainable state management.
+This project was built as part of a software engineering apprenticeship (Informatiker EFZ, Applikationsentwicklung) and focuses on clean architecture, separation of concerns, and maintainable state management.
 
 ---
 
-# Overview
+## Overview
 
 WSIST helps students:
 
@@ -14,124 +14,126 @@ WSIST helps students:
 - Monitor their level of understanding per test
 - Estimate workload and urgency
 - Organize study priorities
-- Persist data locally in a structured format
+- Persist data per user in a MySQL database
 
 The system is designed with a strong separation between:
 
-- UI layer (Blazor Web App)
+- UI layer (Blazor Server Web App)
 - Business logic layer (WSIST.Engine)
-- Persistence layer (JSON‑based storage)
-
-This makes the project easy to extend later with databases, APIs, or additional frontends.
+- Persistence layer (EF Core + MySQL)
 
 ---
 
-# Features
+## Features
 
-## Current
+### Current
 
+- Google OAuth authentication (login/logout)
+- Per-user data isolation
 - Create tests with:
   - Title
   - Subject
   - Due date
   - Volume (workload estimate)
-  - Understanding level
-
+  - Personal understanding level
+  - Grade (only after due date)
 - Edit existing tests
 - Delete tests
-- Persistent storage using JSON
+- Persistent storage using MySQL via Entity Framework Core
 - Clean state management via dependency injection
-- Modal‑based editing and creation UI
+- Modal-based editing and creation UI
+- Middleware-based auth guard on protected routes
+- Dedicated login page with empty layout
 - Fully testable business logic
 
-## Planned
+### Planned
 
 - Priority calculation algorithm
 - "What should I study today" recommendation engine
-- PostgreSQL / database support
-- User accounts
-- Cloud sync
 - Study history tracking
 - Analytics dashboard
+- Cloud deployment
 
 ---
 
-# Architecture
-
-The project follows a clean layered architecture:
-
-```
+## Architecture
 WSIST
 │
-├── WSIST.Web        → Blazor UI
-├── WSIST.Engine     → Business logic
-└── WSIST.Tests      → NUnit test project
-```
+├── WSIST.Web        → Blazor Server UI
+├── WSIST.Engine     → Business logic + EF Core
+└── WSIST.UnitTests  → NUnit test project
 
-## Responsibilities
+### Responsibilities
 
-### WSIST.Web
+#### WSIST.Web
 
 Handles:
 
-- UI rendering
-- User interaction
-- Modal state
+- UI rendering (Razor Components)
+- User interaction and modal state
+- Google OAuth flow
+- Auth guard middleware
 - Calling Engine services
 
 Contains no business logic.
 
-
-### WSIST.Engine
+#### WSIST.Engine
 
 Core system logic:
 
-- TestManagement service
-- Load‑modify‑save persistence pattern
-- JSON serialization
-- Domain models
+- TestManagement service (CRUD)
+- GetOrCreateUser (first-time user provisioning)
+- EF Core DbContext (Pomelo/MySQL)
+- Domain models (Test, User)
 
 Fully independent of UI.
 
-
-### WSIST.Tests
+#### WSIST.UnitTests
 
 Contains unit tests for:
 
-- Creating tests
-- Editing tests
-- Deleting tests
-- Persistence correctness
+- Grade verification logic
+- (Full overhaul planned — current tests need rewriting for DB-backed services)
 
 Uses NUnit.
 
 ---
 
-# Technology Stack
+## Technology Stack
 
-## Frontend
+### Frontend
 
 - Blazor Server
 - Razor Components
-- InteractiveServer render mode
+- InteractiveServer render mode (prerender disabled)
+- Bootstrap 5 (CDN)
 
-## Backend Logic
+### Backend
 
-- C# .NET
+- C# .NET 10
+- ASP.NET Core minimal API endpoints
 - Dependency Injection
-- Clean Architecture principles
+- Middleware pipeline
 
-## Persistence
+### Authentication
 
-- JSON file storage
+- Google OAuth 2.0
+- ASP.NET Core Cookie Authentication
+- Credentials stored via .NET User Secrets (never committed)
 
-## Testing
+### Persistence
+
+- MySQL
+- Entity Framework Core 9
+- Pomelo.EntityFrameworkCore.MySql
+
+### Testing
 
 - NUnit
 
 ---
 
-# Design Principles
+## Design Principles
 
 Key architectural goals:
 
@@ -139,117 +141,119 @@ Key architectural goals:
 - Testable business logic
 - UI independent from data layer
 - Clean state management
-- Explicit load → modify → save flow
+- Auth enforced at middleware level, not just component level
 
 Avoids:
 
 - Hidden state
-- Tight UI‑logic coupling
-- Database dependency
+- Tight UI-logic coupling
+- Committing secrets to version control
 
 ---
 
-# Example Workflow
+## Getting Started
 
-User creates a test:
+### Requirements
 
-```
-UI → TestManagement.AddTest()
-   → Engine loads JSON
-   → modifies data
-   → saves JSON
-   → UI refreshes state
-```
+- .NET 10 SDK
+- MySQL server running locally
+- Google OAuth credentials (Client ID + Secret)
 
----
+### Setup
 
-# Project Structure
+**1. Create the database**
 
-```
-WSIST/
-│
-├── WSIST.Web/
-│   ├── Pages/
-│   ├── Components/
-│   └── Program.cs
-│
-├── WSIST.Engine/
-│   ├── Models/
-│   ├── Services/
-│   └── Persistence/
-│
-├── WSIST.Tests/
-│   └── TestManagementTests.cs
-│
-└── README.md
+Make sure MySQL is running with a database called `wsistdb` accessible at `localhost` with user `root`.
+
+**2. Configure secrets**
+```bash
+cd WSIST/WSIST.Web
+dotnet user-secrets set "Google:ClientId" "your-client-id"
+dotnet user-secrets set "Google:ClientSecret" "your-client-secret"
 ```
 
----
-
-# Getting Started
-
-## Requirements
-
-- .NET 9 SDK
-- Visual Studio or Rider
-
-## Run the project
-
+**3. Apply migrations**
+```bash
+dotnet ef database update --project WSIST.Engine --startup-project WSIST.Web
 ```
-dotnet build
 
-dotnet run --project WSIST.Web
+**4. Run the project**
+```bash
+dotnet run --project WSIST/WSIST.Web
 ```
 
 Then open:
-
-```
-https://localhost:xxxx
-```
+http://localhost:7165
 
 ---
 
-# Testing
+## Auth Flow
+
+1. Unauthenticated user hits `/` → middleware redirects to `/login-page`
+2. User clicks "Continue with Google" → Google OAuth flow
+3. On success → redirected to `/` → user provisioned in DB if first time
+4. Logout hits `/logout` endpoint → cookie cleared → redirected to `/login-page`
+
+---
+
+## Testing
 
 Run tests:
-
-```
+```bash
 dotnet test
 ```
 
----
-
-# Future Vision
-
-WSIST is intended to evolve into a fully featured study planning system with:
-
-- Intelligent recommendations
-- Multi‑device sync
-- Web deployment
-- Database backend
+> Note: Unit tests are currently marked for overhaul. The two DB-dependent tests (`TestIfNewTestGetsMade`, `CheckIfTestWasDeleted`) need to be rewritten to work with an in-memory or mocked DB context. The grade verification tests (`CheckIfGradeIsNotNullIfInThePast`, `CheckIfGradeIsNullIfInTheFuture`) are still valid.
 
 ---
 
-# Lessons Learned
-
-Major learning areas from this project:
-
-- Blazor component state management
-- Dependency injection patterns
-- Clean architecture design
-- JSON persistence
-- Unit testing best practices
-- Separation of UI and business logic
+## Project Structure
+WSIST/
+│
+├── WSIST.Web/
+│   ├── Components/
+│   │   ├── Layout/
+│   │   │   ├── MainLayout.razor
+│   │   │   └── EmptyLayout.razor
+│   │   ├── Pages/
+│   │   │   ├── Home.razor
+│   │   │   ├── Home.razor.cs
+│   │   │   └── Login.razor
+│   │   ├── App.razor
+│   │   └── Routes.razor
+│   ├── wwwroot/
+│   │   └── app.css
+│   └── Program.cs
+│
+├── WSIST.Engine/
+│   ├── Test.cs
+│   ├── User.cs
+│   ├── TestManagement.cs
+│   ├── TestAssistants.cs
+│   └── WsistContext.cs
+│
+├── WSIST.UnitTests/
+│   └── UnitTests.cs
+│
+└── README.md
 
 ---
 
-# Author
+## Security Notes
+
+- Google credentials are stored in .NET User Secrets locally and must never be committed
+- `appsettings.Development.json` is gitignored
+- Auth is enforced via ASP.NET Core middleware before any Blazor component renders
+- Each user only sees their own tests (filtered by `UserId` in all DB queries)
+
+---
+
+## Author
 
 Tim Hug
 
 ---
 
-# Status
+## Status
 
 Actively developed
-
