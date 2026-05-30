@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using WSIST.Engine;
@@ -11,13 +10,33 @@ public partial class Home(TestManagement management, AuthenticationStateProvider
     private List<Test> tests = [];
     private Test? temporaryTest;
     private Modes Mode { get; set; }
+    private bool showPastCompleted;
+
+    private static DateOnly Today => DateOnly.FromDateTime(DateTime.Today);
+
+    // Upcoming: due today or later.
+    private IEnumerable<Test> UpcomingTests => tests.Where(t => t.DueDate >= Today);
+
+    // Past but missing a grade — needs the user's attention to be completed.
+    private IEnumerable<Test> PastUngradedTests => tests.Where(t => t.DueDate < Today && t.Grade is null);
+
+    // Past and graded — hidden by default, shown when the user wants to review performance.
+    private IEnumerable<Test> PastCompletedTests => tests.Where(t => t.DueDate < Today && t.Grade is not null);
 
     protected override Task OnAuthenticatedAsync()
     {
-        tests = management.LoadAllTests(CurrentUserId)
-            .Where(t => t.DueDate >= DateOnly.FromDateTime(DateTime.Today))
-            .ToList();
+        LoadTests();
         return Task.CompletedTask;
+    }
+
+    private void LoadTests()
+    {
+        tests = management.LoadAllTests(CurrentUserId);
+    }
+
+    private void TogglePastCompleted()
+    {
+        showPastCompleted = !showPastCompleted;
     }
 
     public enum Modes
@@ -100,9 +119,7 @@ public partial class Home(TestManagement management, AuthenticationStateProvider
 
     private void Refresh()
     {
-        tests = management.LoadAllTests(CurrentUserId)
-            .Where(t => t.DueDate >= DateOnly.FromDateTime(DateTime.Today))
-            .ToList();
+        LoadTests();
         StateHasChanged();
     }
 
