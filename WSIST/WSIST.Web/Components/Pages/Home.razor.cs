@@ -31,7 +31,9 @@ public partial class Home(TestManagement management, AuthenticationStateProvider
 
         var dbUser = management.GetOrCreateUser(email, name, googleId);
         currentUserId = dbUser.Id;
-        tests = management.LoadAllTests(currentUserId);
+        tests = management.LoadAllTests(currentUserId)
+            .Where(t => t.DueDate >= DateOnly.FromDateTime(DateTime.Today))
+            .ToList();
     }
 
     public enum Modes
@@ -114,7 +116,9 @@ public partial class Home(TestManagement management, AuthenticationStateProvider
 
     private void Refresh()
     {
-        tests = management.LoadAllTests(currentUserId);
+        tests = management.LoadAllTests(currentUserId)
+            .Where(t => t.DueDate >= DateOnly.FromDateTime(DateTime.Today))
+            .ToList();
         StateHasChanged();
     }
 
