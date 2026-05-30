@@ -31,10 +31,12 @@ public class UnitTests
     [Test]
     public void TestIfNewTestGetsMade()
     {
+        //arrange
         using var context = CreateContext();
         var user = SeedUser(context);
         var manager = new TestManagement(context);
 
+        //act
         manager.NewTestMaker(
             "Math Test",
             Test.Subjects.Math,
@@ -45,12 +47,14 @@ public class UnitTests
             user.Id
         );
 
+        //assert
         Assert.That(manager.LoadAllTests(user.Id).Any(t => t.Title == "Math Test"));
     }
 
     [Test]
     public void CheckIfTestWasDeleted()
     {
+        //arrange
         using var context = CreateContext();
         var user = SeedUser(context);
         var manager = new TestManagement(context);
@@ -65,31 +69,39 @@ public class UnitTests
             user.Id
         );
 
+        //act
         var test = manager.LoadAllTests(user.Id).First();
         manager.TestRemover(test.Id);
 
+        //assert
         Assert.That(manager.LoadAllTests(user.Id).Any(t => t.Id == test.Id), Is.False);
     }
 
     [Test]
     public static void CheckIfGradeIsNotNullIfInThePast()
     {
+        //arrange
         DateOnly dueDate = new DateOnly(2025, 06, 07);
         var grade = 4.6;
 
+        //act
         var result = TestAssistants.GradeVerifier(dueDate, grade);
 
+        //assert
         Assert.That(result, Is.Not.Null);
     }
 
     [Test]
     public static void CheckIfGradeIsNullIfInTheFuture()
     {
+        //arrange
         DateOnly dueDate = new DateOnly(2030, 06, 07);
         var grade = 4.6;
 
+        //act
         var result = TestAssistants.GradeVerifier(dueDate, grade);
 
+        //assert
         Assert.That(result, Is.Null);
     }
 }
