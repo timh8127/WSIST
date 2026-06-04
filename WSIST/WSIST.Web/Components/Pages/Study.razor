@@ -38,7 +38,7 @@
                     {
                         var score = calculator.CalculateTotalScore(test, allTests);
                         var days = test.DueDate.DayNumber - DateOnly.FromDateTime(DateTime.Today).DayNumber;
-                        <div class="study-card">
+                        <div class="study-card" title="@GetScoreBreakdown(test)">
                             <div class="study-card-header">
                                 <h3 class="study-card-title">@test.Title</h3>
                                 <span class="study-card-score">@score / 40 pts</span>

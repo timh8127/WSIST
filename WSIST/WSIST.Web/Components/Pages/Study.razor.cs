@@ -25,6 +25,16 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
         calculated = true;
     }
 
+    private string GetScoreBreakdown(Test test)
+    {
+        var urgency = calculator.CalculateUrgencyScore(test.DueDate);
+        var volume = calculator.CalculateVolumeScore(test.Volume);
+        var understanding = calculator.CalculateUnderstandingScore(test.Understanding);
+        var grade = calculator.CalculateGradeScore(test.Subject, allTests);
+
+        return $"Urgency: {urgency}/10 · Volume: {volume}/12 · Understanding: {understanding}/12 · Grade: {grade}/6";
+    }
+
     private string GetBecauseText(Test test)
     {
         var days = test.DueDate.DayNumber - DateOnly.FromDateTime(DateTime.Today).DayNumber;
@@ -42,7 +52,7 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
         };
 
         if (avgGrade > 0)
-            parts.Add($"your avg grade in {test.Subject} is {avgGrade:F1}");
+            parts.Add($"your average grade in {test.Subject} is {avgGrade:F1}");
 
         return string.Join(", ", parts);
     }

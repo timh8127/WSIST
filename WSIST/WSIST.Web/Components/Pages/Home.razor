@@ -58,6 +58,26 @@
             </tbody>
         </table>
 
+        @{
+            var subjectAverages = GetSubjectAverages();
+        }
+
+        @if (subjectAverages.Any())
+        {
+            <div class="grade-overview">
+                <h2 class="grade-overview-title">Grade Overview</h2>
+                <div class="grade-overview-cards">
+                    @foreach (var (subject, avg) in subjectAverages.OrderBy(x => x.Value))
+                    {
+                        <div class="grade-overview-card">
+                            <span class="grade-overview-subject">@subject</span>
+                            <span class="grade-overview-value @GetGradeClass(avg)">@avg.ToString("F1")</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
         <button class="button-primary" @onclick="OpenAddTestModal">Add test</button>
 
         @if (PastUngradedTests.Any())

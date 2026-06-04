@@ -39,6 +39,25 @@ public partial class Home(TestManagement management, AuthenticationStateProvider
         showPastCompleted = !showPastCompleted;
     }
 
+    // Average grade per subject across every graded test (only past tests can be graded).
+    private Dictionary<Test.Subjects, double> GetSubjectAverages()
+    {
+        return tests
+            .Where(t => t.Grade.HasValue)
+            .GroupBy(t => t.Subject)
+            .ToDictionary(
+                g => g.Key,
+                g => g.Average(t => t.Grade!.Value)
+            );
+    }
+
+    private string GetGradeClass(double avg) => avg switch
+    {
+        >= 5 => "grade-good",
+        >= 4 => "grade-ok",
+        _ => "grade-poor"
+    };
+
     public enum Modes
     {
         AddTest,
