@@ -20,6 +20,25 @@
             </div>
         </div>
 
+        @if (topRecommendation is not null)
+        {
+            var score = calculator.CalculateTotalScore(topRecommendation, allTests);
+            var days = topRecommendation.DueDate.DayNumber - DateOnly.FromDateTime(DateTime.Today).DayNumber;
+            <div class="recommendation-widget">
+                <div class="recommendation-widget-header">
+                    <span class="recommendation-widget-label">📚 Study today</span>
+                    <a href="/study" class="recommendation-widget-link" data-enhance-nav="false">Full plan →</a>
+                </div>
+                <div class="recommendation-widget-body">
+                    <span class="recommendation-widget-title">@topRecommendation.Title</span>
+                    <span class="recommendation-widget-meta">@topRecommendation.Subject · in @days day@(days == 1 ? "" : "s") · @score/40 pts</span>
+                </div>
+                <div class="study-card-bar-bg">
+                    <div class="study-card-bar" style="width: @(score / 40.0 * 100)%"></div>
+                </div>
+            </div>
+        }
+
         @{
             RenderFragment<Test> standardRow = test =>
                 @<tr>

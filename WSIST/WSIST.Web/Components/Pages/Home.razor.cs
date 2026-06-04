@@ -4,34 +4,39 @@ using WSIST.Engine;
 
 namespace WSIST.Web.Components.Pages;
 
-public partial class Home(TestManagement management, AuthenticationStateProvider authStateProvider, NavigationManager navigation)
+public partial class Home(
+    TestManagement management,
+    AuthenticationStateProvider authStateProvider,
+    NavigationManager navigation,
+    PriorityCalculator calculator)
     : AuthenticatedComponentBase(management, authStateProvider, navigation)
 {
+    private List<Test> allTests = [];
     private List<Test> tests = [];
     private Test? temporaryTest;
+    private Test? topRecommendation;
     private Modes Mode { get; set; }
     private bool showPastCompleted;
 
     private static DateOnly Today => DateOnly.FromDateTime(DateTime.Today);
 
-    // Upcoming: due today or later.
-    private IEnumerable<Test> UpcomingTests => tests.Where(t => t.DueDate >= Today);
+    // Upcoming: due today or later (tests is already filtered).
+    private IEnumerable<Test> UpcomingTests => tests;
 
     // Past but missing a grade — needs the user's attention to be completed.
-    private IEnumerable<Test> PastUngradedTests => tests.Where(t => t.DueDate < Today && t.Grade is null);
+    private IEnumerable<Test> PastUngradedTests => allTests.Where(t => t.DueDate < Today && t.Grade is null);
 
     // Past and graded — hidden by default, shown when the user wants to review performance.
-    private IEnumerable<Test> PastCompletedTests => tests.Where(t => t.DueDate < Today && t.Grade is not null);
+    private IEnumerable<Test> PastCompletedTests => allTests.Where(t => t.DueDate < Today && t.Grade is not null);
 
     protected override Task OnAuthenticatedAsync()
     {
-        LoadTests();
+        allTests = management.LoadAllTests(CurrentUserId);
+        tests = allTests
+            .Where(t => t.DueDate >= DateOnly.FromDateTime(DateTime.Today))
+            .ToList();
+        topRecommendation = calculator.GetStudyRecommendations(allTests, 2).FirstOrDefault();
         return Task.CompletedTask;
-    }
-
-    private void LoadTests()
-    {
-        tests = management.LoadAllTests(CurrentUserId);
     }
 
     private void TogglePastCompleted()
@@ -42,7 +47,7 @@ public partial class Home(TestManagement management, AuthenticationStateProvider
     // Average grade per subject across every graded test (only past tests can be graded).
     private Dictionary<Test.Subjects, double> GetSubjectAverages()
     {
-        return tests
+        return allTests
             .Where(t => t.Grade.HasValue)
             .GroupBy(t => t.Subject)
             .ToDictionary(
@@ -138,7 +143,11 @@ public partial class Home(TestManagement management, AuthenticationStateProvider
 
     private void Refresh()
     {
-        LoadTests();
+        allTests = management.LoadAllTests(CurrentUserId);
+        tests = allTests
+            .Where(t => t.DueDate >= DateOnly.FromDateTime(DateTime.Today))
+            .ToList();
+        topRecommendation = calculator.GetStudyRecommendations(allTests, 2).FirstOrDefault();
         StateHasChanged();
     }
 

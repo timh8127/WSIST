@@ -404,3 +404,55 @@ h1:focus {
 .grade-poor {
     color: #e57373;
 }
+
+.recommendation-widget {
+    background: var(--bg-elevated);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.recommendation-widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recommendation-widget-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.recommendation-widget-link {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+.recommendation-widget-link:hover {
+    color: var(--text-primary);
+}
+
+.recommendation-widget-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.recommendation-widget-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.recommendation-widget-meta {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
