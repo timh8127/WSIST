@@ -83,6 +83,19 @@ public class TestManagement
         context.SaveChanges();
     }
 
+    public User? GetUser(int userId)
+    {
+        return context.Users.Find(userId);
+    }
+
+    public void UpdateDisplayName(int userId, string displayName)
+    {
+        var user = context.Users.Find(userId);
+        if (user is null) return;
+        user.DisplayName = displayName.Trim();
+        context.SaveChanges();
+    }
+
     public User GetOrCreateUser(string email, string displayName, string googleId)
     {
         var user = context.Users.FirstOrDefault(u => u.Email == email);

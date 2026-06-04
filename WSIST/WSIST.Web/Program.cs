@@ -61,7 +61,7 @@ app.UseAntiforgery();
 app.Use(async (context, next) =>
 {
     var isAuthenticated = context.User?.Identity?.IsAuthenticated ?? false;
-    var protectedPaths = new[] { "/", "/study" };
+    var protectedPaths = new[] { "/", "/study", "/settings" };
     if (protectedPaths.Contains(context.Request.Path.Value) && !isAuthenticated)
     {
         context.Response.Redirect("/login-page");

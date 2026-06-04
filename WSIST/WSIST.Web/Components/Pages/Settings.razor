@@ -1,0 +1,97 @@
+@page "/settings"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@inherits AuthenticatedComponentBase
+<PageTitle>WSIST - Settings</PageTitle>
+
+<div class="page">
+    <div class="top-row">
+        <h3 class="title">WSIST</h3>
+        <a href="/" class="button-primary" data-enhance-nav="false">← Back</a>
+        <a href="/logout" class="button-primary" data-enhance-nav="false">Logout</a>
+    </div>
+
+    <div class="content px-4">
+        <div class="top">
+            <div class="top-title">
+                <h1>Settings</h1>
+                <p class="top-subtitle">Manage your profile and subjects.</p>
+            </div>
+        </div>
+
+        @if (currentUser is not null)
+        {
+            <!-- Profile Section -->
+            <div class="settings-section">
+                <h2 class="settings-section-title">Profile</h2>
+                <div class="settings-card">
+                    <div class="form-group">
+                        <label>Display Name</label>
+                        <div class="settings-inline">
+                            <input type="text"
+                                   class="settings-input"
+                                   @bind="editedDisplayName"
+                                   @bind:event="oninput"
+                                   maxlength="100" />
+                            <button class="button-primary" @onclick="SaveDisplayName">Save</button>
+                        </div>
+                        @if (saveMessage is not null)
+                        {
+                            <small class="settings-success">@saveMessage</small>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <p class="settings-readonly">@currentUser.Email</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Member Since</label>
+                        <p class="settings-readonly">@currentUser.CreatedAt.ToString("MMMM yyyy")</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subjects Section -->
+            <div class="settings-section">
+                <h2 class="settings-section-title">Subjects</h2>
+                <div class="settings-card">
+                    <div class="subjects-list">
+                        @foreach (var subject in subjects)
+                        {
+                            <div class="subject-row">
+                                <span class="subject-name">@subject.Name</span>
+                                @if (subject.IsSystem)
+                                {
+                                    <span class="subject-system-badge">system</span>
+                                }
+                                else
+                                {
+                                    <button class="button-primary button-danger subject-delete"
+                                            @onclick="() => DeleteSubject(subject.Id)">
+                                        🗑️
+                                    </button>
+                                }
+                            </div>
+                        }
+                    </div>
+
+                    <div class="settings-add-subject">
+                        <label>Add Custom Subject</label>
+                        <div class="settings-inline">
+                            <input type="text"
+                                   class="settings-input"
+                                   placeholder="e.g. Biology"
+                                   @bind="newSubjectName"
+                                   @bind:event="oninput"
+                                   maxlength="100" />
+                            <button class="button-primary" @onclick="AddSubject">Add</button>
+                        </div>
+                        @if (subjectError is not null)
+                        {
+                            <small class="settings-error">@subjectError</small>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
