@@ -52,7 +52,7 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
         };
 
         if (avgGrade > 0)
-            parts.Add($"your avg grade in {test.Subject} is {avgGrade:F1}");
+            parts.Add($"your average grade in {test.Subject} is {avgGrade:F1}");
 
         return string.Join(", ", parts);
     }
