@@ -45,10 +45,10 @@ public class PriorityCalculator
         };
     }
     
-    public int CalculateGradeScore(Test.Subjects subject, List<Test> allTests)
+    public int CalculateGradeScore(int subjectId, List<Test> allTests)
     {
         var gradedTests = allTests
-            .Where(t => t.Subject == subject && t.Grade != null)
+            .Where(t => t.Subject == subjectId && t.Grade != null)
             .ToList();
 
         if (gradedTests.Count == 0)

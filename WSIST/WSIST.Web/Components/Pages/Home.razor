@@ -31,7 +31,7 @@
                 </div>
                 <div class="recommendation-widget-body">
                     <span class="recommendation-widget-title">@topRecommendation.Title</span>
-                    <span class="recommendation-widget-meta">@topRecommendation.Subject · in @days day@(days == 1 ? "" : "s") · @score/40 pts</span>
+                    <span class="recommendation-widget-meta">@(subjects.FirstOrDefault(s => s.Id == topRecommendation.Subject)?.Name ?? topRecommendation.Subject.ToString()) · in @days day@(days == 1 ? "" : "s") · @score/40 pts</span>
                 </div>
                 <div class="study-card-bar-bg">
                     <div class="study-card-bar" style="width: @(score / 40.0 * 100)%"></div>
@@ -43,7 +43,7 @@
             RenderFragment<Test> standardRow = test =>
                 @<tr>
                     <td>@test.Title</td>
-                    <td>@test.Subject</td>
+                    <td>@(subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? test.Subject.ToString())</td>
                     <td>@test.DueDate.ToShortDateString()</td>
                     <td>@Test.VolumeHelper(test.Volume)</td>
                     <td>@Test.UnderstandingHelper(test.Understanding)</td>
@@ -89,7 +89,7 @@
                     @foreach (var (subject, avg) in subjectAverages.OrderBy(x => x.Value))
                     {
                         <div class="grade-overview-card">
-                            <span class="grade-overview-subject">@subject</span>
+                            <span class="grade-overview-subject">@(subjects.FirstOrDefault(s => s.Id == subject)?.Name ?? subject.ToString())</span>
                             <span class="grade-overview-value @GetGradeClass(avg)">@avg.ToString("F1")</span>
                         </div>
                     }
@@ -157,7 +157,7 @@
                         {
                             <tr>
                                 <td>@test.Title</td>
-                                <td>@test.Subject</td>
+                                <td>@(subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? test.Subject.ToString())</td>
                                 <td>@test.DueDate.ToShortDateString()</td>
                                 <td>@test.Grade?.ToString("F1")</td>
                                 <td>
@@ -186,9 +186,9 @@
                         <input type="text" id="testTitle" @bind="@temporaryTest.Title"><br>
                         <label>Subject</label><br>
                         <select @bind="temporaryTest.Subject">
-                            @foreach (var subject in Enum.GetValues<Test.Subjects>())
+                            @foreach (var subject in subjects)
                             {
-                                <option value="@subject">@subject</option>
+                                <option value="@subject.Id">@subject.Name</option>
                             }
                         </select><br/>
                         <label for="TestDueDate">Due Date</label><br>

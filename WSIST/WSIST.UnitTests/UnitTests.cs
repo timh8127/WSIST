@@ -39,7 +39,7 @@ public class UnitTests
         //act
         manager.NewTestMaker(
             "Math Test",
-            Test.Subjects.Math,
+            0, // was Test.Subjects.Math
             new DateOnly(2026, 12, 01),
             Test.TestVolume.VeryHigh,
             Test.PersonalUnderstanding.VeryLow,
@@ -61,7 +61,7 @@ public class UnitTests
 
         manager.NewTestMaker(
             "Test To Delete",
-            Test.Subjects.German,
+            3, // was Test.Subjects.German
             new DateOnly(2026, 12, 01),
             Test.TestVolume.Low,
             Test.PersonalUnderstanding.High,

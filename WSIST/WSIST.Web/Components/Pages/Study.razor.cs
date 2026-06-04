@@ -10,12 +10,14 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
 {
     private List<Test> allTests = [];
     private List<Test> recommendations = [];
+    private List<Subject> subjects = [];
     private double hoursAvailable = 1;
     private bool calculated = false;
 
     protected override Task OnAuthenticatedAsync()
     {
         allTests = management.LoadAllTests(CurrentUserId);
+        subjects = management.GetSubjectsForUser(CurrentUserId);
         return Task.CompletedTask;
     }
 
@@ -44,6 +46,8 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
             .DefaultIfEmpty(0)
             .Average();
 
+        var subjectName = subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? test.Subject.ToString();
+
         var parts = new List<string>
         {
             $"you have {Test.UnderstandingHelper(test.Understanding).ToLower()} understanding",
@@ -52,7 +56,7 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
         };
 
         if (avgGrade > 0)
-            parts.Add($"your average grade in {test.Subject} is {avgGrade:F1}");
+            parts.Add($"your average grade in {subjectName} is {avgGrade:F1}");
 
         return string.Join(", ", parts);
     }

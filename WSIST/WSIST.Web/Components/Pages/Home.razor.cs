@@ -13,6 +13,7 @@ public partial class Home(
 {
     private List<Test> allTests = [];
     private List<Test> tests = [];
+    private List<Subject> subjects = [];
     private Test? temporaryTest;
     private Test? topRecommendation;
     private Modes Mode { get; set; }
@@ -36,6 +37,7 @@ public partial class Home(
             .Where(t => t.DueDate >= DateOnly.FromDateTime(DateTime.Today))
             .ToList();
         topRecommendation = calculator.GetStudyRecommendations(allTests, 2).FirstOrDefault();
+        subjects = management.GetSubjectsForUser(CurrentUserId);
         return Task.CompletedTask;
     }
 
@@ -45,7 +47,7 @@ public partial class Home(
     }
 
     // Average grade per subject across every graded test (only past tests can be graded).
-    private Dictionary<Test.Subjects, double> GetSubjectAverages()
+    private Dictionary<int, double> GetSubjectAverages()
     {
         return allTests
             .Where(t => t.Grade.HasValue)
@@ -148,6 +150,7 @@ public partial class Home(
             .Where(t => t.DueDate >= DateOnly.FromDateTime(DateTime.Today))
             .ToList();
         topRecommendation = calculator.GetStudyRecommendations(allTests, 2).FirstOrDefault();
+        subjects = management.GetSubjectsForUser(CurrentUserId);
         StateHasChanged();
     }
 
