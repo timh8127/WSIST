@@ -104,4 +104,100 @@ public class UnitTests
         //assert
         Assert.That(result, Is.Null);
     }
+
+    [Test]
+    public void GetUser_ReturnsCorrectUser()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var manager = new TestManagement(context);
+
+        //act
+        var result = manager.GetUser(user.Id);
+
+        //assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result!.Email, Is.EqualTo("test@example.com"));
+    }
+
+    [Test]
+    public void UpdateDisplayName_ChangesName()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var manager = new TestManagement(context);
+
+        //act
+        manager.UpdateDisplayName(user.Id, "  New Name  ");
+
+        //assert
+        var updated = manager.GetUser(user.Id);
+        Assert.That(updated!.DisplayName, Is.EqualTo("New Name"));
+    }
+
+    [Test]
+    public void AddCustomSubject_AppearsInSubjectList()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var manager = new TestManagement(context);
+
+        //act
+        manager.AddCustomSubject("Biology", user.Id);
+
+        //assert
+        var subjects = manager.GetSubjectsForUser(user.Id);
+        Assert.That(subjects.Any(s => s.Name == "Biology" && !s.IsSystem && s.UserId == user.Id));
+    }
+
+    [Test]
+    public void RemoveCustomSubject_RemovesFromList()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var manager = new TestManagement(context);
+        manager.AddCustomSubject("Biology", user.Id);
+        var subjectId = manager.GetSubjectsForUser(user.Id).First(s => s.Name == "Biology").Id;
+
+        //act
+        manager.RemoveCustomSubject(subjectId, user.Id);
+
+        //assert
+        Assert.That(manager.GetSubjectsForUser(user.Id).Any(s => s.Name == "Biology"), Is.False);
+    }
+
+    [Test]
+    public void GetSubjectsForUser_ReturnsSystemAndOwnSubjectsOnly()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var otherUser = new User { Email = "other@example.com", DisplayName = "Other", GoogleId = "google-456", CreatedAt = DateTime.UtcNow };
+        context.Users.Add(otherUser);
+        context.SaveChanges();
+
+        // HasData seeding doesn't run for in-memory DB, so seed manually
+        context.Subjects.AddRange(
+            new Subject { Id = 0, Name = "Math", IsSystem = true },
+            new Subject { Id = 1, Name = "English", IsSystem = true }
+        );
+        context.SaveChanges();
+
+        var manager = new TestManagement(context);
+        manager.AddCustomSubject("Biology", user.Id);
+        manager.AddCustomSubject("Physics", otherUser.Id);
+
+        //act
+        var subjects = manager.GetSubjectsForUser(user.Id);
+
+        //assert
+        Assert.That(subjects.Any(s => s.Name == "Math" && s.IsSystem));
+        Assert.That(subjects.Any(s => s.Name == "English" && s.IsSystem));
+        Assert.That(subjects.Any(s => s.Name == "Biology" && !s.IsSystem));
+        Assert.That(subjects.Any(s => s.Name == "Physics"), Is.False);
+    }
 }
