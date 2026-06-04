@@ -218,6 +218,7 @@ h1:focus {
     font-weight: 500;
     cursor: pointer;
     white-space: nowrap;
+    text-decoration: none;
 }
 
 .button-warning {
