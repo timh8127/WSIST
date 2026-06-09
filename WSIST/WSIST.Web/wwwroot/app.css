@@ -865,3 +865,67 @@ h1:focus {
     font-size: 13px;
     color: var(--text-secondary);
 }
+
+/* ── Legal Pages ── */
+
+.legal-page {
+    min-height: 100vh;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+}
+
+.legal-content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    width: 100%;
+}
+
+.legal-content h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+}
+
+.legal-meta {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 2.5rem;
+}
+
+.legal-content h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.legal-content p,
+.legal-content li {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+}
+
+.legal-content ul {
+    padding-left: 1.5rem;
+}
+
+.legal-content a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.legal-content a:hover {
+    text-decoration: underline;
+}
+
+.legal-content strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
