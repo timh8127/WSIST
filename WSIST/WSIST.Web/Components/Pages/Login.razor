@@ -1,15 +1,122 @@
 @page "/login-page"
 @layout EmptyLayout
 @using WSIST.Web.Components.Layout
-<PageTitle>Login – WSIST</PageTitle>
+<PageTitle>WSIST – What Should I Study Today?</PageTitle>
 
-<div class="login-container">
-    <div class="login-card">
-        <h1 class="login-title">WSIST</h1>
-        <p class="login-subtitle">Track your upcoming tests</p>
-        <a href="/login" class="button-primary login-button">
-            <img src="https://www.google.com/favicon.ico" width="18" height="18" alt="Google"/>
-            Continue with Google
+<div class="landing">
+
+    <!-- Nav -->
+    <nav class="landing-nav">
+        <div class="landing-nav-brand">
+            <img src="/logo.svg" width="32" height="32" alt="WSIST" />
+            <span>WSIST</span>
+        </div>
+        <a href="/login" class="button-primary landing-cta-sm" data-enhance-nav="false">
+            Get started
         </a>
-    </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="landing-hero">
+        <div class="landing-hero-inner">
+            <div class="landing-hero-badge">Study smarter, not harder</div>
+            <h1 class="landing-hero-title">
+                Know exactly what<br/>to study today.
+            </h1>
+            <p class="landing-hero-sub">
+                WSIST tracks your upcoming tests, measures how prepared you are,
+                and tells you where to focus — so you never waste a study session again.
+            </p>
+            <a href="/login" class="button-primary landing-google-btn" data-enhance-nav="false">
+                <img src="https://www.google.com/favicon.ico" width="18" height="18" alt="Google" />
+                Continue with Google — it's free
+            </a>
+            <p class="landing-hero-note">No credit card. No setup. Just log in.</p>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="landing-features">
+        <div class="landing-section-inner">
+            <h2 class="landing-section-title">Everything you need to prepare</h2>
+            <div class="landing-feature-grid">
+                <div class="landing-feature-card">
+                    <span class="landing-feature-icon">📋</span>
+                    <h3>Track every test</h3>
+                    <p>Add tests with their due date, topic volume, and your current understanding level. WSIST keeps the full picture in one place.</p>
+                </div>
+                <div class="landing-feature-card">
+                    <span class="landing-feature-icon">🎯</span>
+                    <h3>Smart priority scoring</h3>
+                    <p>A priority engine weighs urgency, workload, understanding, and past grades to rank what matters most — automatically.</p>
+                </div>
+                <div class="landing-feature-card">
+                    <span class="landing-feature-icon">📚</span>
+                    <h3>Daily study plan</h3>
+                    <p>Tell WSIST how many hours you have. It returns the tests you should study today, ranked and explained.</p>
+                </div>
+                <div class="landing-feature-card">
+                    <span class="landing-feature-icon">📊</span>
+                    <h3>Grade overview</h3>
+                    <p>See your average grade per subject at a glance. Spot weak areas before they become a problem.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="landing-how">
+        <div class="landing-section-inner">
+            <h2 class="landing-section-title">Three steps to a better study session</h2>
+            <div class="landing-steps">
+                <div class="landing-step">
+                    <div class="landing-step-number">1</div>
+                    <div class="landing-step-content">
+                        <h3>Add your tests</h3>
+                        <p>Enter each upcoming test with its subject, date, how much material there is, and how well you understand it.</p>
+                    </div>
+                </div>
+                <div class="landing-step-connector"></div>
+                <div class="landing-step">
+                    <div class="landing-step-number">2</div>
+                    <div class="landing-step-content">
+                        <h3>Set your available time</h3>
+                        <p>Each day, tell WSIST how many hours you can study. Even 30 minutes counts.</p>
+                    </div>
+                </div>
+                <div class="landing-step-connector"></div>
+                <div class="landing-step">
+                    <div class="landing-step-number">3</div>
+                    <div class="landing-step-content">
+                        <h3>Study what matters</h3>
+                        <p>WSIST shows you exactly which test to focus on and why — no more guessing, no more guilt.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="landing-final-cta">
+        <div class="landing-section-inner landing-final-cta-inner">
+            <h2>Ready to stop guessing?</h2>
+            <p>Join students who always know what to study next.</p>
+            <a href="/login" class="button-primary landing-google-btn" data-enhance-nav="false">
+                <img src="https://www.google.com/favicon.ico" width="18" height="18" alt="Google" />
+                Continue with Google
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <div class="landing-footer-inner">
+            <span class="landing-footer-brand">WSIST</span>
+            <div class="landing-footer-links">
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+            </div>
+            <span class="landing-footer-copy">© @DateTime.Now.Year Tim Hug</span>
+        </div>
+    </footer>
 </div>
