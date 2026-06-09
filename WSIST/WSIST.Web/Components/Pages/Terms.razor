@@ -1,0 +1,59 @@
+@page "/terms"
+@layout EmptyLayout
+@using WSIST.Web.Components.Layout
+<PageTitle>Terms of Use – WSIST</PageTitle>
+
+<div class="legal-page">
+    <nav class="landing-nav">
+        <div class="landing-nav-brand">
+            <img src="/logo.svg" width="32" height="32" alt="WSIST" />
+            <span>WSIST</span>
+        </div>
+        <a href="/login-page" class="landing-cta-sm" style="color: var(--text-secondary); text-decoration: none;">← Back</a>
+    </nav>
+
+    <div class="legal-content">
+        <h1>Terms of Use</h1>
+        <p class="legal-meta">Last updated: @(new DateTime(2026, 6, 1).ToString("MMMM d, yyyy"))</p>
+
+        <h2>1. Acceptance of terms</h2>
+        <p>By accessing or using WSIST ("What Should I Study Today") at wsist.forch.me, you agree to be bound by these Terms of Use. If you do not agree, do not use the service.</p>
+
+        <h2>2. Description of service</h2>
+        <p>WSIST is a personal study planning tool that helps students track upcoming tests, estimate their preparedness, and determine what to study on a given day. The service is provided free of charge for personal, non-commercial use.</p>
+
+        <h2>3. Account and access</h2>
+        <p>Access to WSIST requires a Google account. By signing in, you authorise WSIST to receive your name and email address from Google as described in our <a href="/privacy">Privacy Policy</a>. You are responsible for keeping your Google account secure.</p>
+        <p>One account per person. You may not share your account with others or create accounts on behalf of third parties.</p>
+
+        <h2>4. Acceptable use</h2>
+        <p>You agree not to:</p>
+        <ul>
+            <li>Use WSIST for any unlawful purpose</li>
+            <li>Attempt to access other users' data</li>
+            <li>Attempt to reverse-engineer, disrupt, or overload the service</li>
+            <li>Use automated tools to scrape or extract data from the service</li>
+        </ul>
+
+        <h2>5. Your content</h2>
+        <p>You own the data you enter into WSIST (test entries, subjects, grades). We do not claim any ownership over it. You grant us a limited licence to store and process it solely for the purpose of providing the service to you.</p>
+
+        <h2>6. Service availability</h2>
+        <p>WSIST is a personal project and is provided on an "as is" and "as available" basis. We make no guarantees about uptime, data preservation, or continued availability. We may modify or discontinue the service at any time without notice.</p>
+
+        <h2>7. Disclaimer of warranties</h2>
+        <p>To the fullest extent permitted by law, WSIST is provided without warranties of any kind, express or implied. We do not warrant that the service will be error-free, uninterrupted, or that the study recommendations it produces will lead to any particular academic outcome.</p>
+
+        <h2>8. Limitation of liability</h2>
+        <p>To the fullest extent permitted by applicable law, Tim Hug and the WSIST project shall not be liable for any indirect, incidental, or consequential damages arising from your use of or inability to use the service.</p>
+
+        <h2>9. Changes to terms</h2>
+        <p>We may update these terms at any time. The "last updated" date at the top of this page will reflect any changes. Continued use of WSIST after changes are posted constitutes acceptance of the updated terms.</p>
+
+        <h2>10. Governing law</h2>
+        <p>These terms are governed by the laws of Switzerland, without regard to conflict of law principles. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the courts of the Canton of Zurich, Switzerland.</p>
+
+        <h2>11. Contact</h2>
+        <p>Questions about these terms? Contact us at <a href="mailto:privacy@wsist.forch.me">privacy@wsist.forch.me</a>.</p>
+    </div>
+</div>
