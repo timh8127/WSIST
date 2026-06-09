@@ -574,3 +574,16 @@ h1:focus {
     font-size: 13px;
     color: var(--text-secondary);
 }
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-brand span {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
