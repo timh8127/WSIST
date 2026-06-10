@@ -17,33 +17,21 @@ public partial class Home(
     private Test? temporaryTest;
     private Test? topRecommendation;
     private Modes Mode { get; set; }
-    private bool showPastCompleted;
+    private bool showPastTests;
 
     private static DateOnly Today => DateOnly.FromDateTime(DateTime.Today);
 
-    // Upcoming: due today or later (tests is already filtered).
-    private IEnumerable<Test> UpcomingTests => tests;
-
-    // Past but missing a grade — needs the user's attention to be completed.
-    private IEnumerable<Test> PastUngradedTests => allTests.Where(t => t.DueDate < Today && t.Grade is null);
-
-    // Past and graded — hidden by default, shown when the user wants to review performance.
-    private IEnumerable<Test> PastCompletedTests => allTests.Where(t => t.DueDate < Today && t.Grade is not null);
-
     protected override Task OnAuthenticatedAsync()
     {
-        allTests = management.LoadAllTests(CurrentUserId);
-        tests = allTests
-            .Where(t => t.DueDate >= DateOnly.FromDateTime(DateTime.Today))
-            .ToList();
-        topRecommendation = calculator.GetStudyRecommendations(allTests, 2).FirstOrDefault();
-        subjects = management.GetSubjectsForUser(CurrentUserId);
+        Refresh();
         return Task.CompletedTask;
     }
 
-    private void TogglePastCompleted()
+    // Show or hide past tests in the main table.
+    private void TogglePastTests()
     {
-        showPastCompleted = !showPastCompleted;
+        showPastTests = !showPastTests;
+        Refresh();
     }
 
     // Average grade per subject across every graded test (only past tests can be graded).
@@ -146,8 +134,10 @@ public partial class Home(
     private void Refresh()
     {
         allTests = management.LoadAllTests(CurrentUserId);
-        tests = allTests
-            .Where(t => t.DueDate >= DateOnly.FromDateTime(DateTime.Today))
+        tests = (showPastTests
+                ? allTests
+                : allTests.Where(t => t.DueDate >= Today))
+            .OrderBy(t => t.DueDate)
             .ToList();
         topRecommendation = calculator.GetStudyRecommendations(allTests, 2).FirstOrDefault();
         subjects = management.GetSubjectsForUser(CurrentUserId);

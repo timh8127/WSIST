@@ -1,25 +1,33 @@
-﻿@page "/"
+@page "/"
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 @using WSIST.Engine
 @inherits AuthenticatedComponentBase
-<PageTitle>WSIST - Home</PageTitle>
+<PageTitle>WSIST</PageTitle>
 
 <div class="page">
     <div class="top-row">
         <div class="title nav-brand">
-            <img src="/logo.svg" width="28" height="28" alt="WSIST logo" />
+            <img src="/logo.svg" width="26" height="26" alt="WSIST logo"/>
             <span>WSIST</span>
         </div>
-        <a href="/logout" class="button-primary" data-enhance-nav="false">Logout</a>
-        <a href="/study" class="button-primary" data-enhance-nav="false">📚 Study</a>
-        <a href="/settings" class="button-primary" data-enhance-nav="false">⚙️ Settings</a>
+        <button class="button-primary" @onclick="Refresh">↻</button>
+        <a href="/settings" class="button-primary" data-enhance-nav="false">Settings</a>
+        <a href="/study" class="button-primary" data-enhance-nav="false">Study →</a>
+        <a href="/logout" class="button-primary button-danger" data-enhance-nav="false">Logout</a>
     </div>
 
     <div class="content px-4">
-        <div class="top">
-            <div class="top-title">
-                <h1>Your upcoming Tests</h1>
-                <p class="top-subtitle">Welcome to your Overview.</p>
+
+        <div class="home-header">
+            <div>
+                <h1 class="home-title">Your tests</h1>
+                <p class="home-subtitle">Upcoming exams and assessments.</p>
+            </div>
+            <div class="home-header-actions">
+                <button class="button-primary" @onclick="TogglePastTests">
+                    @(showPastTests ? "Hide past" : "Show past")
+                </button>
+                <button class="button-primary button-accent" @onclick="OpenAddTestModal">+ Add test</button>
             </div>
         </div>
 
@@ -28,66 +36,73 @@
             var score = calculator.CalculateTotalScore(topRecommendation, allTests);
             var days = topRecommendation.DueDate.DayNumber - DateOnly.FromDateTime(DateTime.Today).DayNumber;
             <div class="recommendation-widget">
-                <div class="recommendation-widget-header">
-                    <span class="recommendation-widget-label">📚 Study today</span>
-                    <a href="/study" class="recommendation-widget-link" data-enhance-nav="false">Full plan →</a>
-                </div>
-                <div class="recommendation-widget-body">
-                    <span class="recommendation-widget-title">@topRecommendation.Title</span>
-                    <span class="recommendation-widget-meta">@(subjects.FirstOrDefault(s => s.Id == topRecommendation.Subject)?.Name ?? topRecommendation.Subject.ToString()) · in @days day@(days == 1 ? "" : "s") · @score/40 pts</span>
-                </div>
-                <div class="study-card-bar-bg">
-                    <div class="study-card-bar" style="width: @(score / 40.0 * 100)%"></div>
+                <div class="recommendation-widget-inner">
+                    <div class="recommendation-widget-label">Study today</div>
+                    <div class="recommendation-widget-body">
+                        <div>
+                            <div class="recommendation-widget-title">@topRecommendation.Title</div>
+                            <div class="recommendation-widget-meta">
+                                @(subjects.FirstOrDefault(s => s.Id == topRecommendation.Subject)?.Name ?? "Unknown") · in @days day@(days == 1 ? "" : "s") · @score/40 pts
+                            </div>
+                        </div>
+                        <a href="/study" class="button-primary" data-enhance-nav="false" style="flex-shrink:0">Full plan →</a>
+                    </div>
+                    <div class="study-card-bar-bg">
+                        <div class="study-card-bar" style="width: @(score / 40.0 * 100)%"></div>
+                    </div>
                 </div>
             </div>
         }
 
-        @{
-            RenderFragment<Test> standardRow = test =>
-                @<tr>
-                    <td>@test.Title</td>
-                    <td>@(subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? test.Subject.ToString())</td>
-                    <td>@test.DueDate.ToShortDateString()</td>
-                    <td>@Test.VolumeHelper(test.Volume)</td>
-                    <td>@Test.UnderstandingHelper(test.Understanding)</td>
-                    <td>
-                        <button class="button-primary button-danger" @onclick="() => DeleteTest(test.Id)">🗑️</button>
-                        <button class="button-primary" @onclick="() => OpenEditTestModal(test)">✏️</button>
-                    </td>
-                </tr>;
-        }
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Subject</th>
-                    <th>Date</th>
-                    <th>Volume</th>
-                    <th>Understanding</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (!UpcomingTests.Any())
-                {
-                    <tr><td colspan="6" class="text-center">No upcoming tests. Add one below.</td></tr>
-                }
-                @foreach (var test in UpcomingTests)
-                {
-                    @standardRow(test)
-                }
-            </tbody>
-        </table>
+        <div class="table-card">
+            @if (!tests.Any())
+            {
+                <div class="empty-state">
+                    <p class="empty-state-icon">📋</p>
+                    <p class="empty-state-title">No upcoming tests</p>
+                    <p class="empty-state-sub">Add your first test to get started.</p>
+                </div>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Subject</th>
+                            <th>Date</th>
+                            <th>Volume</th>
+                            <th>Understanding</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var test in tests)
+                        {
+                            <tr>
+                                <td class="td-title">@test.Title</td>
+                                <td class="td-muted">@(subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? "Unknown")</td>
+                                <td class="td-muted">@test.DueDate.ToShortDateString()</td>
+                                <td class="td-muted">@Test.VolumeHelper(test.Volume)</td>
+                                <td class="td-muted">@Test.UnderstandingHelper(test.Understanding)</td>
+                                <td class="td-actions">
+                                    <button class="button-primary" @onclick="() => OpenEditTestModal(test)">Edit</button>
+                                    <button class="button-primary button-danger" @onclick="() => DeleteTest(test.Id)">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
 
         @{
             var subjectAverages = GetSubjectAverages();
         }
-
         @if (subjectAverages.Any())
         {
             <div class="grade-overview">
-                <h2 class="grade-overview-title">Grade Overview</h2>
+                <h2 class="grade-overview-title">Grades</h2>
                 <div class="grade-overview-cards">
                     @foreach (var (subject, avg) in subjectAverages.OrderBy(x => x.Value))
                     {
@@ -100,126 +115,62 @@
             </div>
         }
 
-        <button class="button-primary" @onclick="OpenAddTestModal">Add test</button>
-
-        @if (PastUngradedTests.Any())
-        {
-            <div class="top mt-4">
-                <div class="top-title">
-                    <h1>Needs a grade</h1>
-                    <p class="top-subtitle">These tests are in the past but don't have a grade yet. Edit them to add one.</p>
-                </div>
-            </div>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Subject</th>
-                        <th>Date</th>
-                        <th>Volume</th>
-                        <th>Understanding</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var test in PastUngradedTests)
-                    {
-                        @standardRow(test)
-                    }
-                </tbody>
-            </table>
-        }
-
-        @if (PastCompletedTests.Any())
-        {
-            <div class="top mt-4">
-                <div class="top-title">
-                    <h1>Past tests</h1>
-                    <p class="top-subtitle">Completed tests with grades — your past performance.</p>
-                </div>
-                <button class="button-primary" @onclick="TogglePastCompleted">
-                    @(showPastCompleted ? "Hide past tests" : "Show past tests")
-                </button>
-            </div>
-
-            @if (showPastCompleted)
-            {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Subject</th>
-                            <th>Date</th>
-                            <th>Grade</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var test in PastCompletedTests)
-                        {
-                            <tr>
-                                <td>@test.Title</td>
-                                <td>@(subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? test.Subject.ToString())</td>
-                                <td>@test.DueDate.ToShortDateString()</td>
-                                <td>@test.Grade?.ToString("F1")</td>
-                                <td>
-                                    <button class="button-primary button-danger" @onclick="() => DeleteTest(test.Id)">🗑️</button>
-                                    <button class="button-primary" @onclick="() => OpenEditTestModal(test)">✏️</button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-        }
-
         @if (showModal && temporaryTest is not null)
         {
             <div class="wsist-modal">
                 <div class="wsist-modal-content">
                     <div class="wsist-modal-header">
-                        <h2 class="wsist-modal-title">
-                            @(Mode == Modes.AddTest ? "Add test" : "Edit test")
-                        </h2>
+                        <h2 class="wsist-modal-title">@(Mode == Modes.AddTest ? "Add test" : "Edit test")</h2>
                         <button class="wsist-modal-close" @onclick="CloseModal">×</button>
                     </div>
-                    <form class="text-center" @onsubmit="ModalSubmit">
-                        <label for="testTitle">Test Title</label><br>
-                        <input type="text" id="testTitle" @bind="@temporaryTest.Title"><br>
-                        <label>Subject</label><br>
-                        <select @bind="temporaryTest.Subject">
-                            @foreach (var subject in subjects)
-                            {
-                                <option value="@subject.Id">@subject.Name</option>
-                            }
-                        </select><br/>
-                        <label for="TestDueDate">Due Date</label><br>
-                        <input type="date" id="TestDueDate" @bind="@temporaryTest.DueDate" @bind:event="oninput"><br/>
-                        <label>Volume</label><br>
-                        <select @bind="temporaryTest.Volume">
-                            @foreach (var testVolume in Enum.GetValues<Test.TestVolume>())
-                            {
-                                <option value="@testVolume">@Test.VolumeHelper(testVolume)</option>
-                            }
-                        </select><br/>
-                        <label>Personal Understanding</label><br>
-                        <select @bind="temporaryTest.Understanding">
-                            @foreach (var personalUnderstanding in Enum.GetValues<Test.PersonalUnderstanding>())
-                            {
-                                <option value="@personalUnderstanding">@Test.UnderstandingHelper(personalUnderstanding)</option>
-                            }
-                        </select><br/>
-                        <label>Grade</label><br>
-                        <input type="number" min="1" max="6" step="0.1"
-                               @bind="temporaryTest.Grade"
-                               disabled="@(temporaryTest.DueDate > DateOnly.FromDateTime(DateTime.Today))"/><br>
-                        @if (temporaryTest.DueDate > DateOnly.FromDateTime(DateTime.Today))
-                        {
-                            <small class="text-warning">Grade can be entered after the test date.</small>
-                        }
-                        <br/>
-                        <input type="submit" value="Finish">
+                    <form @onsubmit="ModalSubmit">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" @bind="@temporaryTest.Title" placeholder="e.g. Maths Exam"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <select @bind="temporaryTest.Subject">
+                                @foreach (var subject in subjects)
+                                {
+                                    <option value="@subject.Id">@subject.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Due date</label>
+                            <input type="date" @bind="@temporaryTest.DueDate" @bind:event="oninput"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Volume</label>
+                            <select @bind="temporaryTest.Volume">
+                                @foreach (var v in Enum.GetValues<Test.TestVolume>())
+                                {
+                                    <option value="@v">@Test.VolumeHelper(v)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Understanding</label>
+                            <select @bind="temporaryTest.Understanding">
+                                @foreach (var u in Enum.GetValues<Test.PersonalUnderstanding>())
+                                {
+                                    <option value="@u">@Test.UnderstandingHelper(u)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Grade @(temporaryTest.DueDate > DateOnly.FromDateTime(DateTime.Today) ? "(available after test date)" : "")</label>
+                            <input type="number" min="1" max="6" step="0.1"
+                                   @bind="temporaryTest.Grade"
+                                   disabled="@(temporaryTest.DueDate > DateOnly.FromDateTime(DateTime.Today))"/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="button-primary" @onclick="CloseModal">Cancel</button>
+                            <button type="submit" class="button-primary button-accent">
+                                @(Mode == Modes.AddTest ? "Add test" : "Save changes")
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
