@@ -1,172 +1,58 @@
 # WSIST — What Should I Study Today
 
-WSIST (*What Should I Study Today*) is a Blazor Server-based study planner designed to help students organize tests, track understanding, and prioritize what to study based on urgency and preparedness.
+WSIST is a Blazor Server study planner that helps students decide what to focus on each day. Enter your upcoming tests, rate your understanding and the workload, and WSIST ranks them by priority — so you always know what matters most right now.
 
-This project was built as part of a software engineering apprenticeship (Informatiker EFZ, Applikationsentwicklung) and focuses on clean architecture, separation of concerns, and maintainable state management.
-
----
-
-## Overview
-
-WSIST helps students:
-
-- Track upcoming tests
-- Monitor their level of understanding per test
-- Estimate workload and urgency
-- Organize study priorities
-- Persist data per user in a MySQL database
-
-The system is designed with a strong separation between:
-
-- UI layer (Blazor Server Web App)
-- Business logic layer (WSIST.Engine)
-- Persistence layer (EF Core + MySQL)
+Live at **[wsist.forch.me](https://wsist.forch.me)**
 
 ---
 
-## Features
+## What it does
 
-### Current
+- Track upcoming tests with subject, due date, volume, understanding level, and eventual grade
+- Priority engine scores each test across four dimensions (urgency, volume, understanding, past grade — 40 pts max)
+- "What should I study today?" page recommends tests based on available hours
+- Grade overview shows subject averages at a glance
+- Custom subjects per user, in addition to system defaults
+- Settings page for profile editing and subject management
+- Full landing page with live interactive demo of the scoring algorithm
 
-- Google OAuth authentication (login/logout)
-- Per-user data isolation
-- Create tests with:
-  - Title
-  - Subject
-  - Due date
-  - Volume (workload estimate)
-  - Personal understanding level
-  - Grade (only after due date)
-- Edit existing tests
-- Delete tests
-- Persistent storage using MySQL via Entity Framework Core
-- Clean state management via dependency injection
-- Modal-based editing and creation UI
-- Middleware-based auth guard on protected routes
-- Dedicated login page with empty layout
-- Fully testable business logic
-- Priority calculation engine (urgency, volume, understanding, grade — max 40 pts)
-- "What should I study today" recommendation page with hours-based capacity
+---
 
-### Planned
+## Stack
 
-- Priority calculation algorithm
-- "What should I study today" recommendation engine
-- Study history tracking
-- Analytics dashboard
-- Cloud deployment
+| Layer | Implementation |
+|---|---|
+| UI | Blazor Server, .NET 10, Interactive Server render mode |
+| Business logic | `WSIST.Engine` — PriorityCalculator, TestManagement, domain models |
+| Persistence | EF Core 9 + Pomelo MySQL, code-first migrations, auto-applied on startup |
+| Auth | Google OAuth 2.0 → ASP.NET Core cookie session |
+| Deploy | Railway (Nixpacks, dotnet-sdk_10) behind Cloudflare CDN |
+| Local dev | Docker Compose (MySQL 8.0) + .NET User Secrets |
 
 ---
 
 ## Architecture
-WSIST
-│
-├── WSIST.Web        → Blazor Server UI
-├── WSIST.Engine     → Business logic + EF Core
-└── WSIST.UnitTests  → NUnit test project
 
-### Responsibilities
+```
+WSIST/
+├── WSIST.Web/        → Blazor Server UI, auth, API endpoints
+├── WSIST.Engine/     → Business logic, EF Core DbContext, domain models
+└── WSIST.UnitTests/  → NUnit tests (EF InMemory)
+```
 
-#### WSIST.Web
-
-Handles:
-
-- UI rendering (Razor Components)
-- User interaction and modal state
-- Google OAuth flow
-- Auth guard middleware
-- Calling Engine services
-
-Contains no business logic.
-
-#### WSIST.Engine
-
-Core system logic:
-
-- TestManagement service (CRUD)
-- GetOrCreateUser (first-time user provisioning)
-- EF Core DbContext (Pomelo/MySQL)
-- Domain models (Test, User)
-- PriorityCalculator
-
-Fully independent of UI.
-
-#### WSIST.UnitTests
-
-Contains unit tests for:
-
-- Grade verification logic
-- (Full overhaul planned — current tests need rewriting for DB-backed services)
-
-Uses NUnit.
+The engine has zero web dependencies. The web project consumes it via DI. Tests run entirely in-memory — no database required.
 
 ---
 
-## Technology Stack
+## Local setup
 
-### Frontend
+**Prerequisites:** .NET 10 SDK, Docker
 
-- Blazor Server
-- Razor Components
-- InteractiveServer render mode (prerender disabled)
-- Bootstrap 5 (CDN)
-
-### Backend
-
-- C# .NET 10
-- ASP.NET Core minimal API endpoints
-- Dependency Injection
-- Middleware pipeline
-
-### Authentication
-
-- Google OAuth 2.0
-- ASP.NET Core Cookie Authentication
-- Credentials stored via .NET User Secrets (never committed)
-
-### Persistence
-
-- MySQL
-- Entity Framework Core 9
-- Pomelo.EntityFrameworkCore.MySql
-
-### Testing
-
-- NUnit
-
----
-
-## Design Principles
-
-Key architectural goals:
-
-- Separation of concerns
-- Testable business logic
-- UI independent from data layer
-- Clean state management
-- Auth enforced at middleware level, not just component level
-
-Avoids:
-
-- Hidden state
-- Tight UI-logic coupling
-- Committing secrets to version control
-
----
-
-## Getting Started
-
-### Requirements
-
-- .NET 10 SDK
-- MySQL server running locally
-- Google OAuth credentials (Client ID + Secret)
-
-### Setup
-
-**1. Create the database**
-
-Make sure MySQL is running with a database called `wsistdb` accessible at `localhost` with user `root`.
+**1. Start the database**
+```bash
+cd WSIST
+docker compose up -d
+```
 
 **2. Configure secrets**
 ```bash
@@ -175,91 +61,70 @@ dotnet user-secrets set "Google:ClientId" "your-client-id"
 dotnet user-secrets set "Google:ClientSecret" "your-client-secret"
 ```
 
-**3. Apply migrations**
+**3. Run**
 ```bash
-dotnet ef database update --project WSIST.Engine --startup-project WSIST.Web
+dotnet watch --project WSIST/WSIST.Web --launch-profile https
 ```
 
-**4. Run the project**
-```bash
-dotnet run --project WSIST/WSIST.Web
-```
-
-Then open:
-http://localhost:7165
+Migrations apply automatically on startup. No `dotnet ef database update` needed.
 
 ---
 
-## Auth Flow
+## API
 
-1. Unauthenticated user hits `/` → middleware redirects to `/login-page`
-2. User clicks "Continue with Google" → Google OAuth flow
-3. On success → redirected to `/` → user provisioned in DB if first time
-4. Logout hits `/logout` endpoint → cookie cleared → redirected to `/login-page`
+`GET /api/grades` — returns the authenticated user's average grade per subject.
+
+```json
+{
+  "userId": 3,
+  "subjects": [
+    { "subjectId": 0, "subjectName": "Math", "averageGrade": 4.8, "gradedTestCount": 3 }
+  ]
+}
+```
+
+Requires an active session cookie. Returns 401 if unauthenticated.
+
+---
+
+## Priority scoring
+
+Each test is scored out of 40 points:
+
+| Factor | Max | Logic |
+|---|---|---|
+| Urgency | 10 | Days until due date |
+| Volume | 12 | Self-rated workload |
+| Understanding | 12 | Inverse of self-rated understanding |
+| Grade pull | 6 | Subject average below passing threshold |
 
 ---
 
 ## Testing
 
-Run tests:
 ```bash
-dotnet test
+dotnet test WSIST/WSIST.UnitTests
 ```
 
-> Note: Unit tests are currently marked for overhaul. The two DB-dependent tests (`TestIfNewTestGetsMade`, `CheckIfTestWasDeleted`) need to be rewritten to work with an in-memory or mocked DB context. The grade verification tests (`CheckIfGradeIsNotNullIfInThePast`, `CheckIfGradeIsNullIfInTheFuture`) are still valid.
+12 tests, all green. Engine-level coverage: CRUD, subject management, grade logic, priority scoring.
 
 ---
 
-## Project Structure
-WSIST/
-│
-├── WSIST.Web/
-│   ├── Components/
-│   │   ├── Layout/
-│   │   │   ├── MainLayout.razor
-│   │   │   └── EmptyLayout.razor
-│   │   ├── Pages/
-│   │   │   ├── Home.razor
-│   │   │   ├── Home.razor.cs
-│   │   │   ├── Login.razor
-│   │   │   ├── Study.razor
-│   │   │   └── Study.razor.cs
-│   │   ├── App.razor
-│   │   └── Routes.razor
-│   ├── wwwroot/
-│   │   └── app.css
-│   └── Program.cs
-│
-├── WSIST.Engine/
-│   ├── Test.cs
-│   ├── User.cs
-│   ├── TestManagement.cs
-│   ├── TestAssistants.cs
-│   ├── PriorityCalculator.cs
-│   └── WsistContext.cs
-│
-├── WSIST.UnitTests/
-│   └── UnitTests.cs
-│
-└── README.md
+## Auth flow
+
+1. Unauthenticated request to `/`, `/study`, or `/settings` → redirect to `/login-page`
+2. "Continue with Google" → Google OAuth
+3. Callback → user provisioned in DB if first visit → redirect to `/`
+4. `/logout` → cookie cleared → redirect to `/login-page`
 
 ---
 
-## Security Notes
+## Legal
 
-- Google credentials are stored in .NET User Secrets locally and must never be committed
-- `appsettings.Development.json` is gitignored
-- Auth is enforced via ASP.NET Core middleware before any Blazor component renders
-- Each user only sees their own tests (filtered by `UserId` in all DB queries)
+Privacy policy and Terms of Use are available at [wsist.forch.me/privacy](https://wsist.forch.me/privacy) and [wsist.forch.me/terms](https://wsist.forch.me/terms).
 
 ---
 
 ## Author
 
-Tim Hug
-
----
-
-## Status
-
-Actively developed
+Tim Hug — Informatiker EFZ, Applikationsentwicklung apprenticeship project
