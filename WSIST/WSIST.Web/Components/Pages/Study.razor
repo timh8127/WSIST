@@ -8,6 +8,7 @@
         <h3 class="title">WSIST</h3>
         <a href="/" class="button-primary" data-enhance-nav="false">← Back</a>
         <a href="/logout" class="button-primary" data-enhance-nav="false">Logout</a>
+        <a href="/settings" class="button-primary" data-enhance-nav="false">⚙️ Settings</a>
     </div>
 
     <div class="content px-4">
@@ -43,7 +44,7 @@
                                 <h3 class="study-card-title">@test.Title</h3>
                                 <span class="study-card-score">@score / 40 pts</span>
                             </div>
-                            <p class="study-card-subject">@test.Subject · in @days day@(days == 1 ? "" : "s")</p>
+                            <p class="study-card-subject">@(subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? test.Subject.ToString()) · in @days day@(days == 1 ? "" : "s")</p>
                             <p class="study-card-because">
                                 <strong>Because:</strong> @GetBecauseText(test)
                             </p>

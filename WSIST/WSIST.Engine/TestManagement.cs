@@ -11,14 +11,14 @@ public class TestManagement
 
     public List<Test> LoadAllTests(int userId) => context.Tests.Where(t => t.UserId == userId).ToList();
 
-    public void NewTestMaker(string title, Test.Subjects subject, DateOnly dueDate,
+    public void NewTestMaker(string title, int subjectId, DateOnly dueDate,
         Test.TestVolume volume, Test.PersonalUnderstanding understanding, double? grade, int userId)
     {
         var test = new Test
         {
             Id = Guid.NewGuid(),
             Title = title,
-            Subject = subject,
+            Subject = subjectId,
             DueDate = dueDate,
             Volume = volume,
             Understanding = understanding,
@@ -29,14 +29,14 @@ public class TestManagement
         context.SaveChanges();
     }
 
-    public void TestEditor(Guid id, string title, Test.Subjects subject, DateOnly dueDate,
+    public void TestEditor(Guid id, string title, int subjectId, DateOnly dueDate,
         Test.TestVolume volume, Test.PersonalUnderstanding understanding, double? grade)
     {
         var test = context.Tests.Find(id);
         if (test is null) return;
 
         test.Title = title;
-        test.Subject = subject;
+        test.Subject = subjectId;
         test.DueDate = dueDate;
         test.Volume = volume;
         test.Understanding = understanding;
@@ -51,6 +51,54 @@ public class TestManagement
         context.Tests.Remove(test);
         context.SaveChanges();
     }
+    public List<Subject> GetSubjectsForUser(int userId)
+    {
+        return context.Subjects
+            .Where(s => s.IsSystem || s.UserId == userId)
+            .OrderBy(s => s.IsSystem ? 0 : 1)
+            .ThenBy(s => s.Name)
+            .ToList();
+    }
+
+    public void AddCustomSubject(string name, int userId)
+    {
+        var nextId = context.Subjects.Any() ? context.Subjects.Max(s => s.Id) + 1 : 6;
+        var subject = new Subject
+        {
+            Id = nextId,
+            Name = name,
+            IsSystem = false,
+            UserId = userId
+        };
+        context.Subjects.Add(subject);
+        context.SaveChanges();
+    }
+
+    public bool RemoveCustomSubject(int subjectId, int userId)
+    {
+        var subject = context.Subjects
+            .FirstOrDefault(s => s.Id == subjectId && s.UserId == userId && !s.IsSystem);
+        if (subject is null) return false;
+        // The Tests.Subject FK is Restrict — deleting a subject still in use would throw.
+        if (context.Tests.Any(t => t.Subject == subjectId)) return false;
+        context.Subjects.Remove(subject);
+        context.SaveChanges();
+        return true;
+    }
+
+    public User? GetUser(int userId)
+    {
+        return context.Users.Find(userId);
+    }
+
+    public void UpdateDisplayName(int userId, string displayName)
+    {
+        var user = context.Users.Find(userId);
+        if (user is null) return;
+        user.DisplayName = displayName.Trim();
+        context.SaveChanges();
+    }
+
     public User GetOrCreateUser(string email, string displayName, string googleId)
     {
         var user = context.Users.FirstOrDefault(u => u.Email == email);

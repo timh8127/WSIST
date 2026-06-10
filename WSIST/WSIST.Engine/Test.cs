@@ -4,23 +4,13 @@ public class Test
 {
     public Guid Id { get; init; }
     public required string Title { get; set; }
-    public Subjects Subject { get; set; }
+    public int Subject { get; set; }
     public DateOnly DueDate { get; set; }
     public TestVolume Volume { get; set; }
     public PersonalUnderstanding Understanding { get; set; }
     public double? Grade { get; set; }
     public int UserId { get; set; }
     public User User { get; set; } = null!;
-
-    public enum Subjects
-    {
-        Math,
-        English,
-        French,
-        German,
-        Chemistry,
-        Other,
-    }
 
     public enum TestVolume
     {

@@ -8,6 +8,7 @@ public class WsistContext : DbContext
 
     public DbSet<Test> Tests { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Subject> Subjects { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -17,7 +18,6 @@ public class WsistContext : DbContext
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Title).HasMaxLength(255).IsRequired();
-            entity.Property(e => e.Subject).HasConversion<int>();
             entity.Property(e => e.Volume).HasConversion<int>();
             entity.Property(e => e.Understanding).HasConversion<int>();
             entity.Property(e => e.Grade).IsRequired(false);
@@ -26,6 +26,35 @@ public class WsistContext : DbContext
                 .WithMany(u => u.Tests)
                 .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne<Subject>()
+                .WithMany()
+                .HasForeignKey(t => t.Subject)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<Subject>(entity =>
+        {
+            entity.ToTable("Subjects");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Name).HasMaxLength(100).IsRequired();
+            entity.Property(e => e.IsSystem).HasDefaultValue(false);
+
+            entity.HasOne(s => s.User)
+                .WithMany()
+                .HasForeignKey(s => s.UserId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasData(
+                new Subject { Id = 0, Name = "Math", IsSystem = true },
+                new Subject { Id = 1, Name = "English", IsSystem = true },
+                new Subject { Id = 2, Name = "French", IsSystem = true },
+                new Subject { Id = 3, Name = "German", IsSystem = true },
+                new Subject { Id = 4, Name = "Chemistry", IsSystem = true },
+                new Subject { Id = 5, Name = "Other", IsSystem = true }
+            );
         });
 
         modelBuilder.Entity<User>(entity =>
