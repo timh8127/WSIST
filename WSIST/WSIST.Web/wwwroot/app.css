@@ -1,22 +1,88 @@
 :root {
-    --bg: #0f1115;
-    --bg-elevated: #15181e;
-    --text-primary: #e6e8eb;
-    --text-secondary: #a1a6b0;
-    --border-subtle: #262a33;
-    --accent: #5b8cff;
+    --bg: #09090b;
+    --bg-elevated: #111113;
+    --bg-subtle: #18181b;
+    --bg-hover: #1c1c1f;
+    --text-primary: #fafafa;
+    --text-secondary: #a1a1aa;
+    --text-muted: #52525b;
+    --border: #27272a;
+    --border-hover: #3f3f46;
+    --accent: #f59e0b;
+    --accent-hover: #fbbf24;
+    --accent-dim: rgba(245, 158, 11, 0.12);
+    --accent-border: rgba(245, 158, 11, 0.25);
+    --accent-glow: rgba(245, 158, 11, 0.08);
+    --radius: 10px;
+    --radius-lg: 14px;
+    --radius-sm: 6px;
+    --radius-xs: 4px;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+    --transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 html, body {
     background: var(--bg);
     color: var(--text-primary);
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Subtle noise grain overlay for depth */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0;
+    text-wrap: balance;
+}
+
+p {
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+input, select, textarea, button {
+    font-family: inherit;
 }
 
 .cards {
     background: var(--bg-elevated);
-    border: 1px solid var(--border-subtle);
-    border-radius: 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
     padding: 24px;
 }
 
