@@ -1,191 +1,363 @@
 @page "/login-page"
 @layout EmptyLayout
 @using WSIST.Web.Components.Layout
-<PageTitle>WSIST – What Should I Study Today?</PageTitle>
+<PageTitle>WSIST — What should I study today?</PageTitle>
 
 <div class="landing">
 
-    <!-- Nav -->
-    <nav class="landing-nav">
-        <div class="landing-nav-brand">
-            <img src="/logo.svg" width="32" height="32" alt="WSIST" />
-            <span>WSIST</span>
+    <!-- ============ NAV ============ -->
+    <nav class="nav" id="nav">
+        <div class="container nav-inner">
+            <a class="logo" href="/login-page#top" data-enhance-nav="false" aria-label="WSIST home">
+                <span class="logo-word">WSIST<i>.</i></span>
+                <span class="logo-tag">what should I study today</span>
+            </a>
+            <div class="nav-links">
+                <a href="/login-page#score" data-enhance-nav="false">The score</a>
+                <a href="/login-page#try" data-enhance-nav="false">Try it</a>
+                <a href="/login-page#how" data-enhance-nav="false">How it works</a>
+                <a class="btn btn-primary btn-sm" href="/login" data-enhance-nav="false">Sign in</a>
+            </div>
         </div>
-        <a href="/login" class="button-primary landing-cta-sm" data-enhance-nav="false">
-            Get started
-        </a>
     </nav>
 
-    <!-- Hero -->
-    <section class="landing-hero">
-        <div class="landing-hero-inner">
-            <div class="landing-hero-badge">Study smarter, not harder</div>
-            <h1 class="landing-hero-title">
-                Know exactly what<br/>to study today.
-            </h1>
-            <p class="landing-hero-sub">
-                WSIST tracks your upcoming tests, measures how prepared you are,
-                and tells you where to focus — so you never waste a study session again.
-            </p>
-            <a href="/login" class="button-primary landing-google-btn" data-enhance-nav="false">
-                <img src="https://www.google.com/favicon.ico" width="18" height="18" alt="Google" />
-                Continue with Google — it's free
-            </a>
-            <p class="landing-hero-note">No credit card. No setup. Just log in.</p>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section class="landing-features">
-        <div class="landing-section-inner">
-            <div class="landing-section-title-row">
-                <h2 class="landing-section-title">Everything you need to prepare</h2>
-                <span class="landing-gallery-hint">Hover to pause</span>
+    <!-- ============ HERO ============ -->
+    <header class="hero" id="top">
+        <div class="container hero-grid">
+            <div class="hero-copy">
+                <p class="eyebrow r-up js-reveal">Free for students · Built in Zürich</p>
+                <h1>
+                    <span class="r-mask js-reveal" style="--d:.05s"><span>What should</span></span>
+                    <span class="r-mask js-reveal" style="--d:.14s"><span>I study <em>today?</em></span></span>
+                </h1>
+                <p class="sub r-up js-reveal" style="--d:.28s">
+                    Five subjects, three tests next week, one free evening. WSIST scores every
+                    upcoming test — urgency, volume, how well you get it, where your grades
+                    stand — and tells you exactly where tonight goes.
+                </p>
+                <div class="hero-ctas r-up js-reveal" style="--d:.38s">
+                    <a class="btn btn-primary" href="/login" data-enhance-nav="false">
+                        <svg class="g-mark" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.3C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.5l6.2 5.3C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
+                        Continue with Google
+                    </a>
+                    <a class="btn btn-ghost" href="/login-page#score" data-enhance-nav="false">See the score ↓</a>
+                </div>
+                <p class="hero-note r-up js-reveal" style="--d:.46s"><b>Free</b> · no ads · your tests stay yours</p>
             </div>
-            <div class="landing-feature-track">
-                <div class="landing-feature-belt">
-                    <div class="landing-feature-set">
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">📋</span>
-                            <h3>Track every test</h3>
-                            <p>Add tests with their due date, topic volume, and your current understanding level. WSIST keeps the full picture in one place.</p>
+
+            <div class="hero-visual" aria-hidden="true">
+                <div class="stack" id="stack">
+                    <div class="card card-1 r-up js-reveal" style="--d:.35s">
+                        <span class="card-tag">Tonight's pick</span>
+                        <div class="card-head">
+                            <span class="card-title">Algebra II — Quadratics</span>
+                            <span class="card-score" style="color:var(--mint)">34 / 40 pts</span>
                         </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">🎯</span>
-                            <h3>Smart priority scoring</h3>
-                            <p>A priority engine weighs urgency, workload, understanding, and past grades to rank what matters most — automatically.</p>
-                        </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">📚</span>
-                            <h3>Daily study plan</h3>
-                            <p>Tell WSIST how many hours you have. It returns the tests you should study today, ranked and explained.</p>
-                        </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">📊</span>
-                            <h3>Grade overview</h3>
-                            <p>See your average grade per subject at a glance. Spot weak areas before they become a problem.</p>
-                        </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">💡</span>
-                            <h3>Explained picks</h3>
-                            <p>Every recommendation comes with a plain-language "because" — your understanding, the test's volume, how soon it is, and your grades.</p>
-                        </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">🧮</span>
-                            <h3>Transparent scoring</h3>
-                            <p>Each test gets a score out of 40 — urgency, volume, understanding, and past grades. Hover any study card to see the full breakdown.</p>
-                        </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">🗂️</span>
-                            <h3>Custom subjects</h3>
-                            <p>Go beyond the built-in subjects — add Biology, Economics, or anything else you study, straight from settings.</p>
-                        </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">✅</span>
-                            <h3>Close the loop</h3>
-                            <p>Enter grades once a test is done. Past results feed back into the priority engine, so weak subjects rise to the top.</p>
-                        </div>
+                        <p class="card-meta">Math · in 2 days</p>
+                        <p class="card-because"><b>Because:</b> you have low understanding, the test has very high volume, it's in 2 days.</p>
+                        <div class="card-bar"><i class="js-bar is-mint" data-w="85"></i></div>
                     </div>
-                    <div class="landing-feature-set" aria-hidden="true">
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">📋</span>
-                            <h3>Track every test</h3>
-                            <p>Add tests with their due date, topic volume, and your current understanding level. WSIST keeps the full picture in one place.</p>
+                    <div class="card card-2 r-up js-reveal" style="--d:.48s">
+                        <div class="card-head">
+                            <span class="card-title">Vocabulaire — Unité 7</span>
+                            <span class="card-score">26 / 40 pts</span>
                         </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">🎯</span>
-                            <h3>Smart priority scoring</h3>
-                            <p>A priority engine weighs urgency, workload, understanding, and past grades to rank what matters most — automatically.</p>
+                        <p class="card-meta">French · in 5 days</p>
+                        <p class="card-because"><b>Because:</b> medium understanding, high volume, your avg in French is 4.1.</p>
+                        <div class="card-bar"><i class="js-bar" data-w="65"></i></div>
+                    </div>
+                    <div class="card card-3 r-up js-reveal" style="--d:.61s">
+                        <div class="card-head">
+                            <span class="card-title">Stoichiometry basics</span>
+                            <span class="card-score">19 / 40 pts</span>
                         </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">📚</span>
-                            <h3>Daily study plan</h3>
-                            <p>Tell WSIST how many hours you have. It returns the tests you should study today, ranked and explained.</p>
-                        </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">📊</span>
-                            <h3>Grade overview</h3>
-                            <p>See your average grade per subject at a glance. Spot weak areas before they become a problem.</p>
-                        </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">💡</span>
-                            <h3>Explained picks</h3>
-                            <p>Every recommendation comes with a plain-language "because" — your understanding, the test's volume, how soon it is, and your grades.</p>
-                        </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">🧮</span>
-                            <h3>Transparent scoring</h3>
-                            <p>Each test gets a score out of 40 — urgency, volume, understanding, and past grades. Hover any study card to see the full breakdown.</p>
-                        </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">🗂️</span>
-                            <h3>Custom subjects</h3>
-                            <p>Go beyond the built-in subjects — add Biology, Economics, or anything else you study, straight from settings.</p>
-                        </div>
-                        <div class="landing-feature-card">
-                            <span class="landing-feature-icon">✅</span>
-                            <h3>Close the loop</h3>
-                            <p>Enter grades once a test is done. Past results feed back into the priority engine, so weak subjects rise to the top.</p>
-                        </div>
+                        <p class="card-meta">Chemistry · in 9 days</p>
+                        <p class="card-because"><b>Because:</b> average understanding, medium volume, it's in 9 days.</p>
+                        <div class="card-bar"><i class="js-bar" data-w="48"></i></div>
                     </div>
                 </div>
             </div>
         </div>
+    </header>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <span class="marquee-chunk">
+                <b>Math</b>&nbsp;· in 2 days ·&nbsp;<span class="pts">34 pts</span><em>✱</em>
+                <b>French</b>&nbsp;· in 5 days ·&nbsp;<span class="pts">26 pts</span><em>✱</em>
+                <b>Chemistry</b>&nbsp;· in 9 days ·&nbsp;<span class="pts">19 pts</span><em>✱</em>
+                <b>German</b>&nbsp;· in 12 days ·&nbsp;<span class="pts">14 pts</span><em>✱</em>
+                <b>English</b>&nbsp;· in 21 days ·&nbsp;<span class="pts">8 pts</span><em>✱</em>
+                <b>The highest score studies first</b><em>✱</em>
+            </span>
+            <span class="marquee-chunk">
+                <b>Math</b>&nbsp;· in 2 days ·&nbsp;<span class="pts">34 pts</span><em>✱</em>
+                <b>French</b>&nbsp;· in 5 days ·&nbsp;<span class="pts">26 pts</span><em>✱</em>
+                <b>Chemistry</b>&nbsp;· in 9 days ·&nbsp;<span class="pts">19 pts</span><em>✱</em>
+                <b>German</b>&nbsp;· in 12 days ·&nbsp;<span class="pts">14 pts</span><em>✱</em>
+                <b>English</b>&nbsp;· in 21 days ·&nbsp;<span class="pts">8 pts</span><em>✱</em>
+                <b>The highest score studies first</b><em>✱</em>
+            </span>
+        </div>
+    </div>
+
+    <!-- ============ THE RUBRIC ============ -->
+    <section class="section" id="score">
+        <div class="container ledger-wrap">
+            <span class="ledger-watermark" aria-hidden="true">40</span>
+            <div class="section-head">
+                <p class="eyebrow r-up js-reveal">The engine</p>
+                <h2 class="r-up js-reveal" style="--d:.08s">Your tests, <em>graded.</em></h2>
+                <p class="sub r-up js-reveal" style="--d:.16s">
+                    School grades you all year. WSIST turns the table — every upcoming test
+                    earns a priority score out of 40, built from four factors. No vibes,
+                    no guilt. Just arithmetic.
+                </p>
+            </div>
+
+            <div class="ledger">
+                <div class="lrow r-up js-reveal">
+                    <div class="lrow-name">
+                        <h3>Urgency</h3>
+                        <p>Tomorrow beats next month. Days left set the clock.</p>
+                    </div>
+                    <p class="lrow-detail">≤1d +10&ensp;·&ensp;≤2d +8&ensp;·&ensp;≤7d +6&ensp;·&ensp;≤14d +4&ensp;·&ensp;≤30d +2</p>
+                    <div class="lrow-pts"><span class="num">+10</span><span class="lbl">pts max</span></div>
+                </div>
+
+                <div class="lrow r-up js-reveal" style="--d:.07s">
+                    <div class="lrow-name">
+                        <h3>Volume</h3>
+                        <p>Three chapters outweigh one worksheet.</p>
+                    </div>
+                    <p class="lrow-detail">very low +2&ensp;→&ensp;very high +12</p>
+                    <div class="lrow-pts"><span class="num">+12</span><span class="lbl">pts max</span></div>
+                </div>
+
+                <div class="lrow r-up js-reveal" style="--d:.14s">
+                    <div class="lrow-name">
+                        <h3>Understanding</h3>
+                        <p>The less it clicks, the higher it climbs.</p>
+                    </div>
+                    <p class="lrow-detail">very high +2&ensp;→&ensp;very low +12</p>
+                    <div class="lrow-pts"><span class="num">+12</span><span class="lbl">pts max</span></div>
+                </div>
+
+                <div class="lrow r-up js-reveal" style="--d:.21s">
+                    <div class="lrow-name">
+                        <h3>Grade pull</h3>
+                        <p>Subjects where your average slips get a push.</p>
+                    </div>
+                    <p class="lrow-detail">Ø ≥5 +2&ensp;·&ensp;Ø ≥4 +4&ensp;·&ensp;Ø &lt;4 +6</p>
+                    <div class="lrow-pts"><span class="num">+6</span><span class="lbl">pts max</span></div>
+                </div>
+
+                <p class="ledger-sum r-up js-reveal" style="--d:.28s">= <b>&nbsp;40 pts</b>&nbsp;— the highest score studies first</p>
+            </div>
+        </div>
     </section>
 
-    <!-- How It Works -->
-    <section class="landing-how">
-        <div class="landing-section-inner">
-            <h2 class="landing-section-title">Three steps to a better study session</h2>
-            <div class="landing-steps">
-                <div class="landing-step">
-                    <div class="landing-step-number">1</div>
-                    <div class="landing-step-content">
-                        <h3>Add your tests</h3>
-                        <p>Enter each upcoming test with its subject, date, how much material there is, and how well you understand it.</p>
+    <!-- ============ PLAYGROUND ============ -->
+    <section class="section" id="try" style="padding-top:0">
+        <div class="container">
+            <div class="section-head">
+                <p class="eyebrow r-up js-reveal">No-signup demo</p>
+                <h2 class="r-up js-reveal" style="--d:.08s">Run the <em>real</em> algorithm.</h2>
+                <p class="sub r-up js-reveal" style="--d:.16s">
+                    These sliders feed the same scoring rules that run in production at
+                    wsist.forch.me. Move them and watch a test climb your list.
+                </p>
+            </div>
+
+            <div class="play">
+                <div class="controls r-up js-reveal">
+                    <div class="ctl">
+                        <div class="ctl-head">
+                            <label for="in-days">Days until the test</label>
+                            <output id="out-days" for="in-days">in 2 days</output>
+                        </div>
+                        <input type="range" id="in-days" min="0" max="35" step="1" value="2"/>
+                        <div class="ctl-scale"><span>today</span><span>5 weeks out</span></div>
+                    </div>
+
+                    <div class="ctl">
+                        <div class="ctl-head">
+                            <label for="in-vol">Test volume</label>
+                            <output id="out-vol" for="in-vol">High</output>
+                        </div>
+                        <input type="range" id="in-vol" min="0" max="5" step="1" value="4"/>
+                        <div class="ctl-scale"><span>one worksheet</span><span>three chapters</span></div>
+                    </div>
+
+                    <div class="ctl">
+                        <div class="ctl-head">
+                            <label for="in-und">Your understanding</label>
+                            <output id="out-und" for="in-und">Low</output>
+                        </div>
+                        <input type="range" id="in-und" min="0" max="5" step="1" value="1"/>
+                        <div class="ctl-scale"><span>what even is this</span><span>could teach it</span></div>
+                    </div>
+
+                    <div class="ctl">
+                        <div class="ctl-head">
+                            <label for="in-avg">Your average in this subject</label>
+                            <output id="out-avg" for="in-avg">Ø 4.2</output>
+                        </div>
+                        <input type="range" id="in-avg" min="1" max="6" step="0.1" value="4.2"/>
+                        <div class="ctl-scale"><span>1.0</span><span>6.0 — Swiss scale</span></div>
                     </div>
                 </div>
-                <div class="landing-step-connector"></div>
-                <div class="landing-step">
-                    <div class="landing-step-number">2</div>
-                    <div class="landing-step-content">
-                        <h3>Set your available time</h3>
-                        <p>Each day, tell WSIST how many hours you can study. Even 30 minutes counts.</p>
+
+                <div class="result r-up js-reveal" style="--d:.12s" aria-live="polite">
+                    <p class="result-eyebrow">Priority score</p>
+                    <div class="result-score">
+                        <span class="score-num" id="score-num">32</span>
+                        <span class="score-denom">/ 40 pts</span>
+                    </div>
+                    <div class="stackbar" aria-hidden="true">
+                        <i class="seg-u" id="seg-u"></i><i class="seg-v" id="seg-v"></i><i class="seg-n" id="seg-n"></i><i class="seg-g" id="seg-g"></i>
+                    </div>
+                    <div class="chips" aria-hidden="true">
+                        <div class="chip"><span class="v" id="chip-u">+8</span><span class="k" style="--sw:var(--accent)">urgency</span></div>
+                        <div class="chip"><span class="v" id="chip-v">+10</span><span class="k" style="--sw:rgba(245,179,66,.68)">volume</span></div>
+                        <div class="chip"><span class="v" id="chip-n">+10</span><span class="k" style="--sw:rgba(245,179,66,.44)">understanding</span></div>
+                        <div class="chip"><span class="v" id="chip-g">+4</span><span class="k" style="--sw:rgba(245,179,66,.24)">grade pull</span></div>
+                    </div>
+                    <p class="verdict" id="verdict">Drop everything — this is tonight.</p>
+                    <p class="result-foot">Same maths as the production engine</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section class="section" id="how" style="padding-top:0">
+        <div class="container">
+            <div class="section-head">
+                <p class="eyebrow r-up js-reveal">The routine</p>
+                <h2 class="r-up js-reveal" style="--d:.08s">Twenty seconds in, <em>one answer</em> out.</h2>
+            </div>
+
+            <div class="steps">
+                <div class="step r-up js-reveal">
+                    <span class="step-num" aria-hidden="true">01</span>
+                    <div class="step-body">
+                        <h3>Add the test.</h3>
+                        <p>Title, subject, date, how big it is, how well you get it. Twenty seconds, once per test.</p>
+                    </div>
+                    <div class="mock step-mock" aria-hidden="true">
+                        <p class="mock-label">Test title</p>
+                        <div class="mock-field">Algebra II — Quadratics</div>
+                        <p class="mock-label">Subject &nbsp;·&nbsp; Due date</p>
+                        <div class="mock-row">
+                            <div class="mock-field" style="flex:1">Math ▾</div>
+                            <div class="mock-field" style="flex:1">12.06.2026</div>
+                        </div>
                     </div>
                 </div>
-                <div class="landing-step-connector"></div>
-                <div class="landing-step">
-                    <div class="landing-step-number">3</div>
-                    <div class="landing-step-content">
-                        <h3>Study what matters</h3>
-                        <p>WSIST shows you exactly which test to focus on and why — no more guessing, no more guilt.</p>
+
+                <div class="step r-up js-reveal">
+                    <span class="step-num" aria-hidden="true">02</span>
+                    <div class="step-body">
+                        <h3>Say how much time you have.</h3>
+                        <p>One input. “How many hours can you study today?” is the only question WSIST ever asks you back.</p>
+                    </div>
+                    <div class="mock step-mock" aria-hidden="true">
+                        <p class="mock-label">How many hours can you study today?</p>
+                        <div class="mock-row">
+                            <div class="mock-field" style="width:90px;text-align:center">2.5</div>
+                            <span class="mock-btn">Calculate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step r-up js-reveal">
+                    <span class="step-num" aria-hidden="true">03</span>
+                    <div class="step-body">
+                        <h3>Study the top of the list.</h3>
+                        <p>Every test ranked out of 40, with the reasons spelled out — so you trust the order instead of second-guessing it.</p>
+                    </div>
+                    <div class="mock step-mock" aria-hidden="true">
+                        <div class="mock-rank"><span class="pos">1</span><span class="t">Algebra II</span><span class="s">34 pts</span><span class="b"><i style="width:85%"></i></span></div>
+                        <div class="mock-rank"><span class="pos">2</span><span class="t">Vocabulaire U7</span><span class="s">26 pts</span><span class="b"><i style="width:65%"></i></span></div>
+                        <div class="mock-rank"><span class="pos">3</span><span class="t">Stoichiometry</span><span class="s">19 pts</span><span class="b"><i style="width:48%"></i></span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Final CTA -->
-    <section class="landing-final-cta">
-        <div class="landing-section-inner landing-final-cta-inner">
-            <h2>Ready to stop guessing?</h2>
-            <p>Join students who always know what to study next.</p>
-            <a href="/login" class="button-primary landing-google-btn" data-enhance-nav="false">
-                <img src="https://www.google.com/favicon.ico" width="18" height="18" alt="Google" />
-                Continue with Google
-            </a>
+    <!-- ============ FEATURES ============ -->
+    <section class="section" id="features" style="padding-top:0">
+        <div class="container">
+            <div class="section-head">
+                <p class="eyebrow r-up js-reveal">Also in the box</p>
+                <h2 class="r-up js-reveal" style="--d:.08s">The quiet parts.</h2>
+            </div>
+            <div class="feat-grid">
+                <div class="feat r-up js-reveal">
+                    <h3>Grade overview per subject</h3>
+                    <p>Your averages on the dashboard, always current — so a slipping subject shows up before the report card does.</p>
+                </div>
+                <div class="feat r-up js-reveal" style="--d:.06s">
+                    <h3>Your subjects, not a preset</h3>
+                    <p>Add the subjects your school actually teaches. Wirtschaft, Werkstatt, whatever — WSIST doesn't care, it just scores.</p>
+                </div>
+                <div class="feat r-up js-reveal" style="--d:.12s">
+                    <h3>Every rank explains itself</h3>
+                    <p>Tap any card for its score breakdown. You always see why a test sits where it sits.</p>
+                </div>
+                <div class="feat r-up js-reveal" style="--d:.18s">
+                    <h3>Sign in with Google</h3>
+                    <p>Nothing new to remember. Your school account works fine.</p>
+                </div>
+                <div class="feat r-up js-reveal" style="--d:.24s">
+                    <h3>Private by default</h3>
+                    <p>Your tests and grades are visible to you alone, and you can delete them anytime. No ads, ever.</p>
+                </div>
+                <div class="feat r-up js-reveal" style="--d:.3s">
+                    <h3>“WSIST sagt” <span class="soon">Soon</span></h3>
+                    <p>A daily study briefing in Swiss German, plus an Android app. In the works between exam weeks.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="landing-footer">
-        <div class="landing-footer-inner">
-            <span class="landing-footer-brand">WSIST</span>
-            <div class="landing-footer-links">
+    <!-- ============ MANIFESTO ============ -->
+    <section class="section manifesto">
+        <div class="container manifesto">
+            <blockquote class="r-up js-reveal">
+                Built between apprenticeship shifts and exam weeks — by a student who <b>needed it to exist.</b>
+            </blockquote>
+            <cite class="r-up js-reveal" style="--d:.12s">Tim · Informatik-Lehrling · Zürich</cite>
+        </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="section cta">
+        <div class="container">
+            <h2 class="r-up js-reveal">Your next test is coming <em>either way.</em></h2>
+            <div class="cta-row r-up js-reveal" style="--d:.1s">
+                <a class="btn btn-primary" href="/login" data-enhance-nav="false">
+                    <svg class="g-mark" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.3C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.5l6.2 5.3C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
+                    Continue with Google
+                </a>
+                <span class="cta-small">Free · works in any browser</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <div class="container foot">
+            <span class="wm">WSIST<i>.</i> — what should I study today</span>
+            <div class="foot-links">
+                <a href="https://wsist.forch.me">wsist.forch.me</a>
                 <a href="/privacy">Privacy</a>
                 <a href="/terms">Terms</a>
             </div>
-            <span class="landing-footer-copy">© @DateTime.Now.Year Tim Hug</span>
+            <span>Made in Zürich · © 2026 Tim Hug</span>
         </div>
     </footer>
 </div>
