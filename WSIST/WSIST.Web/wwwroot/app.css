@@ -413,7 +413,7 @@ a.button-primary[href="/study"]:hover {
 
 .login-card {
     background: var(--bg-elevated);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 48px;
     display: flex;
@@ -443,107 +443,6 @@ a.button-primary[href="/study"]:hover {
     justify-content: center;
 }
 
-.settings-section {
-    margin-bottom: 2rem;
-}
-
-.settings-section-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 12px;
-}
-
-.settings-card {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-.settings-inline {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.settings-readonly {
-    color: var(--text-secondary);
-    font-size: 15px;
-    margin: 0;
-    padding: 10px 0;
-}
-
-.settings-success {
-    color: #4caf50;
-    font-size: 13px;
-    margin-top: 6px;
-    display: block;
-}
-
-.settings-error {
-    color: #e57373;
-    font-size: 13px;
-    margin-top: 6px;
-    display: block;
-}
-
-.subjects-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin-bottom: 20px;
-}
-
-.subject-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border-subtle);
-}
-
-.subject-row:last-child {
-    border-bottom: none;
-}
-
-.subject-name {
-    font-size: 15px;
-    color: var(--text-primary);
-}
-
-.subject-system-badge {
-    font-size: 11px;
-    color: var(--text-secondary);
-    background: var(--border-subtle);
-    border-radius: 4px;
-    padding: 2px 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
-
-.subject-delete {
-    padding: 6px 10px;
-    font-size: 13px;
-}
-
-.settings-add-subject {
-    padding-top: 4px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.settings-add-subject label {
-    font-size: 13px;
-    color: var(--text-secondary);
-}
-
 /* ── Landing Page ── */
 
 .landing {
@@ -558,10 +457,12 @@ a.button-primary[href="/study"]:hover {
     align-items: center;
     justify-content: space-between;
     padding: 1.25rem 2rem;
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    background: var(--bg);
+    background: rgba(9, 9, 11, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     z-index: 100;
 }
 
@@ -588,6 +489,21 @@ a.button-primary[href="/study"]:hover {
     padding: 7rem 2rem 6rem;
     text-align: center;
     flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ambient glow behind the hero */
+.landing-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, var(--accent-glow), transparent 60%);
+    pointer-events: none;
+}
+
+.landing-hero-inner {
+    position: relative;
 }
 
 .landing-hero-inner {
@@ -599,9 +515,9 @@ a.button-primary[href="/study"]:hover {
 }
 
 .landing-hero-badge {
-    background: rgba(91, 140, 255, 0.12);
+    background: var(--accent-dim);
     color: var(--accent);
-    border: 1px solid rgba(91, 140, 255, 0.25);
+    border: 1px solid var(--accent-border);
     border-radius: 99px;
     padding: 5px 14px;
     font-size: 13px;
@@ -633,8 +549,16 @@ a.button-primary[href="/study"]:hover {
     text-decoration: none;
     font-size: 16px;
     padding: 14px 28px;
-    border-radius: 10px;
+    border-radius: var(--radius);
     font-weight: 600;
+    background: var(--accent);
+    color: #09090b;
+    border-color: transparent;
+}
+
+.landing-google-btn:hover {
+    background: var(--accent-hover);
+    border-color: transparent;
 }
 
 .landing-hero-note {
@@ -660,8 +584,8 @@ a.button-primary[href="/study"]:hover {
 
 .landing-features {
     background: var(--bg-elevated);
-    border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
 .landing-feature-grid {
@@ -672,7 +596,7 @@ a.button-primary[href="/study"]:hover {
 
 .landing-feature-card {
     background: var(--bg);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 24px;
     display: flex;
@@ -717,7 +641,7 @@ a.button-primary[href="/study"]:hover {
 .landing-step-connector {
     width: 2px;
     height: 32px;
-    background: var(--border-subtle);
+    background: var(--border);
     margin-left: 19px;
 }
 
@@ -726,8 +650,8 @@ a.button-primary[href="/study"]:hover {
     height: 40px;
     min-width: 40px;
     border-radius: 50%;
-    background: rgba(91, 140, 255, 0.12);
-    border: 1px solid rgba(91, 140, 255, 0.3);
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-border);
     color: var(--accent);
     font-weight: 700;
     font-size: 16px;
@@ -757,7 +681,7 @@ a.button-primary[href="/study"]:hover {
 
 .landing-final-cta {
     background: var(--bg-elevated);
-    border-top: 1px solid var(--border-subtle);
+    border-top: 1px solid var(--border);
     text-align: center;
 }
 
@@ -782,7 +706,7 @@ a.button-primary[href="/study"]:hover {
 }
 
 .landing-footer {
-    border-top: 1px solid var(--border-subtle);
+    border-top: 1px solid var(--border);
     padding: 1.5rem 2rem;
 }
 
@@ -1220,4 +1144,147 @@ a.button-primary[href="/study"]:hover {
     font-size: 13px;
     color: var(--text-secondary);
     line-height: 1.5;
+}
+
+/* ── Settings Page ── */
+
+.settings-page-header {
+    padding: 1.5rem 0 1.25rem;
+}
+
+.settings-page-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.settings-page-header p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.settings-block {
+    margin-bottom: 1.75rem;
+}
+
+.settings-block-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 10px;
+}
+
+.settings-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.settings-row-last {
+    border-bottom: none;
+}
+
+.settings-row-key {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    min-width: 120px;
+}
+
+.settings-row-val {
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.settings-row-value {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.settings-inline {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.settings-input {
+    flex: 1;
+    background: var(--bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    font-size: 14px;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    outline: none;
+}
+
+.settings-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.settings-success {
+    color: #4ade80;
+    font-size: 12px;
+}
+
+.settings-error {
+    color: #f87171;
+    font-size: 12px;
+}
+
+.subject-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.subject-row-last {
+    border-bottom: none;
+}
+
+.subject-name {
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.subject-badge {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    padding: 2px 7px;
+}
+
+.settings-add-subject {
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 1px solid var(--border);
 }
