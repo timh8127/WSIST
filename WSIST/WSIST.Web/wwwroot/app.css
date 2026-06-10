@@ -443,70 +443,6 @@ a.button-primary[href="/study"]:hover {
     justify-content: center;
 }
 
-.study-input-section {
-    padding: 2rem 0 1rem 0;
-}
-
-.study-input-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 1rem;
-}
-
-.study-input-row input {
-    width: 100px;
-}
-
-.study-results {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.study-empty {
-    margin-top: 2rem;
-    color: var(--text-secondary);
-}
-
-.study-card {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 20px 24px;
-}
-
-.study-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.study-card-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.study-card-score {
-    font-size: 14px;
-    color: var(--accent);
-    font-weight: 600;
-}
-
-.study-card-subject {
-    color: var(--text-secondary);
-    font-size: 14px;
-    margin: 4px 0 8px 0;
-}
-
-.study-card-because {
-    color: var(--text-primary);
-    font-size: 14px;
-    margin-bottom: 12px;
-}
-
 .settings-section {
     margin-bottom: 2rem;
 }
@@ -1164,4 +1100,124 @@ a.button-primary[href="/study"]:hover {
     max-width: 1100px;
     margin: 0 auto;
     width: 100%;
+}
+
+/* ── Study Page ── */
+
+.study-header {
+    padding: 1.5rem 0 1.25rem;
+}
+
+.study-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.study-header p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.study-input-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px 22px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.study-input-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.01em;
+}
+
+.study-input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.study-input-row input {
+    width: 100px;
+    flex: none;
+}
+
+.study-results {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 2rem;
+}
+
+.study-results-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 4px;
+}
+
+.study-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: default;
+    transition: border-color var(--transition);
+}
+
+.study-card:hover {
+    border-color: var(--border-hover);
+}
+
+.study-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.study-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.study-card-subject {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 3px;
+}
+
+.study-card-score {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+}
+
+.study-card-score-max {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.study-card-because {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
 }
