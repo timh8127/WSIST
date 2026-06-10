@@ -609,40 +609,44 @@ a.button-primary[href="/study"]:hover {
     flex-shrink: 0;
 }
 
-/* Full-bleed horizontal gallery: breaks out of the centered section,
-   first card stays aligned with the section's content edge. */
+/* Full-bleed auto-scrolling gallery: the belt holds two identical card
+   sets and slides one set-width per loop for a seamless marquee.
+   Edge masks fade cards in and out gradually at both sides. */
 .landing-feature-track {
+    overflow: hidden;
+    margin: 0 calc(50% - 50vw);
+    padding: 4px 0 20px;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.landing-feature-belt {
     display: flex;
     gap: 16px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    margin: 0 calc(50% - 50vw);
-    padding: 4px max(2rem, calc((100vw - 900px) / 2 + 2rem)) 20px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-hover) var(--bg-subtle);
+    width: max-content;
+    animation: feature-marquee 56s linear infinite;
+    will-change: transform;
 }
 
-.landing-feature-track::-webkit-scrollbar {
-    height: 8px;
+/* Pause so cards can be read (matches the "Hover to pause" hint) */
+.landing-feature-track:hover .landing-feature-belt {
+    animation-play-state: paused;
 }
 
-.landing-feature-track::-webkit-scrollbar-track {
-    background: var(--bg-subtle);
-    border-radius: 99px;
+.landing-feature-set {
+    display: flex;
+    gap: 16px;
 }
 
-.landing-feature-track::-webkit-scrollbar-thumb {
-    background: var(--border-hover);
-    border-radius: 99px;
-}
-
-.landing-feature-track::-webkit-scrollbar-thumb:hover {
-    background: var(--accent);
+/* -50% is the midpoint of the two sets; the extra 8px is half the
+   belt gap between them, landing exactly on the seam. */
+@keyframes feature-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(-50% - 8px)); }
 }
 
 .landing-feature-card {
     flex: 0 0 min(340px, 78vw);
-    scroll-snap-align: start;
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
@@ -650,11 +654,28 @@ a.button-primary[href="/study"]:hover {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    transition: border-color var(--transition);
+    transition: border-color var(--transition-slow), transform var(--transition-slow), box-shadow var(--transition-slow);
 }
 
 .landing-feature-card:hover {
     border-color: var(--border-hover);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+}
+
+/* Reduced motion: stop the marquee, fall back to manual scrolling */
+@media (prefers-reduced-motion: reduce) {
+    .landing-feature-belt {
+        animation: none;
+    }
+
+    .landing-feature-track {
+        overflow-x: auto;
+        mask-image: none;
+        -webkit-mask-image: none;
+        padding-left: max(2rem, calc((100vw - 900px) / 2 + 2rem));
+        padding-right: max(2rem, calc((100vw - 900px) / 2 + 2rem));
+    }
 }
 
 .landing-feature-icon {
