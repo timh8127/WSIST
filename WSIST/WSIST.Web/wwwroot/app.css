@@ -1018,3 +1018,65 @@ a.button-primary[href="/study"]:hover {
     gap: 6px;
     border-top: 1px solid var(--border);
 }
+
+/* ── Error Page ── */
+
+.error-page {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+}
+
+.error-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 2rem;
+    max-width: 400px;
+}
+
+.error-icon {
+    font-size: 40px;
+    color: var(--accent);
+}
+
+.error-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.error-sub {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.delete-confirm-zone {
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.delete-confirm-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #f87171;
+}
+
+.delete-confirm-sub {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.delete-confirm-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}

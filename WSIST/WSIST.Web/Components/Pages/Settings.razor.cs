@@ -16,11 +16,15 @@ public partial class Settings(
     private string newSubjectName = string.Empty;
     private string? saveMessage;
     private string? subjectError;
+    private List<Test> allTests = [];
+    private bool showDeleteConfirm = false;
+    private bool isDeleting = false;
 
     protected override Task OnAuthenticatedAsync()
     {
         currentUser = management.GetUser(CurrentUserId);
         subjects = management.GetSubjectsForUser(CurrentUserId);
+        allTests = management.LoadAllTests(CurrentUserId);
         editedDisplayName = currentUser?.DisplayName ?? string.Empty;
         return Task.CompletedTask;
     }
@@ -68,5 +72,15 @@ public partial class Settings(
         }
         subjects = management.GetSubjectsForUser(CurrentUserId);
         StateHasChanged();
+    }
+
+    private void ShowDeleteConfirm() => showDeleteConfirm = true;
+    private void CancelDelete() => showDeleteConfirm = false;
+
+    private void ConfirmDeleteAccount()
+    {
+        isDeleting = true;
+        management.DeleteUser(CurrentUserId);
+        navigation.NavigateTo("/logout", forceLoad: true);
     }
 }
