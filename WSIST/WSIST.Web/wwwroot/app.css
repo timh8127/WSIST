@@ -450,6 +450,10 @@ a.button-primary[href="/study"]:hover {
     display: flex;
     flex-direction: column;
     background: var(--bg);
+    /* The full-bleed gallery track is 100vw wide, which includes the
+       vertical scrollbar width — clip it so no horizontal scrollbar appears. */
+    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 .landing-nav {
@@ -622,10 +626,10 @@ a.button-primary[href="/study"]:hover {
 
 .landing-feature-belt {
     display: flex;
-    gap: 16px;
     width: max-content;
     animation: feature-marquee 56s linear infinite;
     will-change: transform;
+    backface-visibility: hidden;
 }
 
 /* Pause so cards can be read (matches the "Hover to pause" hint) */
@@ -633,16 +637,20 @@ a.button-primary[href="/study"]:hover {
     animation-play-state: paused;
 }
 
+/* Each set carries its own trailing gap, so the belt is exactly two
+   set-widths and -50% lands precisely on the loop seam. */
 .landing-feature-set {
     display: flex;
     gap: 16px;
+    padding-right: 16px;
 }
 
-/* -50% is the midpoint of the two sets; the extra 8px is half the
-   belt gap between them, landing exactly on the seam. */
+/* translate3d keeps the belt on its own GPU layer: the text is
+   rasterised once and slid as a texture instead of being re-rendered
+   at fractional pixel offsets every frame. */
 @keyframes feature-marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(calc(-50% - 8px)); }
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
 }
 
 .landing-feature-card {
