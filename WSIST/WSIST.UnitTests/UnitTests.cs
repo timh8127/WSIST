@@ -176,14 +176,30 @@ public class UnitTests
         //arrange
         using var context = CreateContext();
         var user = SeedUser(context);
-        var otherUser = new User { Email = "other@example.com", DisplayName = "Other", GoogleId = "google-456", CreatedAt = DateTime.UtcNow };
+        var otherUser = new User
+        {
+            Email = "other@example.com",
+            DisplayName = "Other",
+            GoogleId = "google-456",
+            CreatedAt = DateTime.UtcNow,
+        };
         context.Users.Add(otherUser);
         context.SaveChanges();
 
         // HasData seeding doesn't run for in-memory DB, so seed manually
         context.Subjects.AddRange(
-            new Subject { Id = 0, Name = "Math", IsSystem = true },
-            new Subject { Id = 1, Name = "English", IsSystem = true }
+            new Subject
+            {
+                Id = 0,
+                Name = "Math",
+                IsSystem = true,
+            },
+            new Subject
+            {
+                Id = 1,
+                Name = "English",
+                IsSystem = true,
+            }
         );
         context.SaveChanges();
 
@@ -202,6 +218,44 @@ public class UnitTests
     }
 
     [Test]
+    public static void GradeScoreGivesFullPushBelowAverageOfFour()
+    {
+        var calculator = new PriorityCalculator();
+        var tests = new List<Test>
+        {
+            new()
+            {
+                Title = "T",
+                Subject = 0,
+                Grade = 2.5,
+                DueDate = new DateOnly(2026, 01, 10),
+            },
+        };
+        Assert.That(
+            calculator.CalculateGradeScore(0, tests),
+            Is.EqualTo(6),
+            "An average below 3 must earn the full +6 push, not 0."
+        );
+    }
+
+    [Test]
+    public static void GradeScoreGivesSmallPushForStrongAverage()
+    {
+        var calculator = new PriorityCalculator();
+        var tests = new List<Test>
+        {
+            new()
+            {
+                Title = "T",
+                Subject = 0,
+                Grade = 5.5,
+                DueDate = new DateOnly(2026, 01, 10),
+            },
+        };
+        Assert.That(calculator.CalculateGradeScore(0, tests), Is.EqualTo(2));
+    }
+
+    [Test]
     public void RemoveCustomSubject_RefusesWhenSubjectStillHasTests()
     {
         //arrange
@@ -217,7 +271,8 @@ public class UnitTests
             Test.TestVolume.Medium,
             Test.PersonalUnderstanding.Medium,
             null,
-            user.Id);
+            user.Id
+        );
 
         //act
         var removed = manager.RemoveCustomSubject(subjectId, user.Id);
