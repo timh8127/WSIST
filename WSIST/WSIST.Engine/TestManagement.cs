@@ -116,6 +116,14 @@ public class TestManagement
         return user;
     }
 
+    public void DeleteUser(int userId)
+    {
+        var user = context.Users.Find(userId);
+        if (user is null) return;
+        context.Users.Remove(user);
+        context.SaveChanges();
+    }
+
     public record SubjectGradeAverage(int SubjectId, string SubjectName, double AverageGrade, int GradedTestCount);
 
     public List<SubjectGradeAverage> GetGradeAverages(int userId)

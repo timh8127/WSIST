@@ -77,6 +77,43 @@
                     </div>
                 </div>
             </div>
+
+            <div class="settings-block">
+                <p class="settings-block-label">Account</p>
+                <div class="settings-card">
+                    @if (!showDeleteConfirm)
+                    {
+                        <div class="settings-row settings-row-last">
+                            <div>
+                                <span class="settings-row-key">Delete account</span>
+                                <p style="font-size: 13px; color: var(--text-muted); margin-top: 3px;">
+                                    Permanently removes your account and all test data.
+                                </p>
+                            </div>
+                            <button class="button-primary button-danger" @onclick="ShowDeleteConfirm">
+                                Delete account
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="delete-confirm-zone">
+                            <p class="delete-confirm-title">Are you sure?</p>
+                            <p class="delete-confirm-sub">
+                                This will permanently delete your account, all @allTests.Count test@(allTests.Count == 1 ? "" : "s"), and all custom subjects. This cannot be undone.
+                            </p>
+                            <div class="delete-confirm-actions">
+                                <button class="button-primary" @onclick="CancelDelete" disabled="@isDeleting">
+                                    Cancel
+                                </button>
+                                <button class="button-primary button-danger" @onclick="ConfirmDeleteAccount" disabled="@isDeleting">
+                                    @(isDeleting ? "Deleting…" : "Yes, delete everything")
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
         }
     </div>
 </div>

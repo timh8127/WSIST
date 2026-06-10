@@ -1055,3 +1055,28 @@ a.button-primary[href="/study"]:hover {
     color: var(--text-secondary);
     line-height: 1.6;
 }
+
+.delete-confirm-zone {
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.delete-confirm-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #f87171;
+}
+
+.delete-confirm-sub {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.delete-confirm-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
