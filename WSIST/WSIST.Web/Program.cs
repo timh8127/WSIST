@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -82,6 +83,29 @@ app.MapGet("/logout", async (HttpContext ctx) =>
     await ctx.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     return Results.Redirect("/login-page");
 }).AllowAnonymous();
+
+app.MapGet("/api/grades", async (HttpContext ctx, TestManagement management) =>
+{
+    if (!ctx.User.Identity?.IsAuthenticated ?? true)
+        return Results.Unauthorized();
+
+    var email = ctx.User.FindFirst(ClaimTypes.Email)?.Value;
+    if (email is null) return Results.Unauthorized();
+
+    var user = management.GetOrCreateUser(
+        email,
+        ctx.User.FindFirst(ClaimTypes.Name)?.Value ?? "Unknown",
+        ctx.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? ""
+    );
+
+    var averages = management.GetGradeAverages(user.Id);
+
+    return Results.Ok(new
+    {
+        userId = user.Id,
+        subjects = averages
+    });
+}).RequireAuthorization();
 
 using (var scope = app.Services.CreateScope())
 {

@@ -115,4 +115,30 @@ public class TestManagement
         context.SaveChanges();
         return user;
     }
+
+    public record SubjectGradeAverage(int SubjectId, string SubjectName, double AverageGrade, int GradedTestCount);
+
+    public List<SubjectGradeAverage> GetGradeAverages(int userId)
+    {
+        var subjects = context.Subjects
+            .Where(s => s.IsSystem || s.UserId == userId)
+            .ToList();
+
+        return context.Tests
+            .Where(t => t.UserId == userId && t.Grade != null)
+            .AsEnumerable()
+            .GroupBy(t => t.Subject)
+            .Select(g =>
+            {
+                var subject = subjects.FirstOrDefault(s => s.Id == g.Key);
+                return new SubjectGradeAverage(
+                    g.Key,
+                    subject?.Name ?? g.Key.ToString(),
+                    Math.Round(g.Average(t => t.Grade!.Value), 2),
+                    g.Count()
+                );
+            })
+            .OrderBy(x => x.SubjectName)
+            .ToList();
+    }
 }
