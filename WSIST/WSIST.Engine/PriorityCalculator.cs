@@ -13,7 +13,7 @@ public class PriorityCalculator
             <= 7 => 6,
             <= 14 => 4,
             <= 30 => 2,
-            _ => 0
+            _ => 0,
         };
     }
 
@@ -27,10 +27,10 @@ public class PriorityCalculator
             Test.TestVolume.Average => 8,
             Test.TestVolume.High => 10,
             Test.TestVolume.VeryHigh => 12,
-            _ => 0
+            _ => 0,
         };
     }
-    
+
     public int CalculateUnderstandingScore(Test.PersonalUnderstanding understanding)
     {
         return understanding switch
@@ -41,15 +41,13 @@ public class PriorityCalculator
             Test.PersonalUnderstanding.Average => 6,
             Test.PersonalUnderstanding.High => 4,
             Test.PersonalUnderstanding.VeryHigh => 2,
-            _ => 0
+            _ => 0,
         };
     }
-    
+
     public int CalculateGradeScore(int subjectId, List<Test> allTests)
     {
-        var gradedTests = allTests
-            .Where(t => t.Subject == subjectId && t.Grade != null)
-            .ToList();
+        var gradedTests = allTests.Where(t => t.Subject == subjectId && t.Grade != null).ToList();
 
         if (gradedTests.Count == 0)
             return 0;
@@ -60,8 +58,7 @@ public class PriorityCalculator
         {
             >= 5 => 2,
             >= 4 => 4,
-            >= 3 => 6,
-            _ => 0
+            _ => 6,
         };
     }
 
@@ -74,7 +71,7 @@ public class PriorityCalculator
         sum += CalculateGradeScore(test.Subject, allTests);
         return sum;
     }
-    
+
     public List<Test> GetStudyRecommendations(List<Test> allTests, double hoursAvailable)
     {
         var topCount = hoursAvailable switch
@@ -83,7 +80,7 @@ public class PriorityCalculator
             < 2 => 1,
             < 3 => 3,
             < 4 => 3,
-            _ => 5
+            _ => 5,
         };
 
         return allTests
