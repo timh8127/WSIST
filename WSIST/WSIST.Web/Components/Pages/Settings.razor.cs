@@ -59,7 +59,13 @@ public partial class Settings(
 
     private void DeleteSubject(int subjectId)
     {
-        management.RemoveCustomSubject(subjectId, CurrentUserId);
+        subjectError = null;
+        if (!management.RemoveCustomSubject(subjectId, CurrentUserId))
+        {
+            subjectError = "Cannot delete a subject that still has tests. Delete or reassign those tests first.";
+            StateHasChanged();
+            return;
+        }
         subjects = management.GetSubjectsForUser(CurrentUserId);
         StateHasChanged();
     }
