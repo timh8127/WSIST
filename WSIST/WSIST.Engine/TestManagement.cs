@@ -74,13 +74,16 @@ public class TestManagement
         context.SaveChanges();
     }
 
-    public void RemoveCustomSubject(int subjectId, int userId)
+    public bool RemoveCustomSubject(int subjectId, int userId)
     {
         var subject = context.Subjects
             .FirstOrDefault(s => s.Id == subjectId && s.UserId == userId && !s.IsSystem);
-        if (subject is null) return;
+        if (subject is null) return false;
+        // The Tests.Subject FK is Restrict — deleting a subject still in use would throw.
+        if (context.Tests.Any(t => t.Subject == subjectId)) return false;
         context.Subjects.Remove(subject);
         context.SaveChanges();
+        return true;
     }
 
     public User? GetUser(int userId)

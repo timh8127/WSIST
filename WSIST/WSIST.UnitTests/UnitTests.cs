@@ -200,4 +200,30 @@ public class UnitTests
         Assert.That(subjects.Any(s => s.Name == "Biology" && !s.IsSystem));
         Assert.That(subjects.Any(s => s.Name == "Physics"), Is.False);
     }
+
+    [Test]
+    public void RemoveCustomSubject_RefusesWhenSubjectStillHasTests()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var manager = new TestManagement(context);
+        manager.AddCustomSubject("Biology", user.Id);
+        var subjectId = manager.GetSubjectsForUser(user.Id).First(s => s.Name == "Biology").Id;
+        manager.NewTestMaker(
+            "Biology Test",
+            subjectId,
+            new DateOnly(2026, 12, 01),
+            Test.TestVolume.Medium,
+            Test.PersonalUnderstanding.Medium,
+            null,
+            user.Id);
+
+        //act
+        var removed = manager.RemoveCustomSubject(subjectId, user.Id);
+
+        //assert
+        Assert.That(removed, Is.False);
+        Assert.That(manager.GetSubjectsForUser(user.Id).Any(s => s.Name == "Biology"));
+    }
 }
