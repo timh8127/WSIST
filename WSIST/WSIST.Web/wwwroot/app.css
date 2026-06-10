@@ -1,18 +1,18 @@
 :root {
-    --bg: #09090b;
-    --bg-elevated: #111113;
-    --bg-subtle: #18181b;
-    --bg-hover: #1c1c1f;
-    --text-primary: #fafafa;
-    --text-secondary: #a1a1aa;
-    --text-muted: #52525b;
-    --border: #27272a;
-    --border-hover: #3f3f46;
-    --accent: #f59e0b;
-    --accent-hover: #fbbf24;
-    --accent-dim: rgba(245, 158, 11, 0.12);
-    --accent-border: rgba(245, 158, 11, 0.25);
-    --accent-glow: rgba(245, 158, 11, 0.08);
+    --bg: #0c0b08;
+    --bg-elevated: #15110b;
+    --bg-subtle: #1b1610;
+    --bg-hover: #211b13;
+    --text-primary: #f2efe6;
+    --text-secondary: #a8a294;
+    --text-muted: #6e6859;
+    --border: #2a251c;
+    --border-hover: #3a3328;
+    --accent: #f5b342;
+    --accent-hover: #ffc75e;
+    --accent-dim: rgba(245, 179, 66, 0.12);
+    --accent-border: rgba(245, 179, 66, 0.25);
+    --accent-glow: rgba(245, 179, 66, 0.08);
     --radius: 10px;
     --radius-lg: 14px;
     --radius-sm: 6px;
@@ -100,7 +100,7 @@ main {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(9, 9, 11, 0.85);
+    background: rgba(12, 11, 8, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
@@ -191,7 +191,7 @@ main {
 
 button.primary {
     background: var(--accent);
-    color: #0f1115;
+    color: #0c0b08;
     border-radius: 6px;
 }
 
@@ -372,7 +372,7 @@ h1:focus {
 a.button-primary[href="/login"],
 a.button-primary[href="/study"] {
     background: var(--accent);
-    color: #09090b;
+    color: #0c0b08;
     border-color: transparent;
     font-weight: 600;
 }
@@ -385,13 +385,14 @@ a.button-primary[href="/study"]:hover {
 }
 
 .button-warning {
-    background: rgba(251, 191, 36, 0.15);
-    border-color: rgba(251, 191, 36, 0.3);
-    color: #fbbf24;
+    background: transparent;
+    border-color: var(--border);
+    color: var(--text-primary);
 }
 
 .button-warning:hover {
-    background: rgba(251, 191, 36, 0.22);
+    background: var(--bg-hover);
+    border-color: var(--border-hover);
 }
 
 .button-danger {
@@ -453,7 +454,7 @@ a.button-primary[href="/study"]:hover {
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    background: rgba(9, 9, 11, 0.85);
+    background: rgba(12, 11, 8, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     z-index: 100;
@@ -745,7 +746,7 @@ a.button-primary[href="/study"]:hover {
     border-radius: 99px;
     height: 3px;
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
+    box-shadow: 0 0 6px rgba(245, 179, 66, 0.4);
 }
 
 .content {
