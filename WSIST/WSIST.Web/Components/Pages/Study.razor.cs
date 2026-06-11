@@ -54,13 +54,6 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
         return date == today ? "Today" : date.ToString("ddd d MMM");
     }
 
-    private string GetGradeClass(double avg) => avg switch
-    {
-        >= 5 => "grade-good",
-        >= 4 => "grade-ok",
-        _ => "grade-poor"
-    };
-
     private void OpenStudiedPrompt(Test test)
     {
         studiedTestId = test.Id;
@@ -81,7 +74,8 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
             test.DueDate,
             test.Volume,
             updatedUnderstanding,
-            test.Grade
+            test.Grade,
+            CurrentUserId
         );
 
         allTests = management.LoadAllTests(CurrentUserId);
