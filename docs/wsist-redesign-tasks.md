@@ -1,5 +1,9 @@
 # WSIST — Full Redesign Task File
 
+> **Status: Completed (historical). Superseded by `docs/landing-implementation.md`.**
+> The amber accent used in this file (`#f59e0b`) was later replaced by the
+> canonical `#f5b342` defined in the landing-implementation design tokens.
+
 ## Context for the model
 
 WSIST is a Blazor Server app styled with plain CSS in `app.css`. There is no Tailwind, no React, no npm. Launch UI is used as **visual reference only** — translate its design language into hand-crafted CSS. Do not attempt to install any npm packages or import React components.

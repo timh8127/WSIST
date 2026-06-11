@@ -1,5 +1,10 @@
 # WSIST — Landing Page & Amber Re-theme Implementation
 
+> **Status: Completed.** The "Design tokens (canonical)" table below is the
+> single source of truth for brand colors (accent: `#f5b342`). Older task
+> files (`wsist-redesign-tasks.md`, `wsist-phase3-tasks.md`) reference
+> superseded values.
+
 Task file for autonomous execution. Work top to bottom; tasks are ordered
 lowest-risk first. Commit after each task with the given message. Run
 `dotnet build` after every task and `dotnet test` after T1.

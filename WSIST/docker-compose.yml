@@ -1,17 +1,19 @@
+# Local development database. Defaults are for local use only — never use them
+# in shared or production environments. Copy .env.example to .env to override.
 services:
   mysql:
     image: mysql:8.0
     container_name: wsist-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: wsistdb
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-wsistdb}
     ports:
       - "3306:3306"
     volumes:
       - wsist-mysql-data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-ppassword"]
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD"]
       interval: 10s
       timeout: 5s
       retries: 10

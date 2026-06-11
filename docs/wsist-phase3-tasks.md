@@ -1,5 +1,10 @@
 # WSIST — Phase 3 Task File (Claude Fable 5)
 
+> **Status: Completed (historical).** This spec predates the amber re-theme.
+> Color values in this file (e.g. the blue `#5b8cff`) are outdated — the
+> canonical design tokens live in `docs/landing-implementation.md`
+> (accent: `#f5b342`).
+
 ## Instructions for the model
 
 Work through every task in the order listed. Do not stop to ask for clarification — every decision is specified below. Commit after each task using the exact message provided. If a file already exists, edit it in place rather than replacing it. Run `dotnet build` before each commit to confirm no compilation errors.
