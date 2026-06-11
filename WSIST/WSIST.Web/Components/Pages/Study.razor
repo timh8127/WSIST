@@ -20,6 +20,17 @@
             <p>Tell us how much time you have — we'll figure out the rest.</p>
         </div>
 
+        <div class="study-mode-toggle">
+            <button class="study-mode-btn @(!weeklyMode ? "active" : "")" @onclick="() => weeklyMode = false">
+                Today
+            </button>
+            <button class="study-mode-btn @(weeklyMode ? "active" : "")" @onclick="() => weeklyMode = true">
+                This week
+            </button>
+        </div>
+
+        @if (!weeklyMode)
+        {
         <div class="study-input-card">
             <label class="study-input-label">Hours available today</label>
             <div class="study-input-row">
@@ -83,6 +94,65 @@
                                     <button class="button-primary studied-btn" @onclick="() => OpenStudiedPrompt(test)">
                                         ✓ Studied it
                                     </button>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        }
+        }
+        else
+        {
+            <div class="study-input-card">
+                <label class="study-input-label">Hours available each day</label>
+                <div class="weekly-hours-grid">
+                    @foreach (var day in weeklyHours.Keys)
+                    {
+                        <div class="weekly-hours-row">
+                            <span class="weekly-day-label">@day.ToString()[..3]</span>
+                            <input type="number" min="0" max="12" step="0.5"
+                                   value="@weeklyHours[day]"
+                                   @onchange="e => weeklyHours[day] = double.TryParse(e.Value?.ToString(), out var v) ? v : 0"/>
+                        </div>
+                    }
+                </div>
+                <button class="button-primary button-accent" style="align-self: flex-start; margin-top: 8px;" @onclick="CalculateWeekly">
+                    Plan my week
+                </button>
+            </div>
+
+            @if (weeklyCalculated)
+            {
+                <div class="weekly-plan">
+                    @foreach (var (date, tests) in weeklyPlan.OrderBy(x => x.Key))
+                    {
+                        <div class="weekly-day-block">
+                            <div class="weekly-day-header">
+                                <span class="weekly-day-name">@DayLabel(date)</span>
+                                @if (!tests.Any())
+                                {
+                                    <span class="weekly-day-off">Day off</span>
+                                }
+                            </div>
+                            @if (tests.Any())
+                            {
+                                <div class="weekly-day-tests">
+                                    @foreach (var test in tests)
+                                    {
+                                        var score = calculator.CalculateTotalScore(test, allTests);
+                                        var days = test.DueDate.DayNumber - date.DayNumber;
+                                        <div class="weekly-test-row">
+                                            <div class="weekly-test-info">
+                                                <span class="weekly-test-title">@test.Title</span>
+                                                <span class="weekly-test-meta">
+                                                    @(subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? "Unknown")
+                                                    · @days day@(days == 1 ? "" : "s") away
+                                                </span>
+                                            </div>
+                                            <span class="weekly-test-score @GetGradeClass(score / 40.0 * 6)">@score/40</span>
+                                        </div>
+                                    }
                                 </div>
                             }
                         </div>

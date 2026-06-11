@@ -15,6 +15,19 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
     private bool calculated = false;
     private Guid? studiedTestId;
     private Test.PersonalUnderstanding updatedUnderstanding;
+    private bool weeklyMode = false;
+    private Dictionary<DayOfWeek, double> weeklyHours = new()
+    {
+        { DayOfWeek.Monday,    1 },
+        { DayOfWeek.Tuesday,   1 },
+        { DayOfWeek.Wednesday, 1 },
+        { DayOfWeek.Thursday,  1 },
+        { DayOfWeek.Friday,    1 },
+        { DayOfWeek.Saturday,  0 },
+        { DayOfWeek.Sunday,    0 },
+    };
+    private Dictionary<DateOnly, List<Test>> weeklyPlan = [];
+    private bool weeklyCalculated = false;
 
     protected override Task OnAuthenticatedAsync()
     {
@@ -28,6 +41,25 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
         recommendations = calculator.GetStudyRecommendations(allTests, hoursAvailable);
         calculated = true;
     }
+
+    private void CalculateWeekly()
+    {
+        weeklyPlan = calculator.GetWeeklyPlan(allTests, weeklyHours);
+        weeklyCalculated = true;
+    }
+
+    private static string DayLabel(DateOnly date)
+    {
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        return date == today ? "Today" : date.ToString("ddd d MMM");
+    }
+
+    private string GetGradeClass(double avg) => avg switch
+    {
+        >= 5 => "grade-good",
+        >= 4 => "grade-ok",
+        _ => "grade-poor"
+    };
 
     private void OpenStudiedPrompt(Test test)
     {
