@@ -31,6 +31,22 @@
             </div>
         </div>
 
+        @if (MissingGrades.Any())
+        {
+            <div class="missing-grades-strip">
+                <span class="missing-grades-label">⏳ Enter missing grades</span>
+                <div class="missing-grades-list">
+                    @foreach (var test in MissingGrades)
+                    {
+                        <button class="missing-grade-chip" @onclick="() => OpenEditTestModal(test)">
+                            @test.Title
+                            <span class="missing-grade-chip-date">@test.DueDate.ToShortDateString()</span>
+                        </button>
+                    }
+                </div>
+            </div>
+        }
+
         @if (topRecommendation is not null)
         {
             var score = calculator.CalculateTotalScore(topRecommendation, allTests);

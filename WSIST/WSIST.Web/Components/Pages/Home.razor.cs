@@ -21,6 +21,13 @@ public partial class Home(
 
     private static DateOnly Today => DateOnly.FromDateTime(DateTime.Today);
 
+    // Past tests that still have no grade entered, oldest first.
+    private List<Test> MissingGrades =>
+        allTests
+            .Where(t => t.DueDate < DateOnly.FromDateTime(DateTime.Today) && t.Grade == null)
+            .OrderBy(t => t.DueDate)
+            .ToList();
+
     protected override Task OnAuthenticatedAsync()
     {
         Refresh();
