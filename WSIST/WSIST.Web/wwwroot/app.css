@@ -367,19 +367,15 @@ h1:focus {
     transform: scale(0.97);
 }
 
-/* Accent (CTA) button */
-.button-primary.button-accent,
-a.button-primary[href="/login"],
-a.button-primary[href="/study"] {
+/* Accent (CTA) button — opt in with the .button-accent class */
+.button-primary.button-accent {
     background: var(--accent);
     color: #0c0b08;
     border-color: transparent;
     font-weight: 600;
 }
 
-.button-primary.button-accent:hover,
-a.button-primary[href="/login"]:hover,
-a.button-primary[href="/study"]:hover {
+.button-primary.button-accent:hover {
     background: var(--accent-hover);
     border-color: transparent;
 }

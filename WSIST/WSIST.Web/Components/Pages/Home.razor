@@ -12,7 +12,7 @@
         </div>
         <button class="button-primary" @onclick="Refresh">↻</button>
         <a href="/settings" class="button-primary" data-enhance-nav="false">Settings</a>
-        <a href="/study" class="button-primary" data-enhance-nav="false">Study →</a>
+        <a href="/study" class="button-primary button-accent" data-enhance-nav="false">Study →</a>
         <a href="/logout" class="button-primary button-danger" data-enhance-nav="false">Logout</a>
     </div>
 
@@ -61,7 +61,7 @@
                                 @(subjects.FirstOrDefault(s => s.Id == topRecommendation.Subject)?.Name ?? "Unknown") · in @days day@(days == 1 ? "" : "s") · @score/40 pts
                             </div>
                         </div>
-                        <a href="/study" class="button-primary" data-enhance-nav="false" style="flex-shrink:0">Full plan →</a>
+                        <a href="/study" class="button-primary button-accent" data-enhance-nav="false" style="flex-shrink:0">Full plan →</a>
                     </div>
                     <div class="study-card-bar-bg">
                         <div class="study-card-bar" style="width: @(score / 40.0 * 100)%"></div>
@@ -153,12 +153,8 @@
                         const int pad = 8;
                         int pts = history.Count;
 
-                        // Map grades (1–6) to Y coords — higher grade = lower Y value (top of SVG)
-                        string ToY(double g) => ((h - pad) - ((g - 1) / 5.0 * (h - pad * 2))).ToString("F1");
-                        string ToX(int i) => (pad + i * (double)(w - pad * 2) / (pts - 1)).ToString("F1");
-
-                        var points = string.Join(" ", history.Select((item, i) => $"{ToX(i)},{ToY(item.Grade)}"));
-                        var dotPoints = history.Select((item, i) => (X: ToX(i), Y: ToY(item.Grade), Grade: item.Grade)).ToList();
+                        var points = string.Join(" ", history.Select((item, i) => $"{MapIndexToX(i, pts, w, pad)},{MapGradeToY(item.Grade, h, pad)}"));
+                        var dotPoints = history.Select((item, i) => (X: MapIndexToX(i, pts, w, pad), Y: MapGradeToY(item.Grade, h, pad), Grade: item.Grade)).ToList();
 
                         <div class="grade-trend-card">
                             <div class="grade-trend-header">
@@ -167,9 +163,9 @@
                             </div>
                             <svg viewBox="0 0 @w @h" class="grade-trend-svg" preserveAspectRatio="none">
                                 <!-- Guide lines at grades 4 and 5 -->
-                                <line x1="@pad" y1="@ToY(4)" x2="@(w - pad)" y2="@ToY(4)"
+                                <line x1="@pad" y1="@MapGradeToY(4, h, pad)" x2="@(w - pad)" y2="@MapGradeToY(4, h, pad)"
                                       stroke="var(--border)" stroke-width="1" stroke-dasharray="3,3"/>
-                                <line x1="@pad" y1="@ToY(5)" x2="@(w - pad)" y2="@ToY(5)"
+                                <line x1="@pad" y1="@MapGradeToY(5, h, pad)" x2="@(w - pad)" y2="@MapGradeToY(5, h, pad)"
                                       stroke="var(--border)" stroke-width="1" stroke-dasharray="3,3"/>
                                 <!-- Grade line -->
                                 <polyline points="@points"
@@ -223,7 +219,7 @@
                         </div>
                         <div class="form-group">
                             <label>Due date</label>
-                            <input type="date" @bind="@temporaryTest.DueDate" @bind:event="oninput"/>
+                            <input type="date" @bind="@temporaryTest.DueDate"/>
                         </div>
                         <div class="form-group">
                             <label>Volume</label>

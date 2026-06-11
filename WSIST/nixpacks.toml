@@ -1,4 +1,7 @@
-﻿[phases.setup]
+# dotnet-sdk_10 on nixos-unstable resolves to whatever 10.x patch is current
+# there (typically newer than global.json's 10.0.201) — that's fine:
+# global.json sets rollForward=latestMinor, which accepts any newer 10.x SDK.
+[phases.setup]
 nixPkgs = ["dotnet-sdk_10"]
 nixLibs = []
 nixpkgsArchive = "nixos-unstable"

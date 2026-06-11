@@ -4,9 +4,9 @@
 /WSIST/WSIST.Web/wwwroot/lib
 /WSIST/WSIST.Web/bin
 /WSIST/WSIST.UnitTests/obj
-/WSIST/WSIST.UnitTests/obj
-WSIST/WSIST.UnitTests/obj/Debug/net9.0/WSIST.UnitTests.csproj.AssemblyReference.cache
-/WSIST/WSIST.UnitTests/obj
 /WSIST/WSIST.UnitTests/bin
-WSIST/WSIST.Engine/bin
-WSIST/WSIST.Web/appsettings.Development.json
+/WSIST/WSIST.Engine/bin
+/WSIST/WSIST.Web/appsettings.Development.json
+.claude
+.env
+coderabbit-full-review*.txt

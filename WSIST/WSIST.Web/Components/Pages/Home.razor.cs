@@ -68,12 +68,13 @@ public partial class Home(
             );
     }
 
-    private string GetGradeClass(double avg) => avg switch
-    {
-        >= 5 => "grade-good",
-        >= 4 => "grade-ok",
-        _ => "grade-poor"
-    };
+    // Map a grade (1–6) to an SVG Y coordinate — higher grade = lower Y (top of SVG).
+    private static string MapGradeToY(double grade, int height, int padding) =>
+        ((height - padding) - ((grade - 1) / 5.0 * (height - padding * 2))).ToString("F1");
+
+    // Map a point index to an SVG X coordinate, spreading points across the width.
+    private static string MapIndexToX(int index, int totalPoints, int width, int padding) =>
+        (padding + index * (double)(width - padding * 2) / (totalPoints - 1)).ToString("F1");
 
     public enum Modes
     {
@@ -138,7 +139,8 @@ public partial class Home(
                     temporaryTest.DueDate,
                     temporaryTest.Volume,
                     temporaryTest.Understanding,
-                    temporaryTest.Grade
+                    temporaryTest.Grade,
+                    CurrentUserId
                 );
                 break;
             }
@@ -168,7 +170,7 @@ public partial class Home(
 
     private void DeleteTest(Guid id)
     {
-        management.TestRemover(id);
+        management.TestRemover(id, CurrentUserId);
         Refresh();
     }
 }

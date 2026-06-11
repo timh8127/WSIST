@@ -72,11 +72,8 @@
     return 0;
   }
 
-  /* NOTE: the C# engine currently returns 0 for an average below 3
-     (the `_ => 0` branch). That contradicts the product's own rule —
-     "struggling subjects get a push" — so this demo uses the intended
-     mapping: anything under 4 earns the full +6. One-line fix in
-     PriorityCalculator.CalculateGradeScore: change `_ => 0` to `_ => 6`. */
+  /* Mirrors PriorityCalculator.CalculateGradeScore in the C# engine:
+     anything under an average of 4 earns the full +6 push. */
   function gradeScore(avg){
     if (avg >= 5) return 2;
     if (avg >= 4) return 4;
@@ -175,7 +172,7 @@
         setTimeout(function(){
           verdict.textContent = vText;
           verdict.classList.remove("swap");
-        }, 160);
+        }, 250); // match the .25s opacity transition on the verdict element
       }
     }
   }

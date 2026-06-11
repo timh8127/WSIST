@@ -135,24 +135,25 @@ If for any reason the file is missing, create `WSIST/docker-compose.yml`:
 
 ```yaml
 services:
-  db:
+  mysql:
     image: mysql:8.0
-    container_name: wsist-db
+    container_name: wsist-mysql
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: wsistdb
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-wsistdb}
     ports:
       - "3306:3306"
     volumes:
-      - wsist-db-data:/var/lib/mysql
+      - wsist-mysql-data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
-      timeout: 3s
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
       retries: 10
 
 volumes:
-  wsist-db-data:
+  wsist-mysql-data:
 ```
 
 ### Step 2 — Archive completed task files

@@ -14,6 +14,10 @@ public class TestManagement
     public void NewTestMaker(string title, int subjectId, DateOnly dueDate,
         Test.TestVolume volume, Test.PersonalUnderstanding understanding, double? grade, int userId)
     {
+        if (string.IsNullOrWhiteSpace(title))
+            throw new ArgumentException("Title cannot be empty.", nameof(title));
+        EnsureSubjectAccessible(subjectId, userId);
+
         var test = new Test
         {
             Id = Guid.NewGuid(),
@@ -30,10 +34,15 @@ public class TestManagement
     }
 
     public void TestEditor(Guid id, string title, int subjectId, DateOnly dueDate,
-        Test.TestVolume volume, Test.PersonalUnderstanding understanding, double? grade)
+        Test.TestVolume volume, Test.PersonalUnderstanding understanding, double? grade, int userId)
     {
+        if (string.IsNullOrWhiteSpace(title))
+            throw new ArgumentException("Title cannot be empty.", nameof(title));
+        EnsureSubjectAccessible(subjectId, userId);
+
         var test = context.Tests.Find(id);
-        if (test is null) return;
+        // Only the owner may edit a test.
+        if (test is null || test.UserId != userId) return;
 
         test.Title = title;
         test.Subject = subjectId;
@@ -44,13 +53,24 @@ public class TestManagement
         context.SaveChanges();
     }
 
-    public void TestRemover(Guid id)
+    public void TestRemover(Guid id, int userId)
     {
         var test = context.Tests.Find(id);
-        if (test is null) return;
+        // Only the owner may delete a test.
+        if (test is null || test.UserId != userId) return;
         context.Tests.Remove(test);
         context.SaveChanges();
     }
+    private void EnsureSubjectAccessible(int subjectId, int userId)
+    {
+        // A test may only reference a system subject or one of the user's own
+        // custom subjects — never another user's subject.
+        var accessible = context.Subjects
+            .Any(s => s.Id == subjectId && (s.IsSystem || s.UserId == userId));
+        if (!accessible)
+            throw new ArgumentException("Subject does not exist or is not accessible.", nameof(subjectId));
+    }
+
     public List<Subject> GetSubjectsForUser(int userId)
     {
         return context.Subjects
@@ -62,10 +82,12 @@ public class TestManagement
 
     public void AddCustomSubject(string name, int userId)
     {
-        var nextId = context.Subjects.Any() ? context.Subjects.Max(s => s.Id) + 1 : 6;
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Subject name cannot be empty.", nameof(name));
+
+        // Id is database-generated (auto-increment) — see WsistContext.
         var subject = new Subject
         {
-            Id = nextId,
             Name = name,
             IsSystem = false,
             UserId = userId
@@ -93,27 +115,47 @@ public class TestManagement
 
     public void UpdateDisplayName(int userId, string displayName)
     {
+        var trimmed = displayName.Trim();
+        if (string.IsNullOrEmpty(trimmed))
+            throw new ArgumentException("Display name cannot be empty.", nameof(displayName));
+
         var user = context.Users.Find(userId);
         if (user is null) return;
-        user.DisplayName = displayName.Trim();
+        user.DisplayName = trimmed;
         context.SaveChanges();
     }
 
     public User GetOrCreateUser(string email, string displayName, string googleId)
     {
+        if (string.IsNullOrWhiteSpace(email))
+            throw new ArgumentException("Email cannot be empty.", nameof(email));
+
         var user = context.Users.FirstOrDefault(u => u.Email == email);
         if (user is not null) return user;
 
-        user = new User
+        try
         {
-            Email = email,
-            DisplayName = displayName,
-            GoogleId = googleId,
-            CreatedAt = DateTime.UtcNow
-        };
-        context.Users.Add(user);
-        context.SaveChanges();
-        return user;
+            user = new User
+            {
+                Email = email,
+                DisplayName = displayName,
+                GoogleId = googleId,
+                CreatedAt = DateTime.UtcNow
+            };
+            context.Users.Add(user);
+            context.SaveChanges();
+            return user;
+        }
+        catch (Microsoft.EntityFrameworkCore.DbUpdateException)
+        {
+            // A concurrent request created the same user between our check and
+            // the insert (unique index on Email) — fetch the winner instead.
+            // If no row exists, the failure had another cause; surface it.
+            context.ChangeTracker.Clear();
+            var existing = context.Users.FirstOrDefault(u => u.Email == email);
+            if (existing is null) throw;
+            return existing;
+        }
     }
 
     public void DeleteUser(int userId)

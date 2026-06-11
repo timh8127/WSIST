@@ -28,18 +28,36 @@ public class UnitTests
         return user;
     }
 
+    private static int SeedSystemSubject(WsistContext context, string name = "Math")
+    {
+        // HasData seeding doesn't run for the in-memory provider, and the
+        // engine now validates that a test's subject exists and is accessible,
+        // so tests must seed a subject explicitly. System subjects live on
+        // negative ids (see WsistContext).
+        var subject = new Subject
+        {
+            Id = -6,
+            Name = name,
+            IsSystem = true,
+        };
+        context.Subjects.Add(subject);
+        context.SaveChanges();
+        return subject.Id;
+    }
+
     [Test]
     public void TestIfNewTestGetsMade()
     {
         //arrange
         using var context = CreateContext();
         var user = SeedUser(context);
+        var subjectId = SeedSystemSubject(context);
         var manager = new TestManagement(context);
 
         //act
         manager.NewTestMaker(
             "Math Test",
-            0, // was Test.Subjects.Math
+            subjectId,
             new DateOnly(2026, 12, 01),
             Test.TestVolume.VeryHigh,
             Test.PersonalUnderstanding.VeryLow,
@@ -57,11 +75,12 @@ public class UnitTests
         //arrange
         using var context = CreateContext();
         var user = SeedUser(context);
+        var subjectId = SeedSystemSubject(context, "German");
         var manager = new TestManagement(context);
 
         manager.NewTestMaker(
             "Test To Delete",
-            3, // was Test.Subjects.German
+            subjectId,
             new DateOnly(2026, 12, 01),
             Test.TestVolume.Low,
             Test.PersonalUnderstanding.High,
@@ -71,14 +90,14 @@ public class UnitTests
 
         //act
         var test = manager.LoadAllTests(user.Id).First();
-        manager.TestRemover(test.Id);
+        manager.TestRemover(test.Id, user.Id);
 
         //assert
         Assert.That(manager.LoadAllTests(user.Id).Any(t => t.Id == test.Id), Is.False);
     }
 
     [Test]
-    public static void CheckIfGradeIsNotNullIfInThePast()
+    public void CheckIfGradeIsNotNullIfInThePast()
     {
         //arrange
         DateOnly dueDate = new DateOnly(2025, 06, 07);
@@ -92,7 +111,7 @@ public class UnitTests
     }
 
     [Test]
-    public static void CheckIfGradeIsNullIfInTheFuture()
+    public void CheckIfGradeIsNullIfInTheFuture()
     {
         //arrange
         DateOnly dueDate = new DateOnly(2030, 06, 07);
@@ -186,17 +205,19 @@ public class UnitTests
         context.Users.Add(otherUser);
         context.SaveChanges();
 
-        // HasData seeding doesn't run for in-memory DB, so seed manually
+        // HasData seeding doesn't run for in-memory DB, so seed manually.
+        // System subjects live on negative ids (see WsistContext) so they can
+        // never collide with the provider-generated ids of custom subjects.
         context.Subjects.AddRange(
             new Subject
             {
-                Id = 0,
+                Id = -6,
                 Name = "Math",
                 IsSystem = true,
             },
             new Subject
             {
-                Id = 1,
+                Id = -5,
                 Name = "English",
                 IsSystem = true,
             }
@@ -218,7 +239,7 @@ public class UnitTests
     }
 
     [Test]
-    public static void GradeScoreGivesFullPushBelowAverageOfFour()
+    public void GradeScoreGivesFullPushBelowAverageOfFour()
     {
         var calculator = new PriorityCalculator();
         var tests = new List<Test>
@@ -234,12 +255,12 @@ public class UnitTests
         Assert.That(
             calculator.CalculateGradeScore(0, tests),
             Is.EqualTo(6),
-            "An average below 3 must earn the full +6 push, not 0."
+            "An average below 4 must earn the full +6 push, not 0."
         );
     }
 
     [Test]
-    public static void GradeScoreGivesSmallPushForStrongAverage()
+    public void GradeScoreGivesSmallPushForStrongAverage()
     {
         var calculator = new PriorityCalculator();
         var tests = new List<Test>
@@ -253,6 +274,139 @@ public class UnitTests
             },
         };
         Assert.That(calculator.CalculateGradeScore(0, tests), Is.EqualTo(2));
+    }
+
+    [Test]
+    public void TestRemover_RefusesToDeleteAnotherUsersTest()
+    {
+        //arrange
+        using var context = CreateContext();
+        var owner = SeedUser(context);
+        var attacker = new User
+        {
+            Email = "attacker@example.com",
+            DisplayName = "Attacker",
+            GoogleId = "google-999",
+            CreatedAt = DateTime.UtcNow,
+        };
+        context.Users.Add(attacker);
+        context.SaveChanges();
+        var subjectId = SeedSystemSubject(context);
+
+        var manager = new TestManagement(context);
+        manager.NewTestMaker(
+            "Owner's Test",
+            subjectId,
+            new DateOnly(2026, 12, 01),
+            Test.TestVolume.Medium,
+            Test.PersonalUnderstanding.Medium,
+            null,
+            owner.Id
+        );
+        var test = manager.LoadAllTests(owner.Id).First();
+
+        //act — attacker tries to delete the owner's test
+        manager.TestRemover(test.Id, attacker.Id);
+
+        //assert
+        Assert.That(manager.LoadAllTests(owner.Id).Any(t => t.Id == test.Id));
+    }
+
+    [Test]
+    public void TestEditor_RefusesToEditAnotherUsersTest()
+    {
+        //arrange
+        using var context = CreateContext();
+        var owner = SeedUser(context);
+        var attacker = new User
+        {
+            Email = "attacker@example.com",
+            DisplayName = "Attacker",
+            GoogleId = "google-999",
+            CreatedAt = DateTime.UtcNow,
+        };
+        context.Users.Add(attacker);
+        context.SaveChanges();
+        var subjectId = SeedSystemSubject(context);
+
+        var manager = new TestManagement(context);
+        manager.NewTestMaker(
+            "Original Title",
+            subjectId,
+            new DateOnly(2026, 12, 01),
+            Test.TestVolume.Medium,
+            Test.PersonalUnderstanding.Medium,
+            null,
+            owner.Id
+        );
+        var test = manager.LoadAllTests(owner.Id).First();
+
+        //act — attacker tries to edit the owner's test
+        manager.TestEditor(
+            test.Id,
+            "Hijacked Title",
+            test.Subject,
+            test.DueDate,
+            test.Volume,
+            test.Understanding,
+            test.Grade,
+            attacker.Id
+        );
+
+        //assert
+        Assert.That(manager.LoadAllTests(owner.Id).First().Title, Is.EqualTo("Original Title"));
+    }
+
+    [Test]
+    public void NewTestMaker_RejectsEmptyTitle()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var manager = new TestManagement(context);
+
+        //act + assert
+        Assert.Throws<ArgumentException>(() => manager.NewTestMaker(
+            "   ",
+            0,
+            new DateOnly(2026, 12, 01),
+            Test.TestVolume.Medium,
+            Test.PersonalUnderstanding.Medium,
+            null,
+            user.Id
+        ));
+    }
+
+    [Test]
+    public void NewTestMaker_RejectsAnotherUsersSubject()
+    {
+        //arrange
+        using var context = CreateContext();
+        var owner = SeedUser(context);
+        var attacker = new User
+        {
+            Email = "attacker@example.com",
+            DisplayName = "Attacker",
+            GoogleId = "google-999",
+            CreatedAt = DateTime.UtcNow,
+        };
+        context.Users.Add(attacker);
+        context.SaveChanges();
+
+        var manager = new TestManagement(context);
+        manager.AddCustomSubject("Owner's Subject", owner.Id);
+        var subjectId = manager.GetSubjectsForUser(owner.Id).First(s => !s.IsSystem).Id;
+
+        //act + assert — attacker may not file tests under the owner's subject
+        Assert.Throws<ArgumentException>(() => manager.NewTestMaker(
+            "Sneaky Test",
+            subjectId,
+            new DateOnly(2026, 12, 01),
+            Test.TestVolume.Medium,
+            Test.PersonalUnderstanding.Medium,
+            null,
+            attacker.Id
+        ));
     }
 
     [Test]

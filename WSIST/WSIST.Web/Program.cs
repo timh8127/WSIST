@@ -13,7 +13,7 @@ builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-    options.KnownNetworks.Clear();
+    options.KnownIPNetworks.Clear();
     options.KnownProxies.Clear();
 });
 
@@ -63,7 +63,7 @@ app.Use(async (context, next) =>
 {
     var isAuthenticated = context.User?.Identity?.IsAuthenticated ?? false;
     var protectedPaths = new[] { "/", "/study", "/settings" };
-    if (protectedPaths.Contains(context.Request.Path.Value) && !isAuthenticated)
+    if (protectedPaths.Contains(context.Request.Path.Value, StringComparer.OrdinalIgnoreCase) && !isAuthenticated)
     {
         context.Response.Redirect("/login-page");
         return;
@@ -92,6 +92,8 @@ app.MapGet("/api/grades", async (HttpContext ctx, TestManagement management) =>
     var email = ctx.User.FindFirst(ClaimTypes.Email)?.Value;
     if (email is null) return Results.Unauthorized();
 
+    // Users are keyed by their (unique) email; GoogleId is informational
+    // only, so a missing NameIdentifier claim simply stores an empty value.
     var user = management.GetOrCreateUser(
         email,
         ctx.User.FindFirst(ClaimTypes.Name)?.Value ?? "Unknown",
