@@ -37,7 +37,10 @@ public class WsistContext : DbContext
         {
             entity.ToTable("Subjects");
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // User subjects get database-generated (auto-increment) ids; the
+            // seeded system subjects live on negative ids so the two ranges
+            // can never collide.
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Name).HasMaxLength(100).IsRequired();
             entity.Property(e => e.IsSystem).HasDefaultValue(false);
 
@@ -48,12 +51,12 @@ public class WsistContext : DbContext
                 .OnDelete(DeleteBehavior.Cascade);
 
             entity.HasData(
-                new Subject { Id = 0, Name = "Math", IsSystem = true },
-                new Subject { Id = 1, Name = "English", IsSystem = true },
-                new Subject { Id = 2, Name = "French", IsSystem = true },
-                new Subject { Id = 3, Name = "German", IsSystem = true },
-                new Subject { Id = 4, Name = "Chemistry", IsSystem = true },
-                new Subject { Id = 5, Name = "Other", IsSystem = true }
+                new Subject { Id = -6, Name = "Math", IsSystem = true },
+                new Subject { Id = -5, Name = "English", IsSystem = true },
+                new Subject { Id = -4, Name = "French", IsSystem = true },
+                new Subject { Id = -3, Name = "German", IsSystem = true },
+                new Subject { Id = -2, Name = "Chemistry", IsSystem = true },
+                new Subject { Id = -1, Name = "Other", IsSystem = true }
             );
         });
 
