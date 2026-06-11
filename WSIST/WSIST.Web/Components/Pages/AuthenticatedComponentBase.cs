@@ -35,8 +35,18 @@ public abstract class AuthenticatedComponentBase(
             return;
         }
 
-        var dbUser = management.GetOrCreateUser(email, name, googleId);
-        CurrentUserId = dbUser.Id;
+        try
+        {
+            var dbUser = management.GetOrCreateUser(email, name, googleId);
+            CurrentUserId = dbUser.Id;
+        }
+        catch (Exception)
+        {
+            // Database unavailable or user resolution failed — send the user
+            // to the error page instead of crashing the circuit.
+            navigation.NavigateTo("/Error", forceLoad: true);
+            return;
+        }
 
         await OnAuthenticatedAsync();
     }

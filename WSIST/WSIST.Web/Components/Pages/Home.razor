@@ -12,7 +12,7 @@
         </div>
         <button class="button-primary" @onclick="Refresh">↻</button>
         <a href="/settings" class="button-primary" data-enhance-nav="false">Settings</a>
-        <a href="/study" class="button-primary" data-enhance-nav="false">Study →</a>
+        <a href="/study" class="button-primary button-accent" data-enhance-nav="false">Study →</a>
         <a href="/logout" class="button-primary button-danger" data-enhance-nav="false">Logout</a>
     </div>
 
@@ -61,7 +61,7 @@
                                 @(subjects.FirstOrDefault(s => s.Id == topRecommendation.Subject)?.Name ?? "Unknown") · in @days day@(days == 1 ? "" : "s") · @score/40 pts
                             </div>
                         </div>
-                        <a href="/study" class="button-primary" data-enhance-nav="false" style="flex-shrink:0">Full plan →</a>
+                        <a href="/study" class="button-primary button-accent" data-enhance-nav="false" style="flex-shrink:0">Full plan →</a>
                     </div>
                     <div class="study-card-bar-bg">
                         <div class="study-card-bar" style="width: @(score / 40.0 * 100)%"></div>
@@ -219,7 +219,7 @@
                         </div>
                         <div class="form-group">
                             <label>Due date</label>
-                            <input type="date" @bind="@temporaryTest.DueDate" @bind:event="oninput"/>
+                            <input type="date" @bind="@temporaryTest.DueDate"/>
                         </div>
                         <div class="form-group">
                             <label>Volume</label>

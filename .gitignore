@@ -5,8 +5,8 @@
 /WSIST/WSIST.Web/bin
 /WSIST/WSIST.UnitTests/obj
 /WSIST/WSIST.UnitTests/bin
-WSIST/WSIST.Engine/bin
+/WSIST/WSIST.Engine/bin
 WSIST/WSIST.Web/appsettings.Development.json
 .claude
 .env
-coderabbit-full-review.txt
+coderabbit-full-review*.txt

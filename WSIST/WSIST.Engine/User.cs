@@ -6,6 +6,8 @@ public class User
     public string Email { get; set; } = string.Empty;
     public string DisplayName { get; set; } = string.Empty;
     public string GoogleId { get; set; } = string.Empty;
-    public DateTime CreatedAt { get; set; }
+    // Default so a User created without an explicit timestamp never persists
+    // DateTime.MinValue (0001-01-01).
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public ICollection<Test> Tests { get; set; } = [];
 }

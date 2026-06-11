@@ -65,9 +65,9 @@ public class Test
         return "Please Choose a Setting";
     }
 
-    public static string UnderstandingHelper(PersonalUnderstanding volume)
+    public static string UnderstandingHelper(PersonalUnderstanding understanding)
     {
-        switch (volume)
+        switch (understanding)
         {
             case PersonalUnderstanding.VeryLow:
             {

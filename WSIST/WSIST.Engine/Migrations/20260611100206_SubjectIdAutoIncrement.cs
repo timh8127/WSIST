@@ -39,6 +39,12 @@ namespace WSIST.Engine.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            // Rollback limitation: if user-created subjects have claimed
+            // auto-increment ids 1..5 since the Up ran, shifting the system
+            // subjects back from -6..-1 to 0..5 would collide with them on the
+            // primary key and this migration would fail. There is no safe,
+            // automatic resolution — those user subjects would have to be
+            // renumbered manually first.
             migrationBuilder.Sql("SET FOREIGN_KEY_CHECKS = 0;");
 
             migrationBuilder.AlterColumn<int>(

@@ -16,6 +16,7 @@ public class TestManagement
     {
         if (string.IsNullOrWhiteSpace(title))
             throw new ArgumentException("Title cannot be empty.", nameof(title));
+        EnsureSubjectAccessible(subjectId, userId);
 
         var test = new Test
         {
@@ -37,6 +38,7 @@ public class TestManagement
     {
         if (string.IsNullOrWhiteSpace(title))
             throw new ArgumentException("Title cannot be empty.", nameof(title));
+        EnsureSubjectAccessible(subjectId, userId);
 
         var test = context.Tests.Find(id);
         // Only the owner may edit a test.
@@ -59,6 +61,16 @@ public class TestManagement
         context.Tests.Remove(test);
         context.SaveChanges();
     }
+    private void EnsureSubjectAccessible(int subjectId, int userId)
+    {
+        // A test may only reference a system subject or one of the user's own
+        // custom subjects — never another user's subject.
+        var accessible = context.Subjects
+            .Any(s => s.Id == subjectId && (s.IsSystem || s.UserId == userId));
+        if (!accessible)
+            throw new ArgumentException("Subject does not exist or is not accessible.", nameof(subjectId));
+    }
+
     public List<Subject> GetSubjectsForUser(int userId)
     {
         return context.Subjects
@@ -138,8 +150,11 @@ public class TestManagement
         {
             // A concurrent request created the same user between our check and
             // the insert (unique index on Email) — fetch the winner instead.
+            // If no row exists, the failure had another cause; surface it.
             context.ChangeTracker.Clear();
-            return context.Users.First(u => u.Email == email);
+            var existing = context.Users.FirstOrDefault(u => u.Email == email);
+            if (existing is null) throw;
+            return existing;
         }
     }
 

@@ -9,7 +9,9 @@
    ============================================================ */
 
 /* Only smooth-scroll when the landing page is on screen, so the rule
-   can't leak into the dashboard. */
+   can't leak into the dashboard. :has() is supported by all evergreen
+   browsers (Chrome 105+, Safari 15.4+, Firefox 121+); older ones simply
+   fall back to instant scrolling — a harmless degradation. */
 html:has(.landing){
   scroll-behavior:smooth;
 }
