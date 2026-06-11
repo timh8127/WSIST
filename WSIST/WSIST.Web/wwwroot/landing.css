@@ -8,8 +8,13 @@
    can leak into the dashboard (app.css).
    ============================================================ */
 
-html{
+/* Only smooth-scroll when the landing page is on screen, so the rule
+   can't leak into the dashboard. */
+html:has(.landing){
   scroll-behavior:smooth;
+}
+
+html{
   -webkit-text-size-adjust:100%;
 }
 
