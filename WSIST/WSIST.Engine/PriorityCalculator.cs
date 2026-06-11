@@ -2,9 +2,10 @@
 
 public class PriorityCalculator
 {
-    public int CalculateUrgencyScore(DateOnly dueDate)
+    public int CalculateUrgencyScore(DateOnly dueDate, DateOnly? asOfDate = null)
     {
-        var daysUntil = dueDate.DayNumber - DateOnly.FromDateTime(DateTime.Today).DayNumber;
+        var reference = asOfDate ?? DateOnly.FromDateTime(DateTime.Today);
+        var daysUntil = dueDate.DayNumber - reference.DayNumber;
 
         return daysUntil switch
         {
@@ -62,18 +63,19 @@ public class PriorityCalculator
         };
     }
 
-    public int CalculateTotalScore(Test test, List<Test> allTests)
+    public int CalculateTotalScore(Test test, List<Test> allTests, DateOnly? asOfDate = null)
     {
         var sum = 0;
-        sum += CalculateUrgencyScore(test.DueDate);
+        sum += CalculateUrgencyScore(test.DueDate, asOfDate);
         sum += CalculateVolumeScore(test.Volume);
         sum += CalculateUnderstandingScore(test.Understanding);
         sum += CalculateGradeScore(test.Subject, allTests);
         return sum;
     }
 
-    public List<Test> GetStudyRecommendations(List<Test> allTests, double hoursAvailable)
+    public List<Test> GetStudyRecommendations(List<Test> allTests, double hoursAvailable, DateOnly? asOfDate = null)
     {
+        var reference = asOfDate ?? DateOnly.FromDateTime(DateTime.Today);
         var topCount = hoursAvailable switch
         {
             < 1 => 1,
@@ -84,10 +86,32 @@ public class PriorityCalculator
         };
 
         return allTests
-            .Where(t => t.DueDate >= DateOnly.FromDateTime(DateTime.Today)) // exclude past tests
-            .OrderByDescending(t => CalculateTotalScore(t, allTests))
+            .Where(t => t.DueDate >= reference) // exclude tests already due by the reference date
+            .OrderByDescending(t => CalculateTotalScore(t, allTests, reference))
             .ThenBy(t => t.DueDate)
             .Take(topCount)
             .ToList();
+    }
+
+    // Plan the coming 7 days. A test repeating on several days is intentional —
+    // it has consistently high priority throughout the week and deserves repeated attention.
+    public Dictionary<DateOnly, List<Test>> GetWeeklyPlan(
+        List<Test> allTests,
+        Dictionary<DayOfWeek, double> hoursPerDay)
+    {
+        var plan = new Dictionary<DateOnly, List<Test>>();
+        var today = DateOnly.FromDateTime(DateTime.Today);
+
+        for (int i = 0; i < 7; i++)
+        {
+            var date = today.AddDays(i);
+            var hours = hoursPerDay.GetValueOrDefault(date.DayOfWeek, 0);
+
+            plan[date] = hours > 0
+                ? GetStudyRecommendations(allTests, hours, date)
+                : [];
+        }
+
+        return plan;
     }
 }

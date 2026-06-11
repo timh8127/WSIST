@@ -21,6 +21,13 @@ public partial class Home(
 
     private static DateOnly Today => DateOnly.FromDateTime(DateTime.Today);
 
+    // Past tests that still have no grade entered, oldest first.
+    private List<Test> MissingGrades =>
+        allTests
+            .Where(t => t.DueDate < DateOnly.FromDateTime(DateTime.Today) && t.Grade == null)
+            .OrderBy(t => t.DueDate)
+            .ToList();
+
     protected override Task OnAuthenticatedAsync()
     {
         Refresh();
@@ -43,6 +50,21 @@ public partial class Home(
             .ToDictionary(
                 g => g.Key,
                 g => g.Average(t => t.Grade!.Value)
+            );
+    }
+
+    // Chronological grade history per subject, only for subjects with 2+ graded tests.
+    private Dictionary<int, List<(DateOnly Date, double Grade)>> GetGradeHistory()
+    {
+        return allTests
+            .Where(t => t.Grade.HasValue)
+            .GroupBy(t => t.Subject)
+            .Where(g => g.Count() >= 2)
+            .ToDictionary(
+                g => g.Key,
+                g => g.OrderBy(t => t.DueDate)
+                      .Select(t => (t.DueDate, t.Grade!.Value))
+                      .ToList()
             );
     }
 
