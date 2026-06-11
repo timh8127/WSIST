@@ -13,6 +13,8 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
     private List<Subject> subjects = [];
     private double hoursAvailable = 1;
     private bool calculated = false;
+    private Guid? studiedTestId;
+    private Test.PersonalUnderstanding updatedUnderstanding;
 
     protected override Task OnAuthenticatedAsync()
     {
@@ -25,6 +27,35 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
     {
         recommendations = calculator.GetStudyRecommendations(allTests, hoursAvailable);
         calculated = true;
+    }
+
+    private void OpenStudiedPrompt(Test test)
+    {
+        studiedTestId = test.Id;
+        updatedUnderstanding = test.Understanding;
+    }
+
+    private void CancelStudiedPrompt()
+    {
+        studiedTestId = null;
+    }
+
+    private void SaveStudiedUnderstanding(Test test)
+    {
+        management.TestEditor(
+            test.Id,
+            test.Title,
+            test.Subject,
+            test.DueDate,
+            test.Volume,
+            updatedUnderstanding,
+            test.Grade
+        );
+
+        allTests = management.LoadAllTests(CurrentUserId);
+        recommendations = calculator.GetStudyRecommendations(allTests, hoursAvailable);
+        studiedTestId = null;
+        StateHasChanged();
     }
 
     private string GetScoreBreakdown(Test test)

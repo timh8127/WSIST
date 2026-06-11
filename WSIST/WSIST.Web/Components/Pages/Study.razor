@@ -1,5 +1,6 @@
 @page "/study"
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
+@using WSIST.Engine
 @inherits AuthenticatedComponentBase
 <PageTitle>WSIST — Study</PageTitle>
 
@@ -59,6 +60,31 @@
                             <div class="study-card-bar-bg">
                                 <div class="study-card-bar" style="width: @(score / 40.0 * 100)%"></div>
                             </div>
+
+                            @if (studiedTestId == test.Id)
+                            {
+                                <div class="studied-prompt">
+                                    <span class="studied-prompt-label">How's your understanding now?</span>
+                                    <div class="studied-prompt-row">
+                                        <select class="studied-select" @bind="updatedUnderstanding">
+                                            @foreach (var u in Enum.GetValues<Test.PersonalUnderstanding>())
+                                            {
+                                                <option value="@u">@Test.UnderstandingHelper(u)</option>
+                                            }
+                                        </select>
+                                        <button class="button-primary button-accent" @onclick="() => SaveStudiedUnderstanding(test)">Save</button>
+                                        <button class="button-primary" @onclick="CancelStudiedPrompt">Cancel</button>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="study-card-footer">
+                                    <button class="button-primary studied-btn" @onclick="() => OpenStudiedPrompt(test)">
+                                        ✓ Studied it
+                                    </button>
+                                </div>
+                            }
                         </div>
                     }
                 </div>

@@ -1133,3 +1133,63 @@ a.button-primary[href="/study"]:hover {
     color: var(--text-muted);
     font-weight: 400;
 }
+
+/* ── Post-study feedback ── */
+
+.study-card-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 4px;
+}
+
+.studied-btn {
+    font-size: 12px;
+    padding: 5px 12px;
+    color: var(--text-muted);
+}
+
+.studied-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent-border);
+}
+
+.studied-prompt {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.studied-prompt-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.studied-prompt-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.studied-select {
+    background: var(--bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 7px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    flex: 1;
+    max-width: 180px;
+    appearance: none;
+    transition: border-color var(--transition);
+}
+
+.studied-select:focus {
+    border-color: var(--accent);
+}
