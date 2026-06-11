@@ -86,6 +86,8 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
 
         allTests = management.LoadAllTests(CurrentUserId);
         recommendations = calculator.GetStudyRecommendations(allTests, hoursAvailable);
+        if (weeklyCalculated)
+            weeklyPlan = calculator.GetWeeklyPlan(allTests, weeklyHours);
         studiedTestId = null;
         StateHasChanged();
     }

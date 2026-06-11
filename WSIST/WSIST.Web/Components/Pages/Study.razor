@@ -140,7 +140,7 @@
                                 <div class="weekly-day-tests">
                                     @foreach (var test in tests)
                                     {
-                                        var score = calculator.CalculateTotalScore(test, allTests);
+                                        var score = calculator.CalculateTotalScore(test, allTests, date);
                                         var days = test.DueDate.DayNumber - date.DayNumber;
                                         <div class="weekly-test-row">
                                             <div class="weekly-test-info">
