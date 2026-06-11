@@ -53,6 +53,21 @@ public partial class Home(
             );
     }
 
+    // Chronological grade history per subject, only for subjects with 2+ graded tests.
+    private Dictionary<int, List<(DateOnly Date, double Grade)>> GetGradeHistory()
+    {
+        return allTests
+            .Where(t => t.Grade.HasValue)
+            .GroupBy(t => t.Subject)
+            .Where(g => g.Count() >= 2)
+            .ToDictionary(
+                g => g.Key,
+                g => g.OrderBy(t => t.DueDate)
+                      .Select(t => (t.DueDate, t.Grade!.Value))
+                      .ToList()
+            );
+    }
+
     private string GetGradeClass(double avg) => avg switch
     {
         >= 5 => "grade-good",

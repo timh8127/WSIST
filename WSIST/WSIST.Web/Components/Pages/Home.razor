@@ -131,6 +131,74 @@
             </div>
         }
 
+        @{
+            var gradeHistory = GetGradeHistory();
+        }
+
+        @if (gradeHistory.Any())
+        {
+            <div class="grade-trends">
+                <h2 class="grade-overview-title">Grade trends</h2>
+                <div class="grade-trend-grid">
+                    @foreach (var (subjectId, history) in gradeHistory)
+                    {
+                        var subjectName = subjects.FirstOrDefault(s => s.Id == subjectId)?.Name ?? subjectId.ToString();
+                        var latest = history.Last().Grade;
+                        var first = history.First().Grade;
+                        var trend = latest - first;
+
+                        // SVG dimensions
+                        const int w = 160;
+                        const int h = 56;
+                        const int pad = 8;
+                        int pts = history.Count;
+
+                        // Map grades (1–6) to Y coords — higher grade = lower Y value (top of SVG)
+                        string ToY(double g) => ((h - pad) - ((g - 1) / 5.0 * (h - pad * 2))).ToString("F1");
+                        string ToX(int i) => (pad + i * (double)(w - pad * 2) / (pts - 1)).ToString("F1");
+
+                        var points = string.Join(" ", history.Select((item, i) => $"{ToX(i)},{ToY(item.Grade)}"));
+                        var dotPoints = history.Select((item, i) => (X: ToX(i), Y: ToY(item.Grade), Grade: item.Grade)).ToList();
+
+                        <div class="grade-trend-card">
+                            <div class="grade-trend-header">
+                                <span class="grade-trend-subject">@subjectName</span>
+                                <span class="grade-trend-latest @GetGradeClass(latest)">@latest.ToString("F1")</span>
+                            </div>
+                            <svg viewBox="0 0 @w @h" class="grade-trend-svg" preserveAspectRatio="none">
+                                <!-- Guide lines at grades 4 and 5 -->
+                                <line x1="@pad" y1="@ToY(4)" x2="@(w - pad)" y2="@ToY(4)"
+                                      stroke="var(--border)" stroke-width="1" stroke-dasharray="3,3"/>
+                                <line x1="@pad" y1="@ToY(5)" x2="@(w - pad)" y2="@ToY(5)"
+                                      stroke="var(--border)" stroke-width="1" stroke-dasharray="3,3"/>
+                                <!-- Grade line -->
+                                <polyline points="@points"
+                                          fill="none"
+                                          stroke="var(--accent)"
+                                          stroke-width="1.5"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                <!-- Grade dots -->
+                                @foreach (var dot in dotPoints)
+                                {
+                                    <circle cx="@dot.X" cy="@dot.Y" r="3"
+                                            fill="var(--accent)" stroke="var(--bg-elevated)" stroke-width="1.5">
+                                        <title>@dot.Grade.ToString("F1")</title>
+                                    </circle>
+                                }
+                            </svg>
+                            <div class="grade-trend-footer">
+                                <span class="grade-trend-count">@history.Count test@(history.Count == 1 ? "" : "s")</span>
+                                <span class="grade-trend-delta @(trend >= 0 ? "delta-up" : "delta-down")">
+                                    @(trend >= 0 ? "↑" : "↓") @Math.Abs(trend).ToString("F1")
+                                </span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
         @if (showModal && temporaryTest is not null)
         {
             <div class="wsist-modal">
