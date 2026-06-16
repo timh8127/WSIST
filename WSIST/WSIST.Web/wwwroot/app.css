@@ -683,6 +683,28 @@ h1:focus {
     padding-top: 4px;
 }
 
+/* Inline subject creation within the test modal */
+.inline-subject {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.inline-subject-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.inline-subject-row input {
+    flex: 1;
+    min-width: 0;
+}
+
+.inline-subject-row .button-primary {
+    flex-shrink: 0;
+}
+
 /* Grade overview */
 .grade-overview {
     margin-bottom: 2rem;

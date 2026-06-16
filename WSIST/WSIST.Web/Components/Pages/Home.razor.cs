@@ -81,6 +81,15 @@ public partial class Home(
 
     private bool showModal;
 
+    // Inline subject creation from the modal. Real subjects never use id 0
+    // (system subjects are negative, custom subjects are positive
+    // auto-increment), so 0 doubles as the "+ Add new subject" sentinel.
+    private const int AddNewSubjectValue = 0;
+    private bool addingSubject;
+    private string newSubjectName = string.Empty;
+    private string? subjectError;
+    private int lastSubjectId;
+
     private void OpenEditTestModal(Test test)
     {
         Mode = Modes.EditTest;
@@ -95,6 +104,8 @@ public partial class Home(
             Understanding = test.Understanding,
             Grade = test.Grade,
         };
+        lastSubjectId = test.Subject;
+        ResetInlineSubject();
         showModal = true;
     }
 
@@ -103,12 +114,85 @@ public partial class Home(
         temporaryTest = new Test { Title = "Some Test" };
         Mode = Modes.AddTest;
         temporaryTest.DueDate = DateOnly.FromDateTime(DateTime.Today);
+        // Default to a real subject rather than the int default (0), which is
+        // the "+ Add new subject" sentinel, not a valid subject id.
+        temporaryTest.Subject = subjects.FirstOrDefault()?.Id ?? AddNewSubjectValue;
+        lastSubjectId = temporaryTest.Subject;
+        ResetInlineSubject();
         showModal = true;
+    }
+
+    // Fired after the subject <select> changes. Selecting the sentinel opens
+    // the inline creation input; selecting a real subject remembers it so we
+    // can restore the choice if the user cancels out of adding.
+    private void OnSubjectSelectionChanged()
+    {
+        if (temporaryTest is null)
+            return;
+        if (temporaryTest.Subject == AddNewSubjectValue)
+        {
+            addingSubject = true;
+            newSubjectName = string.Empty;
+            subjectError = null;
+        }
+        else
+        {
+            lastSubjectId = temporaryTest.Subject;
+        }
+    }
+
+    private void ConfirmAddSubject()
+    {
+        if (temporaryTest is null)
+            return;
+        subjectError = null;
+
+        Subject created;
+        try
+        {
+            created = management.AddCustomSubject(newSubjectName, CurrentUserId);
+        }
+        catch (ArgumentException)
+        {
+            subjectError = "Subject name cannot be empty.";
+            return;
+        }
+        catch (SubjectAlreadyExistsException)
+        {
+            subjectError = "A subject with that name already exists.";
+            return;
+        }
+
+        // Refresh the options and auto-select the subject we just created so
+        // the user doesn't have to re-pick it.
+        subjects = management.GetSubjectsForUser(CurrentUserId);
+        temporaryTest.Subject = created.Id;
+        lastSubjectId = created.Id;
+        addingSubject = false;
+        newSubjectName = string.Empty;
+    }
+
+    private void CancelAddSubject()
+    {
+        if (temporaryTest is not null)
+            temporaryTest.Subject = lastSubjectId;
+        ResetInlineSubject();
+    }
+
+    private void ResetInlineSubject()
+    {
+        addingSubject = false;
+        newSubjectName = string.Empty;
+        subjectError = null;
     }
 
     private void ModalSubmit()
     {
         if (temporaryTest is null)
+            return;
+        // While the inline "add subject" input is open, Enter would otherwise
+        // submit the whole form with the sentinel subject id; ignore it.
+        if (addingSubject)
             return;
         switch (Mode)
         {
@@ -147,6 +231,7 @@ public partial class Home(
     private void CloseModal()
     {
         showModal = false;
+        ResetInlineSubject();
         Refresh();
     }
 
