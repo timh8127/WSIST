@@ -44,7 +44,15 @@ public class WsistContext : DbContext
             // seeded system subjects live on negative ids so the two ranges
             // can never collide.
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.Name).HasMaxLength(100).IsRequired();
+            // Explicit case-insensitive collation so the unique index below
+            // enforces the duplicate rule case-insensitively regardless of the
+            // server's default collation (a case-sensitive default would let
+            // racing "Math"/"math" inserts both commit).
+            entity
+                .Property(e => e.Name)
+                .HasMaxLength(100)
+                .IsRequired()
+                .UseCollation("utf8mb4_general_ci");
             entity.Property(e => e.IsSystem).HasDefaultValue(false);
 
             entity
@@ -53,6 +61,15 @@ public class WsistContext : DbContext
                 .HasForeignKey(s => s.UserId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // Concurrency safety net for the duplicate rule enforced in
+            // TestManagement.AddCustomSubject: the unique index rejects two
+            // racing inserts of the same name for one user that both pass the
+            // application-level check. MySQL's default case-insensitive
+            // collation makes this match the case-insensitive rule. System
+            // subjects have a null UserId, which the unique index treats as
+            // distinct, so they never collide with each other.
+            entity.HasIndex(e => new { e.UserId, e.Name }).IsUnique();
 
             entity.HasData(
                 new Subject

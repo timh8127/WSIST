@@ -210,12 +210,31 @@
                         </div>
                         <div class="form-group">
                             <label>Subject</label>
-                            <select @bind="temporaryTest.Subject">
-                                @foreach (var subject in subjects)
-                                {
-                                    <option value="@subject.Id">@subject.Name</option>
-                                }
-                            </select>
+                            @if (!addingSubject)
+                            {
+                                <select @bind="temporaryTest.Subject" @bind:after="OnSubjectSelectionChanged">
+                                    @foreach (var subject in subjects)
+                                    {
+                                        <option value="@subject.Id">@subject.Name</option>
+                                    }
+                                    <option value="@AddNewSubjectValue">+ Add new subject</option>
+                                </select>
+                            }
+                            else
+                            {
+                                <div class="inline-subject">
+                                    <div class="inline-subject-row">
+                                        <input type="text" placeholder="New subject name" maxlength="100"
+                                               @bind="newSubjectName" @bind:event="oninput"/>
+                                        <button type="button" class="button-primary button-accent" @onclick="ConfirmAddSubject">Add</button>
+                                        <button type="button" class="button-primary" @onclick="CancelAddSubject">Cancel</button>
+                                    </div>
+                                    @if (subjectError is not null)
+                                    {
+                                        <small class="settings-error">@subjectError</small>
+                                    }
+                                </div>
+                            }
                         </div>
                         <div class="form-group">
                             <label>Due date</label>
