@@ -79,6 +79,24 @@
             </div>
 
             <div class="settings-block">
+                <p class="settings-block-label">Data</p>
+                <div class="settings-card">
+                    <div class="settings-row settings-row-last">
+                        <div>
+                            <span class="settings-row-key">Export my data</span>
+                            <p style="font-size: 13px; color: var(--text-muted); margin-top: 3px;">
+                                Download all your tests and grades, including past graded ones.
+                            </p>
+                        </div>
+                        <div class="settings-inline">
+                            <a href="/api/export?format=csv" class="button-primary button-accent" data-enhance-nav="false" download>CSV</a>
+                            <a href="/api/export?format=json" class="button-primary" data-enhance-nav="false" download>JSON</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-block">
                 <p class="settings-block-label">Account</p>
                 <div class="settings-card">
                     @if (!showDeleteConfirm)

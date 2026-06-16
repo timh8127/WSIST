@@ -1,4 +1,6 @@
 using System.Security.Claims;
+using System.Text;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -125,6 +127,54 @@ app.MapGet(
             var averages = management.GetGradeAverages(user.Id);
 
             return Results.Ok(new { userId = user.Id, subjects = averages });
+        }
+    )
+    .RequireAuthorization();
+
+app.MapGet(
+        "/api/export",
+        (HttpContext ctx, TestManagement management, string? format) =>
+        {
+            if (!ctx.User.Identity?.IsAuthenticated ?? true)
+                return Results.Unauthorized();
+
+            var email = ctx.User.FindFirst(ClaimTypes.Email)?.Value;
+            if (email is null)
+                return Results.Unauthorized();
+
+            // Resolve the user from their own authenticated claims and scope the
+            // export strictly to that id. The caller cannot supply a user id, so
+            // one user's export can never contain another user's rows. This
+            // endpoint exists for nDSG / GDPR data portability.
+            var user = management.GetOrCreateUser(
+                email,
+                ctx.User.FindFirst(ClaimTypes.Name)?.Value ?? "Unknown",
+                ctx.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? ""
+            );
+
+            var rows = management.GetTestExport(user.Id);
+
+            if (string.Equals(format, "json", StringComparison.OrdinalIgnoreCase))
+            {
+                var json = JsonSerializer.Serialize(
+                    rows,
+                    new JsonSerializerOptions { WriteIndented = true }
+                );
+                return Results.File(
+                    Encoding.UTF8.GetBytes(json),
+                    "application/json",
+                    "wsist-tests.json"
+                );
+            }
+
+            // Default to CSV. Prepend a UTF-8 BOM so spreadsheet apps (Excel)
+            // render accented characters — relevant for German subject names.
+            var csv = TestExporter.ToCsv(rows);
+            var csvBytes = Encoding
+                .UTF8.GetPreamble()
+                .Concat(Encoding.UTF8.GetBytes(csv))
+                .ToArray();
+            return Results.File(csvBytes, "text/csv", "wsist-tests.csv");
         }
     )
     .RequireAuthorization();
