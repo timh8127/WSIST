@@ -128,7 +128,27 @@ public class TestManagement
             UserId = userId,
         };
         context.Subjects.Add(subject);
-        context.SaveChanges();
+
+        try
+        {
+            context.SaveChanges();
+        }
+        catch (Microsoft.EntityFrameworkCore.DbUpdateException)
+        {
+            // A concurrent request inserted the same (UserId, Name) between our
+            // Any() check and SaveChanges; the unique index (see WsistContext)
+            // rejects ours. Treat a genuine collision as a duplicate, otherwise
+            // surface the original failure. Mirrors GetOrCreateUser's handling
+            // of the unique Email index.
+            context.ChangeTracker.Clear();
+            var collision = context.Subjects.Any(s =>
+                (s.IsSystem || s.UserId == userId) && s.Name.ToLower() == lowered
+            );
+            if (collision)
+                throw new SubjectAlreadyExistsException(trimmed);
+            throw;
+        }
+
         return subject;
     }
 

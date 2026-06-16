@@ -54,6 +54,15 @@ public class WsistContext : DbContext
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // Concurrency safety net for the duplicate rule enforced in
+            // TestManagement.AddCustomSubject: the unique index rejects two
+            // racing inserts of the same name for one user that both pass the
+            // application-level check. MySQL's default case-insensitive
+            // collation makes this match the case-insensitive rule. System
+            // subjects have a null UserId, which the unique index treats as
+            // distinct, so they never collide with each other.
+            entity.HasIndex(e => new { e.UserId, e.Name }).IsUnique();
+
             entity.HasData(
                 new Subject
                 {
