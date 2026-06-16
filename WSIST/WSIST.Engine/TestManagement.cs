@@ -103,20 +103,33 @@ public class TestManagement
             .ToList();
     }
 
-    public void AddCustomSubject(string name, int userId)
+    public Subject AddCustomSubject(string name, int userId)
     {
-        if (string.IsNullOrWhiteSpace(name))
+        var trimmed = name?.Trim() ?? string.Empty;
+        if (trimmed.Length == 0)
             throw new ArgumentException("Subject name cannot be empty.", nameof(name));
+
+        // One source of truth for the duplicate rule: a name (case-insensitive)
+        // may not collide with a system subject or one of the user's own. Both
+        // the Settings page and the inline test-modal creation flow go through
+        // here, so the rule can't drift between the two.
+        var lowered = trimmed.ToLower();
+        var exists = context.Subjects.Any(s =>
+            (s.IsSystem || s.UserId == userId) && s.Name.ToLower() == lowered
+        );
+        if (exists)
+            throw new SubjectAlreadyExistsException(trimmed);
 
         // Id is database-generated (auto-increment) — see WsistContext.
         var subject = new Subject
         {
-            Name = name,
+            Name = trimmed,
             IsSystem = false,
             UserId = userId,
         };
         context.Subjects.Add(subject);
         context.SaveChanges();
+        return subject;
     }
 
     public bool RemoveCustomSubject(int subjectId, int userId)

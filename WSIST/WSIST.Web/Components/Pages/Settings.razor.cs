@@ -42,21 +42,24 @@ public partial class Settings(
     private void AddSubject()
     {
         subjectError = null;
-        var trimmed = newSubjectName.Trim();
 
-        if (string.IsNullOrEmpty(trimmed))
+        // The engine owns the empty/duplicate rules so they stay identical to
+        // the inline creation flow in the test modal; just map them to messages.
+        try
+        {
+            management.AddCustomSubject(newSubjectName, CurrentUserId);
+        }
+        catch (ArgumentException)
         {
             subjectError = "Subject name cannot be empty.";
             return;
         }
-
-        if (subjects.Any(s => s.Name.Equals(trimmed, StringComparison.OrdinalIgnoreCase)))
+        catch (SubjectAlreadyExistsException)
         {
             subjectError = "A subject with that name already exists.";
             return;
         }
 
-        management.AddCustomSubject(trimmed, CurrentUserId);
         newSubjectName = string.Empty;
         subjects = management.GetSubjectsForUser(CurrentUserId);
         StateHasChanged();

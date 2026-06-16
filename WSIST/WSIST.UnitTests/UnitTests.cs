@@ -439,4 +439,105 @@ public class UnitTests
         Assert.That(removed, Is.False);
         Assert.That(manager.GetSubjectsForUser(user.Id).Any(s => s.Name == "Biology"));
     }
+
+    [Test]
+    public void AddCustomSubject_ReturnsCreatedSubject()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var manager = new TestManagement(context);
+
+        //act
+        var created = manager.AddCustomSubject("Biology", user.Id);
+
+        //assert — the caller (test modal) needs the new id to auto-select it
+        Assert.That(created.Name, Is.EqualTo("Biology"));
+        Assert.That(created.IsSystem, Is.False);
+        Assert.That(created.UserId, Is.EqualTo(user.Id));
+        Assert.That(created.Id, Is.GreaterThan(0));
+    }
+
+    [Test]
+    public void AddCustomSubject_TrimsWhitespace()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var manager = new TestManagement(context);
+
+        //act
+        var created = manager.AddCustomSubject("  Biology  ", user.Id);
+
+        //assert
+        Assert.That(created.Name, Is.EqualTo("Biology"));
+    }
+
+    [Test]
+    public void AddCustomSubject_RejectsWhitespaceOnlyName()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var manager = new TestManagement(context);
+
+        //act + assert
+        Assert.Throws<ArgumentException>(() => manager.AddCustomSubject("   ", user.Id));
+    }
+
+    [Test]
+    public void AddCustomSubject_RejectsDuplicateNameCaseInsensitive()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var manager = new TestManagement(context);
+        manager.AddCustomSubject("Biology", user.Id);
+
+        //act + assert — the duplicate rule lives in the engine, so it holds
+        //regardless of which UI path (Settings or test modal) calls it
+        Assert.Throws<SubjectAlreadyExistsException>(() =>
+            manager.AddCustomSubject("biology", user.Id)
+        );
+    }
+
+    [Test]
+    public void AddCustomSubject_RejectsDuplicateOfSystemSubject()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        SeedSystemSubject(context, "Math");
+        var manager = new TestManagement(context);
+
+        //act + assert
+        Assert.Throws<SubjectAlreadyExistsException>(() =>
+            manager.AddCustomSubject("math", user.Id)
+        );
+    }
+
+    [Test]
+    public void AddCustomSubject_AllowsSameNameForDifferentUsers()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var otherUser = new User
+        {
+            Email = "other@example.com",
+            DisplayName = "Other",
+            GoogleId = "google-456",
+            CreatedAt = DateTime.UtcNow,
+        };
+        context.Users.Add(otherUser);
+        context.SaveChanges();
+        var manager = new TestManagement(context);
+        manager.AddCustomSubject("Biology", user.Id);
+
+        //act — a different user's identical name is not a duplicate
+        var created = manager.AddCustomSubject("Biology", otherUser.Id);
+
+        //assert
+        Assert.That(created.UserId, Is.EqualTo(otherUser.Id));
+    }
 }
