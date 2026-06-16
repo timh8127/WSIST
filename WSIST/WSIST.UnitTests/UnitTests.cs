@@ -540,4 +540,119 @@ public class UnitTests
         //assert
         Assert.That(created.UserId, Is.EqualTo(otherUser.Id));
     }
+
+    [Test]
+    public void GetTestExport_OnlyIncludesRequestingUsersTests()
+    {
+        //arrange
+        using var context = CreateContext();
+        var owner = SeedUser(context);
+        var other = new User
+        {
+            Email = "other@example.com",
+            DisplayName = "Other",
+            GoogleId = "google-456",
+            CreatedAt = DateTime.UtcNow,
+        };
+        context.Users.Add(other);
+        context.SaveChanges();
+        var subjectId = SeedSystemSubject(context);
+        var manager = new TestManagement(context);
+        manager.NewTestMaker(
+            "Owner Test",
+            subjectId,
+            new DateOnly(2026, 12, 01),
+            Test.TestVolume.Medium,
+            Test.PersonalUnderstanding.Medium,
+            null,
+            owner.Id
+        );
+        manager.NewTestMaker(
+            "Other Test",
+            subjectId,
+            new DateOnly(2026, 12, 01),
+            Test.TestVolume.Medium,
+            Test.PersonalUnderstanding.Medium,
+            null,
+            other.Id
+        );
+
+        //act
+        var export = manager.GetTestExport(owner.Id);
+
+        //assert — the export is strictly scoped to the requesting user
+        Assert.That(export.Any(r => r.Title == "Owner Test"));
+        Assert.That(export.Any(r => r.Title == "Other Test"), Is.False);
+    }
+
+    [Test]
+    public void GetTestExport_IncludesPastGradedTestsWithResolvedSubjectName()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var subjectId = SeedSystemSubject(context, "Math");
+        var manager = new TestManagement(context);
+        manager.NewTestMaker(
+            "Past Exam",
+            subjectId,
+            new DateOnly(2025, 01, 01),
+            Test.TestVolume.High,
+            Test.PersonalUnderstanding.Low,
+            5.5,
+            user.Id
+        );
+
+        //act
+        var export = manager.GetTestExport(user.Id);
+
+        //assert
+        var row = export.Single(r => r.Title == "Past Exam");
+        Assert.That(row.Subject, Is.EqualTo("Math"));
+        Assert.That(row.Grade, Is.EqualTo(5.5));
+        Assert.That(row.Volume, Is.EqualTo("High"));
+    }
+
+    [Test]
+    public void ToCsv_WritesHeaderAndFormatsValues()
+    {
+        var rows = new List<TestExportRow>
+        {
+            new("Exam", "Math", new DateOnly(2026, 03, 01), "High", "Low", 5.5),
+        };
+
+        var csv = TestExporter.ToCsv(rows);
+
+        Assert.That(csv, Does.StartWith("Title,Subject,DueDate,Volume,Understanding,Grade"));
+        Assert.That(csv, Does.Contain("2026-03-01"));
+        Assert.That(csv, Does.Contain("5.5"));
+    }
+
+    [Test]
+    public void ToCsv_EscapesDelimitersAndQuotes()
+    {
+        var rows = new List<TestExportRow>
+        {
+            new("Title, comma", "Sub \"quote\"", new DateOnly(2026, 03, 01), "High", "Low", null),
+        };
+
+        var csv = TestExporter.ToCsv(rows);
+
+        Assert.That(csv, Does.Contain("\"Title, comma\""));
+        Assert.That(csv, Does.Contain("\"Sub \"\"quote\"\"\""));
+    }
+
+    [Test]
+    public void ToCsv_MitigatesFormulaInjection()
+    {
+        var rows = new List<TestExportRow>
+        {
+            new("=SUM(A1:A2)", "Math", new DateOnly(2026, 03, 01), "High", "Low", null),
+        };
+
+        var csv = TestExporter.ToCsv(rows);
+
+        //a leading '=' must be neutralised so spreadsheets treat it as text
+        Assert.That(csv, Does.Contain("'=SUM(A1:A2)"));
+    }
 }
