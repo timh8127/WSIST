@@ -173,6 +173,15 @@ main {
     padding-right: 36px;
 }
 
+/* Date picker icon — the native indicator is dark by default and nearly
+   invisible against the dark amber theme, so invert it to a light glyph.
+   WebKit/Blink only (Chrome, Edge, Safari); Firefox renders its own calendar
+   icon and ignores this pseudo-element, so this is a no-op there, not a break. */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
 /* Form layout within modal */
 .form-group {
     margin-bottom: 18px;
