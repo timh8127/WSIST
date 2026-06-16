@@ -1,6 +1,6 @@
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +17,15 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.KnownProxies.Clear();
 });
 
-var connStr = builder.Configuration.GetConnectionString("DatabaseConnection")
+var connStr =
+    builder.Configuration.GetConnectionString("DatabaseConnection")
     ?? throw new InvalidOperationException("DatabaseConnection string is missing.");
 builder.Services.AddDbContext<WsistContext>(options =>
-    options.UseMySql(connStr, ServerVersion.AutoDetect(connStr)));
+    options.UseMySql(connStr, ServerVersion.AutoDetect(connStr))
+);
 
-builder.Services.AddAuthentication(options =>
+builder
+    .Services.AddAuthentication(options =>
     {
         options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
@@ -36,9 +39,11 @@ builder.Services.AddAuthentication(options =>
     })
     .AddGoogle(options =>
     {
-        options.ClientId = builder.Configuration["Google:ClientId"]
+        options.ClientId =
+            builder.Configuration["Google:ClientId"]
             ?? throw new InvalidOperationException("Google:ClientId is missing");
-        options.ClientSecret = builder.Configuration["Google:ClientSecret"]
+        options.ClientSecret =
+            builder.Configuration["Google:ClientSecret"]
             ?? throw new InvalidOperationException("Google:ClientSecret is missing");
     });
 
@@ -54,60 +59,75 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     app.UseHsts();
 }
-app.UseForwardedHeaders();  
+app.UseForwardedHeaders();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseAntiforgery();
 
-app.Use(async (context, next) =>
-{
-    var isAuthenticated = context.User?.Identity?.IsAuthenticated ?? false;
-    var protectedPaths = new[] { "/", "/study", "/settings" };
-    if (protectedPaths.Contains(context.Request.Path.Value, StringComparer.OrdinalIgnoreCase) && !isAuthenticated)
+app.Use(
+    async (context, next) =>
     {
-        context.Response.Redirect("/login-page");
-        return;
+        var isAuthenticated = context.User?.Identity?.IsAuthenticated ?? false;
+        var protectedPaths = new[] { "/", "/study", "/settings" };
+        if (
+            protectedPaths.Contains(context.Request.Path.Value, StringComparer.OrdinalIgnoreCase)
+            && !isAuthenticated
+        )
+        {
+            context.Response.Redirect("/login-page");
+            return;
+        }
+        await next();
     }
-    await next();
-});
+);
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 
-app.MapGet("/login", () => Results.Challenge(
-    new AuthenticationProperties { RedirectUri = "/" },
-    [GoogleDefaults.AuthenticationScheme]));
+app.MapGet(
+    "/login",
+    () =>
+        Results.Challenge(
+            new AuthenticationProperties { RedirectUri = "/" },
+            [GoogleDefaults.AuthenticationScheme]
+        )
+);
 
-app.MapGet("/logout", async (HttpContext ctx) =>
-{
-    await ctx.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-    return Results.Redirect("/login-page");
-}).AllowAnonymous();
+app.MapGet(
+        "/logout",
+        async (HttpContext ctx) =>
+        {
+            await ctx.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Results.Redirect("/login-page");
+        }
+    )
+    .AllowAnonymous();
 
-app.MapGet("/api/grades", async (HttpContext ctx, TestManagement management) =>
-{
-    if (!ctx.User.Identity?.IsAuthenticated ?? true)
-        return Results.Unauthorized();
+app.MapGet(
+        "/api/grades",
+        async (HttpContext ctx, TestManagement management) =>
+        {
+            if (!ctx.User.Identity?.IsAuthenticated ?? true)
+                return Results.Unauthorized();
 
-    var email = ctx.User.FindFirst(ClaimTypes.Email)?.Value;
-    if (email is null) return Results.Unauthorized();
+            var email = ctx.User.FindFirst(ClaimTypes.Email)?.Value;
+            if (email is null)
+                return Results.Unauthorized();
 
-    // Users are keyed by their (unique) email; GoogleId is informational
-    // only, so a missing NameIdentifier claim simply stores an empty value.
-    var user = management.GetOrCreateUser(
-        email,
-        ctx.User.FindFirst(ClaimTypes.Name)?.Value ?? "Unknown",
-        ctx.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? ""
-    );
+            // Users are keyed by their (unique) email; GoogleId is informational
+            // only, so a missing NameIdentifier claim simply stores an empty value.
+            var user = management.GetOrCreateUser(
+                email,
+                ctx.User.FindFirst(ClaimTypes.Name)?.Value ?? "Unknown",
+                ctx.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? ""
+            );
 
-    var averages = management.GetGradeAverages(user.Id);
+            var averages = management.GetGradeAverages(user.Id);
 
-    return Results.Ok(new
-    {
-        userId = user.Id,
-        subjects = averages
-    });
-}).RequireAuthorization();
+            return Results.Ok(new { userId = user.Id, subjects = averages });
+        }
+    )
+    .RequireAuthorization();
 
 using (var scope = app.Services.CreateScope())
 {

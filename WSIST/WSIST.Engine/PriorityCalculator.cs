@@ -73,7 +73,11 @@ public class PriorityCalculator
         return sum;
     }
 
-    public List<Test> GetStudyRecommendations(List<Test> allTests, double hoursAvailable, DateOnly? asOfDate = null)
+    public List<Test> GetStudyRecommendations(
+        List<Test> allTests,
+        double hoursAvailable,
+        DateOnly? asOfDate = null
+    )
     {
         var reference = asOfDate ?? DateOnly.FromDateTime(DateTime.Today);
         var topCount = hoursAvailable switch
@@ -97,7 +101,8 @@ public class PriorityCalculator
     // it has consistently high priority throughout the week and deserves repeated attention.
     public Dictionary<DateOnly, List<Test>> GetWeeklyPlan(
         List<Test> allTests,
-        Dictionary<DayOfWeek, double> hoursPerDay)
+        Dictionary<DayOfWeek, double> hoursPerDay
+    )
     {
         var plan = new Dictionary<DateOnly, List<Test>>();
         var today = DateOnly.FromDateTime(DateTime.Today);
@@ -107,9 +112,7 @@ public class PriorityCalculator
             var date = today.AddDays(i);
             var hours = hoursPerDay.GetValueOrDefault(date.DayOfWeek, 0);
 
-            plan[date] = hours > 0
-                ? GetStudyRecommendations(allTests, hours, date)
-                : [];
+            plan[date] = hours > 0 ? GetStudyRecommendations(allTests, hours, date) : [];
         }
 
         return plan;

@@ -8,7 +8,8 @@ namespace WSIST.Web.Components.Pages;
 public abstract class AuthenticatedComponentBase(
     TestManagement management,
     AuthenticationStateProvider authStateProvider,
-    NavigationManager navigation) : ComponentBase
+    NavigationManager navigation
+) : ComponentBase
 {
     protected int CurrentUserId { get; private set; }
 
@@ -54,10 +55,11 @@ public abstract class AuthenticatedComponentBase(
     protected virtual Task OnAuthenticatedAsync() => Task.CompletedTask;
 
     // Shared grade-to-CSS mapping used by the dashboard and study pages.
-    protected static string GetGradeClass(double avg) => avg switch
-    {
-        >= 5 => "grade-good",
-        >= 4 => "grade-ok",
-        _ => "grade-poor"
-    };
+    protected static string GetGradeClass(double avg) =>
+        avg switch
+        {
+            >= 5 => "grade-good",
+            >= 4 => "grade-ok",
+            _ => "grade-poor",
+        };
 }

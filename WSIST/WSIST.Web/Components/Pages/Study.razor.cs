@@ -5,8 +5,12 @@ using WSIST.Engine;
 
 namespace WSIST.Web.Components.Pages;
 
-public partial class Study(TestManagement management, AuthenticationStateProvider authStateProvider, NavigationManager navigation, PriorityCalculator calculator)
-    : AuthenticatedComponentBase(management, authStateProvider, navigation)
+public partial class Study(
+    TestManagement management,
+    AuthenticationStateProvider authStateProvider,
+    NavigationManager navigation,
+    PriorityCalculator calculator
+) : AuthenticatedComponentBase(management, authStateProvider, navigation)
 {
     private List<Test> allTests = [];
     private List<Test> recommendations = [];
@@ -18,13 +22,13 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
     private bool weeklyMode = false;
     private Dictionary<DayOfWeek, double> weeklyHours = new()
     {
-        { DayOfWeek.Monday,    1 },
-        { DayOfWeek.Tuesday,   1 },
+        { DayOfWeek.Monday, 1 },
+        { DayOfWeek.Tuesday, 1 },
         { DayOfWeek.Wednesday, 1 },
-        { DayOfWeek.Thursday,  1 },
-        { DayOfWeek.Friday,    1 },
-        { DayOfWeek.Saturday,  0 },
-        { DayOfWeek.Sunday,    0 },
+        { DayOfWeek.Thursday, 1 },
+        { DayOfWeek.Friday, 1 },
+        { DayOfWeek.Saturday, 0 },
+        { DayOfWeek.Sunday, 0 },
     };
     private Dictionary<DateOnly, List<Test>> weeklyPlan = [];
     private bool weeklyCalculated = false;
@@ -105,7 +109,8 @@ public partial class Study(TestManagement management, AuthenticationStateProvide
             .DefaultIfEmpty(0)
             .Average();
 
-        var subjectName = subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? test.Subject.ToString();
+        var subjectName =
+            subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? test.Subject.ToString();
 
         var parts = new List<string>
         {

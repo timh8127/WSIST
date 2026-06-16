@@ -1,0 +1,4 @@
+# EF Core generates these files; they are not hand-edited, so leave their
+# formatting to the tool that emits them rather than churning them through
+# CSharpier on every run.
+**/Migrations/*.cs

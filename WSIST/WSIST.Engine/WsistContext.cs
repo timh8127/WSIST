@@ -4,7 +4,8 @@ namespace WSIST.Engine;
 
 public class WsistContext : DbContext
 {
-    public WsistContext(DbContextOptions<WsistContext> options) : base(options) { }
+    public WsistContext(DbContextOptions<WsistContext> options)
+        : base(options) { }
 
     public DbSet<Test> Tests { get; set; }
     public DbSet<User> Users { get; set; }
@@ -22,12 +23,14 @@ public class WsistContext : DbContext
             entity.Property(e => e.Understanding).HasConversion<int>();
             entity.Property(e => e.Grade).IsRequired(false);
 
-            entity.HasOne(t => t.User)
+            entity
+                .HasOne(t => t.User)
                 .WithMany(u => u.Tests)
                 .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasOne<Subject>()
+            entity
+                .HasOne<Subject>()
                 .WithMany()
                 .HasForeignKey(t => t.Subject)
                 .OnDelete(DeleteBehavior.Restrict);
@@ -44,19 +47,50 @@ public class WsistContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(100).IsRequired();
             entity.Property(e => e.IsSystem).HasDefaultValue(false);
 
-            entity.HasOne(s => s.User)
+            entity
+                .HasOne(s => s.User)
                 .WithMany()
                 .HasForeignKey(s => s.UserId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
             entity.HasData(
-                new Subject { Id = -6, Name = "Math", IsSystem = true },
-                new Subject { Id = -5, Name = "English", IsSystem = true },
-                new Subject { Id = -4, Name = "French", IsSystem = true },
-                new Subject { Id = -3, Name = "German", IsSystem = true },
-                new Subject { Id = -2, Name = "Chemistry", IsSystem = true },
-                new Subject { Id = -1, Name = "Other", IsSystem = true }
+                new Subject
+                {
+                    Id = -6,
+                    Name = "Math",
+                    IsSystem = true,
+                },
+                new Subject
+                {
+                    Id = -5,
+                    Name = "English",
+                    IsSystem = true,
+                },
+                new Subject
+                {
+                    Id = -4,
+                    Name = "French",
+                    IsSystem = true,
+                },
+                new Subject
+                {
+                    Id = -3,
+                    Name = "German",
+                    IsSystem = true,
+                },
+                new Subject
+                {
+                    Id = -2,
+                    Name = "Chemistry",
+                    IsSystem = true,
+                },
+                new Subject
+                {
+                    Id = -1,
+                    Name = "Other",
+                    IsSystem = true,
+                }
             );
         });
 
