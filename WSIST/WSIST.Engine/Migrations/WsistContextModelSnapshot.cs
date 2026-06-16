@@ -38,7 +38,8 @@ namespace WSIST.Engine.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("varchar(100)")
+                        .UseCollation("utf8mb4_general_ci");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");

@@ -44,7 +44,15 @@ public class WsistContext : DbContext
             // seeded system subjects live on negative ids so the two ranges
             // can never collide.
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.Name).HasMaxLength(100).IsRequired();
+            // Explicit case-insensitive collation so the unique index below
+            // enforces the duplicate rule case-insensitively regardless of the
+            // server's default collation (a case-sensitive default would let
+            // racing "Math"/"math" inserts both commit).
+            entity
+                .Property(e => e.Name)
+                .HasMaxLength(100)
+                .IsRequired()
+                .UseCollation("utf8mb4_general_ci");
             entity.Property(e => e.IsSystem).HasDefaultValue(false);
 
             entity

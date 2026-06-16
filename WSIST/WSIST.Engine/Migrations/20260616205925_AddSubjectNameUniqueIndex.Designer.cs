@@ -12,7 +12,7 @@ using WSIST.Engine;
 namespace WSIST.Engine.Migrations
 {
     [DbContext(typeof(WsistContext))]
-    [Migration("20260616205156_AddSubjectNameUniqueIndex")]
+    [Migration("20260616205925_AddSubjectNameUniqueIndex")]
     partial class AddSubjectNameUniqueIndex
     {
         /// <inheritdoc />
@@ -41,7 +41,8 @@ namespace WSIST.Engine.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("varchar(100)")
+                        .UseCollation("utf8mb4_general_ci");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");

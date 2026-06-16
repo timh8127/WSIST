@@ -14,6 +14,19 @@ namespace WSIST.Engine.Migrations
                 name: "IX_Subjects_UserId",
                 table: "Subjects");
 
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
+                table: "Subjects",
+                type: "varchar(100)",
+                maxLength: 100,
+                nullable: false,
+                collation: "utf8mb4_general_ci",
+                oldClrType: typeof(string),
+                oldType: "varchar(100)",
+                oldMaxLength: 100)
+                .Annotation("MySql:CharSet", "utf8mb4")
+                .OldAnnotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Subjects_UserId_Name",
                 table: "Subjects",
@@ -27,6 +40,19 @@ namespace WSIST.Engine.Migrations
             migrationBuilder.DropIndex(
                 name: "IX_Subjects_UserId_Name",
                 table: "Subjects");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
+                table: "Subjects",
+                type: "varchar(100)",
+                maxLength: 100,
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "varchar(100)",
+                oldMaxLength: 100,
+                oldCollation: "utf8mb4_general_ci")
+                .Annotation("MySql:CharSet", "utf8mb4")
+                .OldAnnotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subjects_UserId",
