@@ -366,15 +366,17 @@ public class UnitTests
         var manager = new TestManagement(context);
 
         //act + assert
-        Assert.Throws<ArgumentException>(() => manager.NewTestMaker(
-            "   ",
-            0,
-            new DateOnly(2026, 12, 01),
-            Test.TestVolume.Medium,
-            Test.PersonalUnderstanding.Medium,
-            null,
-            user.Id
-        ));
+        Assert.Throws<ArgumentException>(() =>
+            manager.NewTestMaker(
+                "   ",
+                0,
+                new DateOnly(2026, 12, 01),
+                Test.TestVolume.Medium,
+                Test.PersonalUnderstanding.Medium,
+                null,
+                user.Id
+            )
+        );
     }
 
     [Test]
@@ -398,15 +400,17 @@ public class UnitTests
         var subjectId = manager.GetSubjectsForUser(owner.Id).First(s => !s.IsSystem).Id;
 
         //act + assert — attacker may not file tests under the owner's subject
-        Assert.Throws<ArgumentException>(() => manager.NewTestMaker(
-            "Sneaky Test",
-            subjectId,
-            new DateOnly(2026, 12, 01),
-            Test.TestVolume.Medium,
-            Test.PersonalUnderstanding.Medium,
-            null,
-            attacker.Id
-        ));
+        Assert.Throws<ArgumentException>(() =>
+            manager.NewTestMaker(
+                "Sneaky Test",
+                subjectId,
+                new DateOnly(2026, 12, 01),
+                Test.TestVolume.Medium,
+                Test.PersonalUnderstanding.Medium,
+                null,
+                attacker.Id
+            )
+        );
     }
 
     [Test]

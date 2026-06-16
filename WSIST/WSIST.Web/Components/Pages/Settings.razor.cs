@@ -7,8 +7,8 @@ namespace WSIST.Web.Components.Pages;
 public partial class Settings(
     TestManagement management,
     AuthenticationStateProvider authStateProvider,
-    NavigationManager navigation)
-    : AuthenticatedComponentBase(management, authStateProvider, navigation)
+    NavigationManager navigation
+) : AuthenticatedComponentBase(management, authStateProvider, navigation)
 {
     private User? currentUser;
     private List<Subject> subjects = [];
@@ -31,7 +31,8 @@ public partial class Settings(
 
     private void SaveDisplayName()
     {
-        if (string.IsNullOrWhiteSpace(editedDisplayName)) return;
+        if (string.IsNullOrWhiteSpace(editedDisplayName))
+            return;
         management.UpdateDisplayName(CurrentUserId, editedDisplayName);
         currentUser = management.GetUser(CurrentUserId);
         saveMessage = "Saved.";
@@ -66,7 +67,8 @@ public partial class Settings(
         subjectError = null;
         if (!management.RemoveCustomSubject(subjectId, CurrentUserId))
         {
-            subjectError = "Cannot delete a subject that still has tests. Delete or reassign those tests first.";
+            subjectError =
+                "Cannot delete a subject that still has tests. Delete or reassign those tests first.";
             StateHasChanged();
             return;
         }
@@ -75,6 +77,7 @@ public partial class Settings(
     }
 
     private void ShowDeleteConfirm() => showDeleteConfirm = true;
+
     private void CancelDelete() => showDeleteConfirm = false;
 
     private void ConfirmDeleteAccount()

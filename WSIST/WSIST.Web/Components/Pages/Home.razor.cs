@@ -8,8 +8,8 @@ public partial class Home(
     TestManagement management,
     AuthenticationStateProvider authStateProvider,
     NavigationManager navigation,
-    PriorityCalculator calculator)
-    : AuthenticatedComponentBase(management, authStateProvider, navigation)
+    PriorityCalculator calculator
+) : AuthenticatedComponentBase(management, authStateProvider, navigation)
 {
     private List<Test> allTests = [];
     private List<Test> tests = [];
@@ -47,10 +47,7 @@ public partial class Home(
         return allTests
             .Where(t => t.Grade.HasValue)
             .GroupBy(t => t.Subject)
-            .ToDictionary(
-                g => g.Key,
-                g => g.Average(t => t.Grade!.Value)
-            );
+            .ToDictionary(g => g.Key, g => g.Average(t => t.Grade!.Value));
     }
 
     // Chronological grade history per subject, only for subjects with 2+ graded tests.
@@ -62,9 +59,7 @@ public partial class Home(
             .Where(g => g.Count() >= 2)
             .ToDictionary(
                 g => g.Key,
-                g => g.OrderBy(t => t.DueDate)
-                      .Select(t => (t.DueDate, t.Grade!.Value))
-                      .ToList()
+                g => g.OrderBy(t => t.DueDate).Select(t => (t.DueDate, t.Grade!.Value)).ToList()
             );
     }
 
@@ -158,9 +153,7 @@ public partial class Home(
     private void Refresh()
     {
         allTests = management.LoadAllTests(CurrentUserId);
-        tests = (showPastTests
-                ? allTests
-                : allTests.Where(t => t.DueDate >= Today))
+        tests = (showPastTests ? allTests : allTests.Where(t => t.DueDate >= Today))
             .OrderBy(t => t.DueDate)
             .ToList();
         topRecommendation = calculator.GetStudyRecommendations(allTests, 2).FirstOrDefault();
