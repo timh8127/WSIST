@@ -1148,7 +1148,7 @@ h1:focus {
     font-size: 14px;
     color: var(--text-primary);
     white-space: pre-wrap;
-    word-break: break-word;
+    overflow-wrap: anywhere;
     margin: 0;
 }
 

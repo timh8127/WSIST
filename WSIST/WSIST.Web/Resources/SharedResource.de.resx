@@ -167,7 +167,7 @@
   <data name="Settings_SubjectInUseError" xml:space="preserve"><value>Ein Fach mit zugeordneten Prüfungen kann nicht gelöscht werden. Lösche oder verschiebe diese Prüfungen zuerst.</value></data>
   <data name="Settings_Data" xml:space="preserve"><value>Daten</value></data>
   <data name="Settings_ExportTitle" xml:space="preserve"><value>Meine Daten exportieren</value></data>
-  <data name="Settings_ExportSub" xml:space="preserve"><value>Lade alle deine Prüfungen und Noten herunter, einschließlich vergangener benoteter.</value></data>
+  <data name="Settings_ExportSub" xml:space="preserve"><value>Lade alle deine Prüfungen und Noten herunter, einschließlich vergangener benoteter Prüfungen.</value></data>
   <data name="Settings_Feedback" xml:space="preserve"><value>Feedback</value></data>
   <data name="Settings_FeedbackTitle" xml:space="preserve"><value>Feedback &amp; Funktionswünsche</value></data>
   <data name="Settings_FeedbackSub" xml:space="preserve"><value>Melde einen Fehler oder schlage eine Verbesserung vor.</value></data>
@@ -197,6 +197,7 @@
   <data name="Feedback_AdminTitle" xml:space="preserve"><value>Alle Einsendungen (Admin)</value></data>
   <data name="Feedback_Empty" xml:space="preserve"><value>Noch kein Feedback eingegangen.</value></data>
   <data name="Feedback_EmptyError" xml:space="preserve"><value>Die Feedback-Nachricht darf nicht leer sein.</value></data>
+  <data name="Feedback_SubmitValidationError" xml:space="preserve"><value>Dein Feedback konnte nicht übermittelt werden. Bitte überprüfe deine Nachricht und versuche es erneut.</value></data>
   <data name="Feedback_StatusOpen" xml:space="preserve"><value>Offen</value></data>
   <data name="Feedback_StatusReviewed" xml:space="preserve"><value>Geprüft</value></data>
   <data name="Feedback_StatusClosed" xml:space="preserve"><value>Geschlossen</value></data>
@@ -291,7 +292,9 @@
   <data name="Landing_Feat4Desc" xml:space="preserve"><value>Nichts Neues zu merken. Dein Schulkonto funktioniert problemlos.</value></data>
   <data name="Landing_Feat5Title" xml:space="preserve"><value>Privat von Haus aus</value></data>
   <data name="Landing_Feat5Desc" xml:space="preserve"><value>Deine Prüfungen und Noten sind nur für dich sichtbar, und du kannst sie jederzeit löschen. Keine Werbung, niemals.</value></data>
+  <data name="Landing_WsistSays" xml:space="preserve"><value>„WSIST sagt“</value></data>
   <data name="Landing_Soon" xml:space="preserve"><value>Bald</value></data>
+  <data name="Landing_ManifestoAttribution" xml:space="preserve"><value>Tim · Informatik-Lehrling · Zürich</value></data>
   <data name="Landing_Feat6Desc" xml:space="preserve"><value>Ein tägliches Lern-Briefing auf Schweizerdeutsch, dazu eine Android-App. Entsteht zwischen den Prüfungswochen.</value></data>
   <data name="Landing_ManifestoPre" xml:space="preserve"><value>Entstanden zwischen Lehrlingsschichten und Prüfungswochen — von einem Schüler, der </value></data>
   <data name="Landing_ManifestoBold" xml:space="preserve"><value>wollte, dass es existiert.</value></data>

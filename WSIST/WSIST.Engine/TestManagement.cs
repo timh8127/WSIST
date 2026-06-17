@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace WSIST.Engine;
 
 public class TestManagement
@@ -195,13 +197,18 @@ public class TestManagement
     }
 
     // Used by the request-localization provider to resolve a signed-in user's
-    // stored language without materializing the whole User entity.
-    public string? GetPreferredLanguageByEmail(string email)
+    // stored language without materializing the whole User entity. Async so the
+    // provider (which runs first on every authenticated request) never blocks on
+    // database I/O.
+    public Task<string?> GetPreferredLanguageByEmailAsync(
+        string email,
+        CancellationToken cancellationToken = default
+    )
     {
         return context
             .Users.Where(u => u.Email == email)
             .Select(u => u.PreferredLanguage)
-            .FirstOrDefault();
+            .FirstOrDefaultAsync(cancellationToken);
     }
 
     public User GetOrCreateUser(string email, string displayName, string googleId)

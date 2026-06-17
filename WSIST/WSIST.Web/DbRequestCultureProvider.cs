@@ -12,22 +12,28 @@ namespace WSIST.Web;
 // to their browser language.
 public sealed class DbRequestCultureProvider : RequestCultureProvider
 {
-    public override Task<ProviderCultureResult?> DetermineProviderCultureResult(
+    public override async Task<ProviderCultureResult?> DetermineProviderCultureResult(
         HttpContext httpContext
     )
     {
         if (httpContext.User?.Identity?.IsAuthenticated != true)
-            return Task.FromResult<ProviderCultureResult?>(null);
+            return null;
 
         var email = httpContext.User.FindFirst(ClaimTypes.Email)?.Value;
         if (string.IsNullOrEmpty(email))
-            return Task.FromResult<ProviderCultureResult?>(null);
+            return null;
 
         var management = httpContext.RequestServices.GetService<TestManagement>();
-        var lang = management?.GetPreferredLanguageByEmail(email);
-        if (string.IsNullOrEmpty(lang))
-            return Task.FromResult<ProviderCultureResult?>(null);
+        if (management is null)
+            return null;
 
-        return Task.FromResult<ProviderCultureResult?>(new ProviderCultureResult(lang));
+        var lang = await management.GetPreferredLanguageByEmailAsync(
+            email,
+            httpContext.RequestAborted
+        );
+        if (string.IsNullOrEmpty(lang))
+            return null;
+
+        return new ProviderCultureResult(lang);
     }
 }

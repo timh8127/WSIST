@@ -197,6 +197,7 @@
   <data name="Feedback_AdminTitle" xml:space="preserve"><value>All submissions (admin)</value></data>
   <data name="Feedback_Empty" xml:space="preserve"><value>No feedback submitted yet.</value></data>
   <data name="Feedback_EmptyError" xml:space="preserve"><value>Feedback message cannot be empty.</value></data>
+  <data name="Feedback_SubmitValidationError" xml:space="preserve"><value>Your feedback couldn't be submitted. Please check your message and try again.</value></data>
   <data name="Feedback_StatusOpen" xml:space="preserve"><value>Open</value></data>
   <data name="Feedback_StatusReviewed" xml:space="preserve"><value>Reviewed</value></data>
   <data name="Feedback_StatusClosed" xml:space="preserve"><value>Closed</value></data>
@@ -291,7 +292,9 @@
   <data name="Landing_Feat4Desc" xml:space="preserve"><value>Nothing new to remember. Your school account works fine.</value></data>
   <data name="Landing_Feat5Title" xml:space="preserve"><value>Private by default</value></data>
   <data name="Landing_Feat5Desc" xml:space="preserve"><value>Your tests and grades are visible to you alone, and you can delete them anytime. No ads, ever.</value></data>
+  <data name="Landing_WsistSays" xml:space="preserve"><value>“WSIST says”</value></data>
   <data name="Landing_Soon" xml:space="preserve"><value>Soon</value></data>
+  <data name="Landing_ManifestoAttribution" xml:space="preserve"><value>Tim · Computer Science Apprentice · Zürich</value></data>
   <data name="Landing_Feat6Desc" xml:space="preserve"><value>A daily study briefing in Swiss German, plus an Android app. In the works between exam weeks.</value></data>
   <data name="Landing_ManifestoPre" xml:space="preserve"><value>Built between apprenticeship shifts and exam weeks — by a student who </value></data>
   <data name="Landing_ManifestoBold" xml:space="preserve"><value>needed it to exist.</value></data>

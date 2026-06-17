@@ -49,6 +49,8 @@ public class FeedbackManagement
         return context
             .Feedbacks.AsNoTracking()
             .OrderByDescending(f => f.CreatedAt)
+            // Tie-break on Id so equal timestamps order stably.
+            .ThenByDescending(f => f.Id)
             .Select(f => new FeedbackView(
                 f.Id,
                 f.Message,

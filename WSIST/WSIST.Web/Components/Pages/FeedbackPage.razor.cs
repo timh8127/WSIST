@@ -52,10 +52,13 @@ public partial class FeedbackPage(
         }
         catch (ArgumentException)
         {
-            // The only ArgumentException reachable from the UI is an empty
-            // message (length is capped client-side); map it to a localized
-            // message rather than surfacing the engine's English text.
-            submitError = localizer["Feedback_EmptyError"];
+            // An empty message is the common case (length is capped client-side
+            // and the category comes from a fixed dropdown); map it to a clear
+            // localized message and fall back to a generic one for any other
+            // engine validation failure rather than surfacing English text.
+            submitError = string.IsNullOrWhiteSpace(message)
+                ? localizer["Feedback_EmptyError"]
+                : localizer["Feedback_SubmitValidationError"];
             return;
         }
         finally

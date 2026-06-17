@@ -1,10 +1,11 @@
 @using System.Globalization
 @inject NavigationManager Nav
+@inject IStringLocalizer<SharedResource> Localizer
 
 @* EN / DE switch. Each link is a full (non-enhanced) navigation to the
    set-language endpoint, which writes the culture cookie + saves the
    preference, then redirects back to the current page. *@
-<div class="lang-toggle" role="group" aria-label="Language">
+<div class="lang-toggle" role="group" aria-label="@Localizer["Language"]">
     <a href="/set-language/en?redirectUri=@CurrentPath"
        class="lang-option @(IsGerman ? "" : "active")"
        data-enhance-nav="false" hreflang="en">EN</a>
