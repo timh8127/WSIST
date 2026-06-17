@@ -63,6 +63,21 @@ public class FeedbackManagement
             .ToList();
     }
 
+    // Update a submission's workflow status (Open/Reviewed/Closed). Admin-only;
+    // the calling page enforces that. Returns false if the row no longer exists.
+    public bool UpdateStatus(int feedbackId, Feedback.FeedbackStatus status)
+    {
+        if (!Enum.IsDefined(status))
+            throw new ArgumentException("Unknown feedback status.", nameof(status));
+
+        var feedback = context.Feedbacks.Find(feedbackId);
+        if (feedback is null)
+            return false;
+        feedback.Status = status;
+        context.SaveChanges();
+        return true;
+    }
+
     public record FeedbackView(
         int Id,
         string Message,

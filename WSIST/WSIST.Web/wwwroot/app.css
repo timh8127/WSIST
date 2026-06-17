@@ -124,6 +124,8 @@ main {
     align-items: center;
     gap: 9px;
     margin-right: auto;
+    text-decoration: none;
+    color: inherit;
 }
 
 .nav-brand span {
@@ -1133,6 +1135,17 @@ h1:focus {
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+}
+
+.feedback-status-select {
+    margin-left: auto;
+    padding: 3px 8px;
+    font-size: 12px;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    cursor: pointer;
 }
 
 .feedback-meta {

@@ -76,4 +76,17 @@ public partial class FeedbackPage(
 
         StateHasChanged();
     }
+
+    // Admin-only: change a submission's status from the listing.
+    private void ChangeStatus(int feedbackId, ChangeEventArgs e)
+    {
+        if (!isAdmin)
+            return;
+        if (Enum.TryParse<Feedback.FeedbackStatus>(e.Value?.ToString(), out var status))
+        {
+            feedbackManagement.UpdateStatus(feedbackId, status);
+            allFeedback = feedbackManagement.GetAll();
+            StateHasChanged();
+        }
+    }
 }

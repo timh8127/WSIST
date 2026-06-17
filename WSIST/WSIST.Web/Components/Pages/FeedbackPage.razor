@@ -6,10 +6,10 @@
 
 <div class="page">
     <div class="top-row">
-        <div class="title nav-brand">
+        <a href="/" class="title nav-brand" data-enhance-nav="false">
             <img src="/logo.svg" width="26" height="26" alt="WSIST logo"/>
             <span>WSIST</span>
-        </div>
+        </a>
         <LanguageToggle />
         <a href="/" class="button-primary" data-enhance-nav="false">← @localizer["Common_Back"]</a>
         <a href="/logout" class="button-primary button-danger" data-enhance-nav="false">@localizer["Common_Logout"]</a>
@@ -79,8 +79,13 @@
                                             <span class="feedback-email">(@item.SubmittedByEmail)</span>
                                         }
                                         · @item.CreatedAt.ToString("yyyy-MM-dd HH:mm") UTC
-                                        · @localizer[$"Feedback_Status{item.Status}"]
                                     </span>
+                                    <select class="feedback-status-select" @onchange="(e) => ChangeStatus(item.Id, e)" aria-label="@localizer["Feedback_StatusLabel"]">
+                                        @foreach (var st in Enum.GetValues<Feedback.FeedbackStatus>())
+                                        {
+                                            <option value="@st" selected="@(st == item.Status)">@localizer[$"Feedback_Status{st}"]</option>
+                                        }
+                                    </select>
                                 </div>
                                 <p class="feedback-item-message">@item.Message</p>
                             </div>

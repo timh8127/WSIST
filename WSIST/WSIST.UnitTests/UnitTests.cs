@@ -757,4 +757,33 @@ public class UnitTests
         Assert.That(all[0].SubmittedByName, Is.EqualTo("Test User"));
         Assert.That(all[0].SubmittedByEmail, Is.EqualTo("test@example.com"));
     }
+
+    [Test]
+    public void UpdateStatus_ChangesStatusAndPersists()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var feedback = new FeedbackManagement(context);
+        var saved = feedback.Submit(user.Id, "A bug", Feedback.FeedbackCategory.Bug);
+        Assert.That(saved.Status, Is.EqualTo(Feedback.FeedbackStatus.Open));
+
+        //act
+        var ok = feedback.UpdateStatus(saved.Id, Feedback.FeedbackStatus.Reviewed);
+
+        //assert
+        Assert.That(ok, Is.True);
+        Assert.That(
+            context.Feedbacks.Single().Status,
+            Is.EqualTo(Feedback.FeedbackStatus.Reviewed)
+        );
+    }
+
+    [Test]
+    public void UpdateStatus_ReturnsFalseForMissingRow()
+    {
+        using var context = CreateContext();
+        var feedback = new FeedbackManagement(context);
+        Assert.That(feedback.UpdateStatus(999, Feedback.FeedbackStatus.Closed), Is.False);
+    }
 }
