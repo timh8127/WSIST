@@ -50,6 +50,7 @@ builder
     });
 
 builder.Services.AddScoped<TestManagement>();
+builder.Services.AddScoped<FeedbackManagement>();
 builder.Services.AddScoped<PriorityCalculator>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddCascadingAuthenticationState();
@@ -70,7 +71,7 @@ app.Use(
     async (context, next) =>
     {
         var isAuthenticated = context.User?.Identity?.IsAuthenticated ?? false;
-        var protectedPaths = new[] { "/", "/study", "/settings" };
+        var protectedPaths = new[] { "/", "/study", "/settings", "/feedback" };
         if (
             protectedPaths.Contains(context.Request.Path.Value, StringComparer.OrdinalIgnoreCase)
             && !isAuthenticated

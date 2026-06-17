@@ -13,6 +13,11 @@ public abstract class AuthenticatedComponentBase(
 {
     protected int CurrentUserId { get; private set; }
 
+    // The authenticated user's email claim, exposed so pages can do
+    // owner/admin gating (e.g. the feedback listing) without re-reading the
+    // auth state themselves.
+    protected string? CurrentUserEmail { get; private set; }
+
     protected override async Task OnInitializedAsync()
     {
         var authState = await authStateProvider.GetAuthenticationStateAsync();
@@ -40,6 +45,7 @@ public abstract class AuthenticatedComponentBase(
         {
             var dbUser = management.GetOrCreateUser(email, name, googleId);
             CurrentUserId = dbUser.Id;
+            CurrentUserEmail = dbUser.Email;
         }
         catch (Exception)
         {
