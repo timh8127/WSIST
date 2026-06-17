@@ -140,6 +140,7 @@ public class WsistContext : DbContext
             entity.HasIndex(e => e.Email).IsUnique();
             entity.Property(e => e.GoogleId).HasMaxLength(100);
             entity.Property(e => e.DisplayName).HasMaxLength(100);
+            entity.Property(e => e.PreferredLanguage).HasMaxLength(5);
         });
     }
 }

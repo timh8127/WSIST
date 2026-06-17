@@ -185,6 +185,25 @@ public class TestManagement
         context.SaveChanges();
     }
 
+    public void UpdatePreferredLanguage(int userId, string? language)
+    {
+        var user = context.Users.Find(userId);
+        if (user is null)
+            return;
+        user.PreferredLanguage = language;
+        context.SaveChanges();
+    }
+
+    // Used by the request-localization provider to resolve a signed-in user's
+    // stored language without materializing the whole User entity.
+    public string? GetPreferredLanguageByEmail(string email)
+    {
+        return context
+            .Users.Where(u => u.Email == email)
+            .Select(u => u.PreferredLanguage)
+            .FirstOrDefault();
+    }
+
     public User GetOrCreateUser(string email, string displayName, string googleId)
     {
         if (string.IsNullOrWhiteSpace(email))

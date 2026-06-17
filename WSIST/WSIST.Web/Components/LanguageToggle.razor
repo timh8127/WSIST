@@ -1,0 +1,23 @@
+@using System.Globalization
+@inject NavigationManager Nav
+
+@* EN / DE switch. Each link is a full (non-enhanced) navigation to the
+   set-language endpoint, which writes the culture cookie + saves the
+   preference, then redirects back to the current page. *@
+<div class="lang-toggle" role="group" aria-label="Language">
+    <a href="/set-language/en?redirectUri=@CurrentPath"
+       class="lang-option @(IsGerman ? "" : "active")"
+       data-enhance-nav="false" hreflang="en">EN</a>
+    <span class="lang-sep" aria-hidden="true">/</span>
+    <a href="/set-language/de?redirectUri=@CurrentPath"
+       class="lang-option @(IsGerman ? "active" : "")"
+       data-enhance-nav="false" hreflang="de">DE</a>
+</div>
+
+@code {
+    private bool IsGerman => CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "de";
+
+    // Local relative path (with leading slash) for the round-trip redirect.
+    private string CurrentPath =>
+        Uri.EscapeDataString("/" + Nav.ToBaseRelativePath(Nav.Uri));
+}

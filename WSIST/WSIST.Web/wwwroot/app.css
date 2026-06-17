@@ -1046,6 +1046,36 @@ h1:focus {
     border-top: 1px solid var(--border);
 }
 
+/* ── Language toggle ── */
+
+.lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    user-select: none;
+}
+
+.lang-toggle .lang-option {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 2px 4px;
+    border-radius: var(--radius-xs);
+}
+
+.lang-toggle .lang-option:hover {
+    color: var(--text-primary);
+}
+
+.lang-toggle .lang-option.active {
+    color: var(--accent);
+}
+
+.lang-toggle .lang-sep {
+    color: var(--text-muted);
+}
+
 /* ── Feedback ── */
 
 .feedback-form {
