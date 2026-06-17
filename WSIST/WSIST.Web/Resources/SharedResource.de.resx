@@ -201,6 +201,105 @@
   <data name="Feedback_StatusReviewed" xml:space="preserve"><value>Geprüft</value></data>
   <data name="Feedback_StatusClosed" xml:space="preserve"><value>Geschlossen</value></data>
 
+  <!-- ===== Shared legal / demo ===== -->
+  <data name="Common_SignIn" xml:space="preserve"><value>Anmelden</value></data>
+  <data name="Legal_Privacy" xml:space="preserve"><value>Datenschutz</value></data>
+  <data name="Legal_Terms" xml:space="preserve"><value>Nutzungsbedingungen</value></data>
+  <data name="Demo_Math" xml:space="preserve"><value>Mathe</value></data>
+  <data name="Demo_French" xml:space="preserve"><value>Französisch</value></data>
+  <data name="Demo_Chemistry" xml:space="preserve"><value>Chemie</value></data>
+  <data name="Demo_German" xml:space="preserve"><value>Deutsch</value></data>
+  <data name="Demo_English" xml:space="preserve"><value>Englisch</value></data>
+
+  <!-- ===== Landing page ===== -->
+  <data name="Landing_LogoTag" xml:space="preserve"><value>was soll ich heute lernen</value></data>
+  <data name="Landing_NavScore" xml:space="preserve"><value>Die Punktzahl</value></data>
+  <data name="Landing_NavTry" xml:space="preserve"><value>Ausprobieren</value></data>
+  <data name="Landing_NavHow" xml:space="preserve"><value>So funktioniert's</value></data>
+  <data name="Landing_HeroEyebrow" xml:space="preserve"><value>Kostenlos für Schüler · Entwickelt in Zürich</value></data>
+  <data name="Landing_HeroLine1" xml:space="preserve"><value>Was soll ich</value></data>
+  <data name="Landing_HeroLine2Pre" xml:space="preserve"><value>heute </value></data>
+  <data name="Landing_HeroLine2Em" xml:space="preserve"><value>lernen?</value></data>
+  <data name="Landing_HeroSub" xml:space="preserve"><value>Fünf Fächer, drei Prüfungen nächste Woche, ein freier Abend. WSIST bewertet jede anstehende Prüfung — Dringlichkeit, Umfang, wie gut du sie verstehst, wie deine Noten stehen — und sagt dir genau, was heute Abend dran ist.</value></data>
+  <data name="Landing_SeeScore" xml:space="preserve"><value>Punktzahl ansehen</value></data>
+  <data name="Landing_HeroNoteBold" xml:space="preserve"><value>Kostenlos</value></data>
+  <data name="Landing_HeroNoteRest" xml:space="preserve"><value>· keine Werbung · deine Prüfungen bleiben deine</value></data>
+  <data name="Landing_Card1Tag" xml:space="preserve"><value>Heutige Wahl</value></data>
+  <data name="Landing_Because" xml:space="preserve"><value>Weil:</value></data>
+  <data name="Landing_Card1Because" xml:space="preserve"><value>du verstehst es kaum, die Prüfung hat sehr viel Stoff, sie ist in 2 Tagen.</value></data>
+  <data name="Landing_Card2Because" xml:space="preserve"><value>mittleres Verständnis, viel Stoff, dein Schnitt in Französisch ist 4.1.</value></data>
+  <data name="Landing_Card3Because" xml:space="preserve"><value>durchschnittliches Verständnis, mittlerer Stoff, sie ist in 9 Tagen.</value></data>
+  <data name="Landing_HighestStudiesFirst" xml:space="preserve"><value>Die höchste Punktzahl wird zuerst gelernt</value></data>
+  <data name="Landing_RubricEyebrow" xml:space="preserve"><value>Die Engine</value></data>
+  <data name="Landing_RubricTitlePre" xml:space="preserve"><value>Deine Prüfungen, </value></data>
+  <data name="Landing_RubricTitleEm" xml:space="preserve"><value>bewertet.</value></data>
+  <data name="Landing_RubricSub" xml:space="preserve"><value>Die Schule benotet dich das ganze Jahr. WSIST dreht den Spieß um — jede anstehende Prüfung erhält eine Prioritätspunktzahl von 40, aus vier Faktoren. Kein Bauchgefühl, kein schlechtes Gewissen. Nur Mathematik.</value></data>
+  <data name="Landing_UrgencyDesc" xml:space="preserve"><value>Morgen schlägt nächsten Monat. Die verbleibenden Tage geben den Takt vor.</value></data>
+  <data name="Landing_PtsMax" xml:space="preserve"><value>Pkt. max</value></data>
+  <data name="Landing_VolumeDesc" xml:space="preserve"><value>Drei Kapitel wiegen mehr als ein Arbeitsblatt.</value></data>
+  <data name="Landing_VolumeDetail" xml:space="preserve"><value>sehr wenig +2 → sehr viel +12</value></data>
+  <data name="Landing_UnderstandingDesc" xml:space="preserve"><value>Je weniger es sitzt, desto weiter steigt sie.</value></data>
+  <data name="Landing_UnderstandingDetail" xml:space="preserve"><value>sehr hoch +2 → sehr niedrig +12</value></data>
+  <data name="Landing_GradePullName" xml:space="preserve"><value>Notendruck</value></data>
+  <data name="Landing_GradePullDesc" xml:space="preserve"><value>Fächer, in denen dein Schnitt abrutscht, bekommen einen Schub.</value></data>
+  <data name="Landing_PlayEyebrow" xml:space="preserve"><value>Demo ohne Anmeldung</value></data>
+  <data name="Landing_PlayTitlePre" xml:space="preserve"><value>Lass den </value></data>
+  <data name="Landing_PlayTitleEm" xml:space="preserve"><value>echten</value></data>
+  <data name="Landing_PlayTitlePost" xml:space="preserve"><value> Algorithmus laufen.</value></data>
+  <data name="Landing_PlaySub" xml:space="preserve"><value>Diese Regler speisen dieselben Bewertungsregeln, die produktiv auf wsist.forch.me laufen. Bewege sie und sieh zu, wie eine Prüfung in deiner Liste nach oben klettert.</value></data>
+  <data name="Landing_CtlDays" xml:space="preserve"><value>Tage bis zur Prüfung</value></data>
+  <data name="Landing_ScaleToday" xml:space="preserve"><value>heute</value></data>
+  <data name="Landing_Scale5Weeks" xml:space="preserve"><value>in 5 Wochen</value></data>
+  <data name="Landing_CtlVol" xml:space="preserve"><value>Prüfungsumfang</value></data>
+  <data name="Landing_ScaleWorksheet" xml:space="preserve"><value>ein Arbeitsblatt</value></data>
+  <data name="Landing_ScaleChapters" xml:space="preserve"><value>drei Kapitel</value></data>
+  <data name="Landing_CtlUnd" xml:space="preserve"><value>Dein Verständnis</value></data>
+  <data name="Landing_ScaleWhatEven" xml:space="preserve"><value>was ist das überhaupt</value></data>
+  <data name="Landing_ScaleCouldTeach" xml:space="preserve"><value>könnte es unterrichten</value></data>
+  <data name="Landing_CtlAvg" xml:space="preserve"><value>Dein Schnitt in diesem Fach</value></data>
+  <data name="Landing_Scale6Swiss" xml:space="preserve"><value>6.0 — Schweizer Skala</value></data>
+  <data name="Landing_ResultEyebrow" xml:space="preserve"><value>Prioritätspunktzahl</value></data>
+  <data name="Landing_ResultDenom" xml:space="preserve"><value>/ 40 Pkt.</value></data>
+  <data name="Landing_ChipUrgency" xml:space="preserve"><value>dringlichkeit</value></data>
+  <data name="Landing_ChipVolume" xml:space="preserve"><value>umfang</value></data>
+  <data name="Landing_ChipUnderstanding" xml:space="preserve"><value>verständnis</value></data>
+  <data name="Landing_ChipGradePull" xml:space="preserve"><value>notendruck</value></data>
+  <data name="Landing_ResultFoot" xml:space="preserve"><value>Dieselbe Rechnung wie in der echten App</value></data>
+  <data name="Landing_VerdictInitial" xml:space="preserve"><value>Lass alles stehen — das ist für heute Abend.</value></data>
+  <data name="Landing_HowEyebrow" xml:space="preserve"><value>Der Ablauf</value></data>
+  <data name="Landing_HowTitlePre" xml:space="preserve"><value>Zwanzig Sekunden rein, </value></data>
+  <data name="Landing_HowTitleEm" xml:space="preserve"><value>eine Antwort</value></data>
+  <data name="Landing_HowTitlePost" xml:space="preserve"><value> raus.</value></data>
+  <data name="Landing_Step1Title" xml:space="preserve"><value>Prüfung hinzufügen.</value></data>
+  <data name="Landing_Step1Desc" xml:space="preserve"><value>Titel, Fach, Datum, wie umfangreich sie ist, wie gut du sie verstehst. Zwanzig Sekunden, einmal pro Prüfung.</value></data>
+  <data name="Landing_MockTestTitle" xml:space="preserve"><value>Prüfungstitel</value></data>
+  <data name="Landing_MockSubjectDue" xml:space="preserve"><value>Fach  ·  Fälligkeitsdatum</value></data>
+  <data name="Landing_Step2Title" xml:space="preserve"><value>Sag, wie viel Zeit du hast.</value></data>
+  <data name="Landing_Step2Desc" xml:space="preserve"><value>Ein Eingabefeld. „Wie viele Stunden kannst du heute lernen?“ ist die einzige Frage, die WSIST dir je zurückstellt.</value></data>
+  <data name="Landing_MockHours" xml:space="preserve"><value>Wie viele Stunden kannst du heute lernen?</value></data>
+  <data name="Landing_Step3Title" xml:space="preserve"><value>Lerne, was oben auf der Liste steht.</value></data>
+  <data name="Landing_Step3Desc" xml:space="preserve"><value>Jede Prüfung von 40 bewertet, mit ausformulierten Gründen — damit du der Reihenfolge vertraust, statt sie zu hinterfragen.</value></data>
+  <data name="Landing_FeatEyebrow" xml:space="preserve"><value>Außerdem dabei</value></data>
+  <data name="Landing_FeatTitle" xml:space="preserve"><value>Die leisen Teile.</value></data>
+  <data name="Landing_Feat1Title" xml:space="preserve"><value>Notenübersicht pro Fach</value></data>
+  <data name="Landing_Feat1Desc" xml:space="preserve"><value>Deine Schnitte auf dem Dashboard, immer aktuell — so fällt ein abrutschendes Fach auf, bevor es das Zeugnis tut.</value></data>
+  <data name="Landing_Feat2Title" xml:space="preserve"><value>Deine Fächer, keine Vorgabe</value></data>
+  <data name="Landing_Feat2Desc" xml:space="preserve"><value>Füge die Fächer hinzu, die deine Schule tatsächlich unterrichtet. Wirtschaft, Werkstatt, was auch immer — WSIST ist das egal, es bewertet einfach.</value></data>
+  <data name="Landing_Feat3Title" xml:space="preserve"><value>Jeder Rang erklärt sich selbst</value></data>
+  <data name="Landing_Feat3Desc" xml:space="preserve"><value>Tippe auf eine Karte für die Aufschlüsselung der Punktzahl. Du siehst immer, warum eine Prüfung dort steht, wo sie steht.</value></data>
+  <data name="Landing_Feat4Title" xml:space="preserve"><value>Mit Google anmelden</value></data>
+  <data name="Landing_Feat4Desc" xml:space="preserve"><value>Nichts Neues zu merken. Dein Schulkonto funktioniert problemlos.</value></data>
+  <data name="Landing_Feat5Title" xml:space="preserve"><value>Privat von Haus aus</value></data>
+  <data name="Landing_Feat5Desc" xml:space="preserve"><value>Deine Prüfungen und Noten sind nur für dich sichtbar, und du kannst sie jederzeit löschen. Keine Werbung, niemals.</value></data>
+  <data name="Landing_Soon" xml:space="preserve"><value>Bald</value></data>
+  <data name="Landing_Feat6Desc" xml:space="preserve"><value>Ein tägliches Lern-Briefing auf Schweizerdeutsch, dazu eine Android-App. Entsteht zwischen den Prüfungswochen.</value></data>
+  <data name="Landing_ManifestoPre" xml:space="preserve"><value>Entstanden zwischen Lehrlingsschichten und Prüfungswochen — von einem Schüler, der </value></data>
+  <data name="Landing_ManifestoBold" xml:space="preserve"><value>wollte, dass es existiert.</value></data>
+  <data name="Landing_CtaTitlePre" xml:space="preserve"><value>Deine nächste Prüfung kommt </value></data>
+  <data name="Landing_CtaTitleEm" xml:space="preserve"><value>so oder so.</value></data>
+  <data name="Landing_CtaSmall" xml:space="preserve"><value>Kostenlos · läuft in jedem Browser</value></data>
+  <data name="Landing_FooterMade" xml:space="preserve"><value>Erstellt in Zürich · © 2026 Tim Hug</value></data>
+
   <!-- ===== Error / not-found pages ===== -->
   <data name="NotFound_Title" xml:space="preserve"><value>Seite nicht gefunden</value></data>
   <data name="NotFound_Sub" xml:space="preserve"><value>Die gesuchte Seite existiert nicht oder wurde verschoben.</value></data>

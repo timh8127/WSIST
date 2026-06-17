@@ -201,6 +201,105 @@
   <data name="Feedback_StatusReviewed" xml:space="preserve"><value>Reviewed</value></data>
   <data name="Feedback_StatusClosed" xml:space="preserve"><value>Closed</value></data>
 
+  <!-- ===== Shared legal / demo ===== -->
+  <data name="Common_SignIn" xml:space="preserve"><value>Sign in</value></data>
+  <data name="Legal_Privacy" xml:space="preserve"><value>Privacy</value></data>
+  <data name="Legal_Terms" xml:space="preserve"><value>Terms</value></data>
+  <data name="Demo_Math" xml:space="preserve"><value>Math</value></data>
+  <data name="Demo_French" xml:space="preserve"><value>French</value></data>
+  <data name="Demo_Chemistry" xml:space="preserve"><value>Chemistry</value></data>
+  <data name="Demo_German" xml:space="preserve"><value>German</value></data>
+  <data name="Demo_English" xml:space="preserve"><value>English</value></data>
+
+  <!-- ===== Landing page ===== -->
+  <data name="Landing_LogoTag" xml:space="preserve"><value>what should I study today</value></data>
+  <data name="Landing_NavScore" xml:space="preserve"><value>The score</value></data>
+  <data name="Landing_NavTry" xml:space="preserve"><value>Try it</value></data>
+  <data name="Landing_NavHow" xml:space="preserve"><value>How it works</value></data>
+  <data name="Landing_HeroEyebrow" xml:space="preserve"><value>Free for students · Built in Zürich</value></data>
+  <data name="Landing_HeroLine1" xml:space="preserve"><value>What should</value></data>
+  <data name="Landing_HeroLine2Pre" xml:space="preserve"><value>I study </value></data>
+  <data name="Landing_HeroLine2Em" xml:space="preserve"><value>today?</value></data>
+  <data name="Landing_HeroSub" xml:space="preserve"><value>Five subjects, three tests next week, one free evening. WSIST scores every upcoming test — urgency, volume, how well you get it, where your grades stand — and tells you exactly where tonight goes.</value></data>
+  <data name="Landing_SeeScore" xml:space="preserve"><value>See the score</value></data>
+  <data name="Landing_HeroNoteBold" xml:space="preserve"><value>Free</value></data>
+  <data name="Landing_HeroNoteRest" xml:space="preserve"><value>· no ads · your tests stay yours</value></data>
+  <data name="Landing_Card1Tag" xml:space="preserve"><value>Tonight's pick</value></data>
+  <data name="Landing_Because" xml:space="preserve"><value>Because:</value></data>
+  <data name="Landing_Card1Because" xml:space="preserve"><value>you have low understanding, the test has very high volume, it's in 2 days.</value></data>
+  <data name="Landing_Card2Because" xml:space="preserve"><value>medium understanding, high volume, your avg in French is 4.1.</value></data>
+  <data name="Landing_Card3Because" xml:space="preserve"><value>average understanding, medium volume, it's in 9 days.</value></data>
+  <data name="Landing_HighestStudiesFirst" xml:space="preserve"><value>The highest score studies first</value></data>
+  <data name="Landing_RubricEyebrow" xml:space="preserve"><value>The engine</value></data>
+  <data name="Landing_RubricTitlePre" xml:space="preserve"><value>Your tests, </value></data>
+  <data name="Landing_RubricTitleEm" xml:space="preserve"><value>graded.</value></data>
+  <data name="Landing_RubricSub" xml:space="preserve"><value>School grades you all year. WSIST turns the table — every upcoming test earns a priority score out of 40, built from four factors. No vibes, no guilt. Just arithmetic.</value></data>
+  <data name="Landing_UrgencyDesc" xml:space="preserve"><value>Tomorrow beats next month. Days left set the clock.</value></data>
+  <data name="Landing_PtsMax" xml:space="preserve"><value>pts max</value></data>
+  <data name="Landing_VolumeDesc" xml:space="preserve"><value>Three chapters outweigh one worksheet.</value></data>
+  <data name="Landing_VolumeDetail" xml:space="preserve"><value>very low +2 → very high +12</value></data>
+  <data name="Landing_UnderstandingDesc" xml:space="preserve"><value>The less it clicks, the higher it climbs.</value></data>
+  <data name="Landing_UnderstandingDetail" xml:space="preserve"><value>very high +2 → very low +12</value></data>
+  <data name="Landing_GradePullName" xml:space="preserve"><value>Grade pull</value></data>
+  <data name="Landing_GradePullDesc" xml:space="preserve"><value>Subjects where your average slips get a push.</value></data>
+  <data name="Landing_PlayEyebrow" xml:space="preserve"><value>No-signup demo</value></data>
+  <data name="Landing_PlayTitlePre" xml:space="preserve"><value>Run the </value></data>
+  <data name="Landing_PlayTitleEm" xml:space="preserve"><value>real</value></data>
+  <data name="Landing_PlayTitlePost" xml:space="preserve"><value> algorithm.</value></data>
+  <data name="Landing_PlaySub" xml:space="preserve"><value>These sliders feed the same scoring rules that run in production at wsist.forch.me. Move them and watch a test climb your list.</value></data>
+  <data name="Landing_CtlDays" xml:space="preserve"><value>Days until the test</value></data>
+  <data name="Landing_ScaleToday" xml:space="preserve"><value>today</value></data>
+  <data name="Landing_Scale5Weeks" xml:space="preserve"><value>5 weeks out</value></data>
+  <data name="Landing_CtlVol" xml:space="preserve"><value>Test volume</value></data>
+  <data name="Landing_ScaleWorksheet" xml:space="preserve"><value>one worksheet</value></data>
+  <data name="Landing_ScaleChapters" xml:space="preserve"><value>three chapters</value></data>
+  <data name="Landing_CtlUnd" xml:space="preserve"><value>Your understanding</value></data>
+  <data name="Landing_ScaleWhatEven" xml:space="preserve"><value>what even is this</value></data>
+  <data name="Landing_ScaleCouldTeach" xml:space="preserve"><value>could teach it</value></data>
+  <data name="Landing_CtlAvg" xml:space="preserve"><value>Your average in this subject</value></data>
+  <data name="Landing_Scale6Swiss" xml:space="preserve"><value>6.0 — Swiss scale</value></data>
+  <data name="Landing_ResultEyebrow" xml:space="preserve"><value>Priority score</value></data>
+  <data name="Landing_ResultDenom" xml:space="preserve"><value>/ 40 pts</value></data>
+  <data name="Landing_ChipUrgency" xml:space="preserve"><value>urgency</value></data>
+  <data name="Landing_ChipVolume" xml:space="preserve"><value>volume</value></data>
+  <data name="Landing_ChipUnderstanding" xml:space="preserve"><value>understanding</value></data>
+  <data name="Landing_ChipGradePull" xml:space="preserve"><value>grade pull</value></data>
+  <data name="Landing_ResultFoot" xml:space="preserve"><value>Same maths as the production engine</value></data>
+  <data name="Landing_VerdictInitial" xml:space="preserve"><value>Drop everything — this is tonight.</value></data>
+  <data name="Landing_HowEyebrow" xml:space="preserve"><value>The routine</value></data>
+  <data name="Landing_HowTitlePre" xml:space="preserve"><value>Twenty seconds in, </value></data>
+  <data name="Landing_HowTitleEm" xml:space="preserve"><value>one answer</value></data>
+  <data name="Landing_HowTitlePost" xml:space="preserve"><value> out.</value></data>
+  <data name="Landing_Step1Title" xml:space="preserve"><value>Add the test.</value></data>
+  <data name="Landing_Step1Desc" xml:space="preserve"><value>Title, subject, date, how big it is, how well you get it. Twenty seconds, once per test.</value></data>
+  <data name="Landing_MockTestTitle" xml:space="preserve"><value>Test title</value></data>
+  <data name="Landing_MockSubjectDue" xml:space="preserve"><value>Subject  ·  Due date</value></data>
+  <data name="Landing_Step2Title" xml:space="preserve"><value>Say how much time you have.</value></data>
+  <data name="Landing_Step2Desc" xml:space="preserve"><value>One input. “How many hours can you study today?” is the only question WSIST ever asks you back.</value></data>
+  <data name="Landing_MockHours" xml:space="preserve"><value>How many hours can you study today?</value></data>
+  <data name="Landing_Step3Title" xml:space="preserve"><value>Study the top of the list.</value></data>
+  <data name="Landing_Step3Desc" xml:space="preserve"><value>Every test ranked out of 40, with the reasons spelled out — so you trust the order instead of second-guessing it.</value></data>
+  <data name="Landing_FeatEyebrow" xml:space="preserve"><value>Also in the box</value></data>
+  <data name="Landing_FeatTitle" xml:space="preserve"><value>The quiet parts.</value></data>
+  <data name="Landing_Feat1Title" xml:space="preserve"><value>Grade overview per subject</value></data>
+  <data name="Landing_Feat1Desc" xml:space="preserve"><value>Your averages on the dashboard, always current — so a slipping subject shows up before the report card does.</value></data>
+  <data name="Landing_Feat2Title" xml:space="preserve"><value>Your subjects, not a preset</value></data>
+  <data name="Landing_Feat2Desc" xml:space="preserve"><value>Add the subjects your school actually teaches. Wirtschaft, Werkstatt, whatever — WSIST doesn't care, it just scores.</value></data>
+  <data name="Landing_Feat3Title" xml:space="preserve"><value>Every rank explains itself</value></data>
+  <data name="Landing_Feat3Desc" xml:space="preserve"><value>Tap any card for its score breakdown. You always see why a test sits where it sits.</value></data>
+  <data name="Landing_Feat4Title" xml:space="preserve"><value>Sign in with Google</value></data>
+  <data name="Landing_Feat4Desc" xml:space="preserve"><value>Nothing new to remember. Your school account works fine.</value></data>
+  <data name="Landing_Feat5Title" xml:space="preserve"><value>Private by default</value></data>
+  <data name="Landing_Feat5Desc" xml:space="preserve"><value>Your tests and grades are visible to you alone, and you can delete them anytime. No ads, ever.</value></data>
+  <data name="Landing_Soon" xml:space="preserve"><value>Soon</value></data>
+  <data name="Landing_Feat6Desc" xml:space="preserve"><value>A daily study briefing in Swiss German, plus an Android app. In the works between exam weeks.</value></data>
+  <data name="Landing_ManifestoPre" xml:space="preserve"><value>Built between apprenticeship shifts and exam weeks — by a student who </value></data>
+  <data name="Landing_ManifestoBold" xml:space="preserve"><value>needed it to exist.</value></data>
+  <data name="Landing_CtaTitlePre" xml:space="preserve"><value>Your next test is coming </value></data>
+  <data name="Landing_CtaTitleEm" xml:space="preserve"><value>either way.</value></data>
+  <data name="Landing_CtaSmall" xml:space="preserve"><value>Free · works in any browser</value></data>
+  <data name="Landing_FooterMade" xml:space="preserve"><value>Made in Zürich · © 2026 Tim Hug</value></data>
+
   <!-- ===== Error / not-found pages ===== -->
   <data name="NotFound_Title" xml:space="preserve"><value>Page not found</value></data>
   <data name="NotFound_Sub" xml:space="preserve"><value>The page you're looking for doesn't exist or has been moved.</value></data>
