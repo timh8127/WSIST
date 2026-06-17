@@ -1,7 +1,8 @@
 @page "/privacy"
 @layout EmptyLayout
 @using WSIST.Web.Components.Layout
-<PageTitle>Privacy Policy – WSIST</PageTitle>
+@inject IStringLocalizer<SharedResource> Localizer
+<PageTitle>@Localizer["Privacy_Title"] – WSIST</PageTitle>
 
 <div class="legal-page">
     <nav class="landing-nav">
@@ -9,75 +10,29 @@
             <img src="/logo.svg" width="32" height="32" alt="WSIST" />
             <span>WSIST</span>
         </div>
-        <a href="/login-page" class="landing-cta-sm" style="color: var(--text-secondary); text-decoration: none;">← Back</a>
+        <div class="landing-nav-actions">
+            <LanguageToggle />
+            <a href="/login-page" class="landing-cta-sm" style="color: var(--text-secondary); text-decoration: none;">← @Localizer["Common_Back"]</a>
+        </div>
     </nav>
 
     <div class="legal-content">
-        <h1>Privacy Policy</h1>
-        <p class="legal-meta">Last updated: @(new DateTime(2026, 6, 1).ToString("MMMM d, yyyy"))</p>
+        <h1>@Localizer["Privacy_Title"]</h1>
+        <p class="legal-meta">@Localizer["Legal_LastUpdated"] @(new DateTime(2026, 6, 1).ToString("MMMM d, yyyy"))</p>
 
-        <h2>1. Who we are</h2>
-        <p>WSIST ("What Should I Study Today") is a personal study planning application developed and operated by Tim Hug, based in Switzerland. This privacy policy explains what personal data we collect, how we use it, and what rights you have.</p>
-        <p>Contact: <a href="mailto:privacy@wsist.forch.me">privacy@wsist.forch.me</a></p>
-
-        <h2>2. Data we collect</h2>
-        <p>When you sign in with Google, we receive and store the following data from Google's OAuth service:</p>
-        <ul>
-            <li><strong>Email address</strong> — used to identify your account</li>
-            <li><strong>Display name</strong> — shown in the application</li>
-            <li><strong>Google user ID</strong> — used to link your Google account to your WSIST account</li>
-        </ul>
-        <p>We also store data you create while using the application:</p>
-        <ul>
-            <li>Test entries (title, subject, due date, volume, understanding level, grade)</li>
-            <li>Custom subjects you create</li>
-            <li>Your display name if you update it in settings</li>
-            <li>Your account creation timestamp</li>
-        </ul>
-        <p>We do not collect location data, device identifiers, or any data beyond what is listed above.</p>
-
-        <h2>3. How we use your data</h2>
-        <p>Your data is used solely to provide the WSIST service:</p>
-        <ul>
-            <li>Authenticating you when you log in</li>
-            <li>Storing and displaying your test entries</li>
-            <li>Calculating study recommendations and priority scores</li>
-            <li>Showing your grade overview</li>
-        </ul>
-        <p>We do not sell your data, share it with advertisers, or use it for any purpose other than providing the service.</p>
-
-        <h2>4. Legal basis for processing (GDPR / Swiss nDSG)</h2>
-        <p>We process your personal data on the basis of <strong>contract performance</strong> (Art. 6(1)(b) GDPR) — processing is necessary to provide the service you have requested. By creating an account and using WSIST, you enter into a contract with us for the provision of the application.</p>
-
-        <h2>5. Third-party services</h2>
-        <p><strong>Google OAuth:</strong> Login is handled via Google's OAuth 2.0 service. When you authenticate, Google shares your profile data with us as described in section 2. Google's own privacy policy applies to the authentication process: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
-        <p><strong>Railway:</strong> The application is hosted on Railway (railway.app). Your data is stored on a MySQL database on their infrastructure. Railway's privacy policy applies to hosting: <a href="https://railway.app/legal/privacy" target="_blank" rel="noopener">railway.app/legal/privacy</a>.</p>
-        <p><strong>Cloudflare:</strong> The application is served behind Cloudflare's CDN. Cloudflare may process connection metadata (IP address, request headers) as part of its service. Cloudflare's privacy policy: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>.</p>
-
-        <h2>6. Data retention</h2>
-        <p>Your data is retained for as long as you have an active account. If you wish to delete your account and all associated data, contact us at <a href="mailto:privacy@wsist.forch.me">privacy@wsist.forch.me</a> and we will delete it within 30 days.</p>
-
-        <h2>7. Your rights</h2>
-        <p>Under the GDPR and Swiss nDSG, you have the following rights:</p>
-        <ul>
-            <li><strong>Access:</strong> You can request a copy of all personal data we hold about you.</li>
-            <li><strong>Rectification:</strong> You can correct inaccurate data via the Settings page or by contacting us.</li>
-            <li><strong>Erasure:</strong> You can request deletion of your account and all associated data.</li>
-            <li><strong>Portability:</strong> You can request your data in a machine-readable format.</li>
-            <li><strong>Objection:</strong> You can object to processing in certain circumstances.</li>
-        </ul>
-        <p>To exercise any of these rights, contact us at <a href="mailto:privacy@wsist.forch.me">privacy@wsist.forch.me</a>. We will respond within 30 days.</p>
-
-        <h2>8. Cookies and sessions</h2>
-        <p>WSIST uses a single authentication cookie (`.AspNetCore.Cookies`) to maintain your login session. This cookie is strictly necessary for the application to function and does not track you across other websites. No analytics, advertising, or third-party tracking cookies are used.</p>
-
-        <h2>9. Security</h2>
-        <p>Your data is transmitted over HTTPS. Passwords are never stored — authentication is handled entirely by Google. Database access is restricted to the application only.</p>
-
-        <h2>10. Changes to this policy</h2>
-        <p>If we make material changes to this policy, we will update the "last updated" date at the top of this page. Continued use of WSIST after changes constitutes acceptance of the updated policy.</p>
-
-        <h2>11. Contact</h2>
-        <p>Questions about this privacy policy? Contact us at <a href="mailto:privacy@wsist.forch.me">privacy@wsist.forch.me</a>.</p>
+        @* Section bodies are static, developer-authored HTML stored in the
+           resource files; rendered as markup so inline emphasis and links
+           survive translation. No user input is involved. *@
+        @((MarkupString)Localizer["Privacy_Sec1"].Value)
+        @((MarkupString)Localizer["Privacy_Sec2"].Value)
+        @((MarkupString)Localizer["Privacy_Sec3"].Value)
+        @((MarkupString)Localizer["Privacy_Sec4"].Value)
+        @((MarkupString)Localizer["Privacy_Sec5"].Value)
+        @((MarkupString)Localizer["Privacy_Sec6"].Value)
+        @((MarkupString)Localizer["Privacy_Sec7"].Value)
+        @((MarkupString)Localizer["Privacy_Sec8"].Value)
+        @((MarkupString)Localizer["Privacy_Sec9"].Value)
+        @((MarkupString)Localizer["Privacy_Sec10"].Value)
+        @((MarkupString)Localizer["Privacy_Sec11"].Value)
     </div>
 </div>

@@ -300,6 +300,97 @@
   <data name="Landing_CtaSmall" xml:space="preserve"><value>Free · works in any browser</value></data>
   <data name="Landing_FooterMade" xml:space="preserve"><value>Made in Zürich · © 2026 Tim Hug</value></data>
 
+  <!-- ===== Legal: shared ===== -->
+  <data name="Legal_LastUpdated" xml:space="preserve"><value>Last updated:</value></data>
+
+  <!-- ===== Privacy policy (section bodies rendered as MarkupString) ===== -->
+  <data name="Privacy_Title" xml:space="preserve"><value>Privacy Policy</value></data>
+  <data name="Privacy_Sec1" xml:space="preserve"><value>&lt;h2&gt;1. Who we are&lt;/h2&gt;
+&lt;p&gt;WSIST ("What Should I Study Today") is a personal study planning application developed and operated by Tim Hug, based in Switzerland. This privacy policy explains what personal data we collect, how we use it, and what rights you have.&lt;/p&gt;
+&lt;p&gt;Contact: &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt;&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec2" xml:space="preserve"><value>&lt;h2&gt;2. Data we collect&lt;/h2&gt;
+&lt;p&gt;When you sign in with Google, we receive and store the following data from Google's OAuth service:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Email address&lt;/strong&gt; — used to identify your account&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Display name&lt;/strong&gt; — shown in the application&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Google user ID&lt;/strong&gt; — used to link your Google account to your WSIST account&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We also store data you create while using the application:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Test entries (title, subject, due date, volume, understanding level, grade)&lt;/li&gt;
+&lt;li&gt;Custom subjects you create&lt;/li&gt;
+&lt;li&gt;Your display name if you update it in settings&lt;/li&gt;
+&lt;li&gt;Your account creation timestamp&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We do not collect location data, device identifiers, or any data beyond what is listed above.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec3" xml:space="preserve"><value>&lt;h2&gt;3. How we use your data&lt;/h2&gt;
+&lt;p&gt;Your data is used solely to provide the WSIST service:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Authenticating you when you log in&lt;/li&gt;
+&lt;li&gt;Storing and displaying your test entries&lt;/li&gt;
+&lt;li&gt;Calculating study recommendations and priority scores&lt;/li&gt;
+&lt;li&gt;Showing your grade overview&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We do not sell your data, share it with advertisers, or use it for any purpose other than providing the service.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec4" xml:space="preserve"><value>&lt;h2&gt;4. Legal basis for processing (GDPR / Swiss nDSG)&lt;/h2&gt;
+&lt;p&gt;We process your personal data on the basis of &lt;strong&gt;contract performance&lt;/strong&gt; (Art. 6(1)(b) GDPR) — processing is necessary to provide the service you have requested. By creating an account and using WSIST, you enter into a contract with us for the provision of the application.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec5" xml:space="preserve"><value>&lt;h2&gt;5. Third-party services&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Google OAuth:&lt;/strong&gt; Login is handled via Google's OAuth 2.0 service. When you authenticate, Google shares your profile data with us as described in section 2. Google's own privacy policy applies to the authentication process: &lt;a href="https://policies.google.com/privacy" target="_blank" rel="noopener"&gt;policies.google.com/privacy&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Railway:&lt;/strong&gt; The application is hosted on Railway (railway.app). Your data is stored on a MySQL database on their infrastructure. Railway's privacy policy applies to hosting: &lt;a href="https://railway.app/legal/privacy" target="_blank" rel="noopener"&gt;railway.app/legal/privacy&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Cloudflare:&lt;/strong&gt; The application is served behind Cloudflare's CDN. Cloudflare may process connection metadata (IP address, request headers) as part of its service. Cloudflare's privacy policy: &lt;a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener"&gt;cloudflare.com/privacypolicy&lt;/a&gt;.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec6" xml:space="preserve"><value>&lt;h2&gt;6. Data retention&lt;/h2&gt;
+&lt;p&gt;Your data is retained for as long as you have an active account. If you wish to delete your account and all associated data, contact us at &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt; and we will delete it within 30 days.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec7" xml:space="preserve"><value>&lt;h2&gt;7. Your rights&lt;/h2&gt;
+&lt;p&gt;Under the GDPR and Swiss nDSG, you have the following rights:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Access:&lt;/strong&gt; You can request a copy of all personal data we hold about you.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rectification:&lt;/strong&gt; You can correct inaccurate data via the Settings page or by contacting us.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Erasure:&lt;/strong&gt; You can request deletion of your account and all associated data.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Portability:&lt;/strong&gt; You can request your data in a machine-readable format.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Objection:&lt;/strong&gt; You can object to processing in certain circumstances.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To exercise any of these rights, contact us at &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt;. We will respond within 30 days.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec8" xml:space="preserve"><value>&lt;h2&gt;8. Cookies and sessions&lt;/h2&gt;
+&lt;p&gt;WSIST uses a single authentication cookie (.AspNetCore.Cookies) to maintain your login session. This cookie is strictly necessary for the application to function and does not track you across other websites. No analytics, advertising, or third-party tracking cookies are used.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec9" xml:space="preserve"><value>&lt;h2&gt;9. Security&lt;/h2&gt;
+&lt;p&gt;Your data is transmitted over HTTPS. Passwords are never stored — authentication is handled entirely by Google. Database access is restricted to the application only.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec10" xml:space="preserve"><value>&lt;h2&gt;10. Changes to this policy&lt;/h2&gt;
+&lt;p&gt;If we make material changes to this policy, we will update the "last updated" date at the top of this page. Continued use of WSIST after changes constitutes acceptance of the updated policy.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec11" xml:space="preserve"><value>&lt;h2&gt;11. Contact&lt;/h2&gt;
+&lt;p&gt;Questions about this privacy policy? Contact us at &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt;.&lt;/p&gt;</value></data>
+
+  <!-- ===== Terms of use (section bodies rendered as MarkupString) ===== -->
+  <data name="Terms_Title" xml:space="preserve"><value>Terms of Use</value></data>
+  <data name="Terms_Sec1" xml:space="preserve"><value>&lt;h2&gt;1. Acceptance of terms&lt;/h2&gt;
+&lt;p&gt;By accessing or using WSIST ("What Should I Study Today") at wsist.forch.me, you agree to be bound by these Terms of Use. If you do not agree, do not use the service.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec2" xml:space="preserve"><value>&lt;h2&gt;2. Description of service&lt;/h2&gt;
+&lt;p&gt;WSIST is a personal study planning tool that helps students track upcoming tests, estimate their preparedness, and determine what to study on a given day. The service is provided free of charge for personal, non-commercial use.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec3" xml:space="preserve"><value>&lt;h2&gt;3. Account and access&lt;/h2&gt;
+&lt;p&gt;Access to WSIST requires a Google account. By signing in, you authorise WSIST to receive your name and email address from Google as described in our &lt;a href="/privacy"&gt;Privacy Policy&lt;/a&gt;. You are responsible for keeping your Google account secure.&lt;/p&gt;
+&lt;p&gt;One account per person. You may not share your account with others or create accounts on behalf of third parties.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec4" xml:space="preserve"><value>&lt;h2&gt;4. Acceptable use&lt;/h2&gt;
+&lt;p&gt;You agree not to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Use WSIST for any unlawful purpose&lt;/li&gt;
+&lt;li&gt;Attempt to access other users' data&lt;/li&gt;
+&lt;li&gt;Attempt to reverse-engineer, disrupt, or overload the service&lt;/li&gt;
+&lt;li&gt;Use automated tools to scrape or extract data from the service&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="Terms_Sec5" xml:space="preserve"><value>&lt;h2&gt;5. Your content&lt;/h2&gt;
+&lt;p&gt;You own the data you enter into WSIST (test entries, subjects, grades). We do not claim any ownership over it. You grant us a limited licence to store and process it solely for the purpose of providing the service to you.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec6" xml:space="preserve"><value>&lt;h2&gt;6. Service availability&lt;/h2&gt;
+&lt;p&gt;WSIST is a personal project and is provided on an "as is" and "as available" basis. We make no guarantees about uptime, data preservation, or continued availability. We may modify or discontinue the service at any time without notice.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec7" xml:space="preserve"><value>&lt;h2&gt;7. Disclaimer of warranties&lt;/h2&gt;
+&lt;p&gt;To the fullest extent permitted by law, WSIST is provided without warranties of any kind, express or implied. We do not warrant that the service will be error-free, uninterrupted, or that the study recommendations it produces will lead to any particular academic outcome.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec8" xml:space="preserve"><value>&lt;h2&gt;8. Limitation of liability&lt;/h2&gt;
+&lt;p&gt;To the fullest extent permitted by applicable law, Tim Hug and the WSIST project shall not be liable for any indirect, incidental, or consequential damages arising from your use of or inability to use the service.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec9" xml:space="preserve"><value>&lt;h2&gt;9. Changes to terms&lt;/h2&gt;
+&lt;p&gt;We may update these terms at any time. The "last updated" date at the top of this page will reflect any changes. Continued use of WSIST after changes are posted constitutes acceptance of the updated terms.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec10" xml:space="preserve"><value>&lt;h2&gt;10. Governing law&lt;/h2&gt;
+&lt;p&gt;These terms are governed by the laws of Switzerland, without regard to conflict of law principles. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the courts of the Canton of Zurich, Switzerland.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec11" xml:space="preserve"><value>&lt;h2&gt;11. Contact&lt;/h2&gt;
+&lt;p&gt;Questions about these terms? Contact us at &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt;.&lt;/p&gt;</value></data>
+
   <!-- ===== Error / not-found pages ===== -->
   <data name="NotFound_Title" xml:space="preserve"><value>Page not found</value></data>
   <data name="NotFound_Sub" xml:space="preserve"><value>The page you're looking for doesn't exist or has been moved.</value></data>

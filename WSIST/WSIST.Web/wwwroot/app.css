@@ -1076,6 +1076,12 @@ h1:focus {
     color: var(--text-muted);
 }
 
+.landing-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
 /* ── Feedback ── */
 
 .feedback-form {
