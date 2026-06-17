@@ -655,4 +655,106 @@ public class UnitTests
         //a leading '=' must be neutralised so spreadsheets treat it as text
         Assert.That(csv, Does.Contain("'=SUM(A1:A2)"));
     }
+
+    [Test]
+    public void SubmitFeedback_PersistsTrimmedOpenRow()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var feedback = new FeedbackManagement(context);
+
+        //act
+        var saved = feedback.Submit(
+            user.Id,
+            "  Please add dark mode  ",
+            Feedback.FeedbackCategory.Feature
+        );
+
+        //assert
+        Assert.That(saved.Id, Is.GreaterThan(0));
+        var row = context.Feedbacks.Single();
+        Assert.That(row.Message, Is.EqualTo("Please add dark mode"));
+        Assert.That(row.Category, Is.EqualTo(Feedback.FeedbackCategory.Feature));
+        Assert.That(row.Status, Is.EqualTo(Feedback.FeedbackStatus.Open));
+        Assert.That(row.UserId, Is.EqualTo(user.Id));
+    }
+
+    [Test]
+    public void SubmitFeedback_EmptyMessage_Throws()
+    {
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var feedback = new FeedbackManagement(context);
+
+        Assert.Throws<ArgumentException>(() =>
+            feedback.Submit(user.Id, "   ", Feedback.FeedbackCategory.Bug)
+        );
+        Assert.That(context.Feedbacks.Any(), Is.False);
+    }
+
+    [Test]
+    public void SubmitFeedback_TooLongMessage_Throws()
+    {
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var feedback = new FeedbackManagement(context);
+
+        var tooLong = new string('x', 4001);
+        Assert.Throws<ArgumentException>(() =>
+            feedback.Submit(user.Id, tooLong, Feedback.FeedbackCategory.Bug)
+        );
+    }
+
+    [Test]
+    public void SubmitFeedback_UndefinedCategory_Throws()
+    {
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var feedback = new FeedbackManagement(context);
+
+        Assert.Throws<ArgumentException>(() =>
+            feedback.Submit(user.Id, "Valid message", (Feedback.FeedbackCategory)99)
+        );
+    }
+
+    [Test]
+    public void GetAllFeedback_ReturnsNewestFirstWithSubmitterInfo()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        // Insert directly with explicit timestamps so ordering is deterministic
+        // (Submit stamps DateTime.UtcNow, which two quick calls could tie on).
+        context.Feedbacks.Add(
+            new Feedback
+            {
+                UserId = user.Id,
+                Message = "older",
+                Category = Feedback.FeedbackCategory.Bug,
+                CreatedAt = new DateTime(2026, 01, 01, 0, 0, 0, DateTimeKind.Utc),
+            }
+        );
+        context.Feedbacks.Add(
+            new Feedback
+            {
+                UserId = user.Id,
+                Message = "newer",
+                Category = Feedback.FeedbackCategory.Feature,
+                CreatedAt = new DateTime(2026, 02, 01, 0, 0, 0, DateTimeKind.Utc),
+            }
+        );
+        context.SaveChanges();
+        var feedback = new FeedbackManagement(context);
+
+        //act
+        var all = feedback.GetAll();
+
+        //assert — newest first, submitter name/email resolved
+        Assert.That(all, Has.Count.EqualTo(2));
+        Assert.That(all[0].Message, Is.EqualTo("newer"));
+        Assert.That(all[1].Message, Is.EqualTo("older"));
+        Assert.That(all[0].SubmittedByName, Is.EqualTo("Test User"));
+        Assert.That(all[0].SubmittedByEmail, Is.EqualTo("test@example.com"));
+    }
 }
