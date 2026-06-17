@@ -22,6 +22,7 @@ public partial class FeedbackPage(
 
     private bool isAdmin;
     private List<FeedbackManagement.FeedbackView> allFeedback = [];
+    private List<FeedbackManagement.FeedbackView> myFeedback = [];
 
     protected override Task OnAuthenticatedAsync()
     {
@@ -32,6 +33,8 @@ public partial class FeedbackPage(
             !string.IsNullOrWhiteSpace(adminEmail)
             && string.Equals(adminEmail, CurrentUserEmail, StringComparison.OrdinalIgnoreCase);
 
+        // Every user sees their own submission history.
+        myFeedback = feedbackManagement.GetForUser(CurrentUserId);
         if (isAdmin)
             allFeedback = feedbackManagement.GetAll();
 
@@ -70,7 +73,9 @@ public partial class FeedbackPage(
         category = Feedback.FeedbackCategory.Bug;
         submitMessage = localizer["Feedback_Thanks"];
 
-        // Reflect the new row immediately for the admin's own listing.
+        // Reflect the new row immediately in the user's own history (and the
+        // admin's full listing).
+        myFeedback = feedbackManagement.GetForUser(CurrentUserId);
         if (isAdmin)
             allFeedback = feedbackManagement.GetAll();
 
@@ -86,6 +91,7 @@ public partial class FeedbackPage(
         {
             feedbackManagement.UpdateStatus(feedbackId, status);
             allFeedback = feedbackManagement.GetAll();
+            myFeedback = feedbackManagement.GetForUser(CurrentUserId);
             StateHasChanged();
         }
     }

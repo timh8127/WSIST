@@ -41,6 +41,26 @@ public class FeedbackManagement
         return feedback;
     }
 
+    // A user's own submissions (newest first) for their feedback history.
+    public List<FeedbackView> GetForUser(int userId)
+    {
+        return context
+            .Feedbacks.AsNoTracking()
+            .Where(f => f.UserId == userId)
+            .OrderByDescending(f => f.CreatedAt)
+            .ThenByDescending(f => f.Id)
+            .Select(f => new FeedbackView(
+                f.Id,
+                f.Message,
+                f.Category,
+                f.Status,
+                f.CreatedAt,
+                f.User != null ? f.User.DisplayName : "(unknown)",
+                f.User != null ? f.User.Email : ""
+            ))
+            .ToList();
+    }
+
     // Admin-only listing. Authorization (is the caller the owner?) is enforced
     // by the page that calls this — the engine intentionally has no notion of
     // who the admin is, so it stays config-driven in the web layer.

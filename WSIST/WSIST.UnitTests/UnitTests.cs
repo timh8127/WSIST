@@ -786,4 +786,31 @@ public class UnitTests
         var feedback = new FeedbackManagement(context);
         Assert.That(feedback.UpdateStatus(999, Feedback.FeedbackStatus.Closed), Is.False);
     }
+
+    [Test]
+    public void GetForUser_ReturnsOnlyTheUsersOwnFeedback()
+    {
+        //arrange
+        using var context = CreateContext();
+        var user = SeedUser(context);
+        var other = new User
+        {
+            Email = "other@example.com",
+            DisplayName = "Other",
+            GoogleId = "google-456",
+            CreatedAt = DateTime.UtcNow,
+        };
+        context.Users.Add(other);
+        context.SaveChanges();
+        var feedback = new FeedbackManagement(context);
+        feedback.Submit(user.Id, "Mine", Feedback.FeedbackCategory.Bug);
+        feedback.Submit(other.Id, "Theirs", Feedback.FeedbackCategory.Other);
+
+        //act
+        var mine = feedback.GetForUser(user.Id);
+
+        //assert — strictly scoped to the requesting user
+        Assert.That(mine, Has.Count.EqualTo(1));
+        Assert.That(mine[0].Message, Is.EqualTo("Mine"));
+    }
 }

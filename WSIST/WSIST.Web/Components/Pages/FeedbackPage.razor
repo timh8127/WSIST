@@ -56,6 +56,30 @@
             </div>
         </div>
 
+        <div class="settings-block">
+            <p class="settings-block-label">@localizer["Feedback_YourSubmissions"]</p>
+            <div class="settings-card">
+                @if (myFeedback.Count == 0)
+                {
+                    <p class="feedback-empty">@localizer["Feedback_YourEmpty"]</p>
+                }
+                else
+                {
+                    @foreach (var item in myFeedback)
+                    {
+                        <div class="feedback-item">
+                            <div class="feedback-item-head">
+                                <span class="subject-badge feedback-cat-@item.Category.ToString().ToLowerInvariant()">@localizer[$"Feedback_Category{item.Category}"]</span>
+                                <span class="feedback-meta">@item.CreatedAt.ToString("yyyy-MM-dd HH:mm") UTC</span>
+                                <span class="feedback-status-tag">@localizer[$"Feedback_Status{item.Status}"]</span>
+                            </div>
+                            <p class="feedback-item-message">@item.Message</p>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
         @if (isAdmin)
         {
             <div class="settings-block">

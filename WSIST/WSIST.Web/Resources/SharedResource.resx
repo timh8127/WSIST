@@ -198,6 +198,8 @@
   <data name="Feedback_Empty" xml:space="preserve"><value>No feedback submitted yet.</value></data>
   <data name="Feedback_EmptyError" xml:space="preserve"><value>Feedback message cannot be empty.</value></data>
   <data name="Feedback_SubmitValidationError" xml:space="preserve"><value>Your feedback couldn't be submitted. Please check your message and try again.</value></data>
+  <data name="Feedback_YourSubmissions" xml:space="preserve"><value>Your feedback</value></data>
+  <data name="Feedback_YourEmpty" xml:space="preserve"><value>You haven't submitted any feedback yet.</value></data>
   <data name="Feedback_StatusLabel" xml:space="preserve"><value>Status</value></data>
   <data name="Feedback_StatusOpen" xml:space="preserve"><value>Open</value></data>
   <data name="Feedback_StatusReviewed" xml:space="preserve"><value>Reviewed</value></data>

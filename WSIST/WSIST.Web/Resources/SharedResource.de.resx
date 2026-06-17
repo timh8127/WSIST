@@ -198,6 +198,8 @@
   <data name="Feedback_Empty" xml:space="preserve"><value>Noch kein Feedback eingegangen.</value></data>
   <data name="Feedback_EmptyError" xml:space="preserve"><value>Die Feedback-Nachricht darf nicht leer sein.</value></data>
   <data name="Feedback_SubmitValidationError" xml:space="preserve"><value>Dein Feedback konnte nicht übermittelt werden. Bitte überprüfe deine Nachricht und versuche es erneut.</value></data>
+  <data name="Feedback_YourSubmissions" xml:space="preserve"><value>Dein Feedback</value></data>
+  <data name="Feedback_YourEmpty" xml:space="preserve"><value>Du hast noch kein Feedback eingereicht.</value></data>
   <data name="Feedback_StatusLabel" xml:space="preserve"><value>Status</value></data>
   <data name="Feedback_StatusOpen" xml:space="preserve"><value>Offen</value></data>
   <data name="Feedback_StatusReviewed" xml:space="preserve"><value>Geprüft</value></data>
