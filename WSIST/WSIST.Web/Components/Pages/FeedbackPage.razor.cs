@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Localization;
 using WSIST.Engine;
 
 namespace WSIST.Web.Components.Pages;
@@ -9,7 +10,8 @@ public partial class FeedbackPage(
     FeedbackManagement feedbackManagement,
     AuthenticationStateProvider authStateProvider,
     NavigationManager navigation,
-    IConfiguration configuration
+    IConfiguration configuration,
+    IStringLocalizer<SharedResource> localizer
 ) : AuthenticatedComponentBase(management, authStateProvider, navigation)
 {
     private Feedback.FeedbackCategory category = Feedback.FeedbackCategory.Bug;
@@ -48,9 +50,12 @@ public partial class FeedbackPage(
         {
             feedbackManagement.Submit(CurrentUserId, message, category);
         }
-        catch (ArgumentException ex)
+        catch (ArgumentException)
         {
-            submitError = ex.Message;
+            // The only ArgumentException reachable from the UI is an empty
+            // message (length is capped client-side); map it to a localized
+            // message rather than surfacing the engine's English text.
+            submitError = localizer["Feedback_EmptyError"];
             return;
         }
         finally
@@ -60,7 +65,7 @@ public partial class FeedbackPage(
 
         message = string.Empty;
         category = Feedback.FeedbackCategory.Bug;
-        submitMessage = "Thanks — your feedback was submitted.";
+        submitMessage = localizer["Feedback_Thanks"];
 
         // Reflect the new row immediately for the admin's own listing.
         if (isAdmin)

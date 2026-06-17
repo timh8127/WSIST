@@ -1,7 +1,7 @@
 @page "/settings"
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 @inherits AuthenticatedComponentBase
-<PageTitle>WSIST — Settings</PageTitle>
+<PageTitle>WSIST — @localizer["Settings_Title"]</PageTitle>
 
 <div class="page">
     <div class="top-row">
@@ -9,27 +9,28 @@
             <img src="/logo.svg" width="26" height="26" alt="WSIST logo"/>
             <span>WSIST</span>
         </div>
-        <a href="/" class="button-primary" data-enhance-nav="false">← Back</a>
-        <a href="/logout" class="button-primary button-danger" data-enhance-nav="false">Logout</a>
+        <LanguageToggle />
+        <a href="/" class="button-primary" data-enhance-nav="false">← @localizer["Common_Back"]</a>
+        <a href="/logout" class="button-primary button-danger" data-enhance-nav="false">@localizer["Common_Logout"]</a>
     </div>
 
     <div class="content px-4">
         <div class="settings-page-header">
-            <h1>Settings</h1>
-            <p>Manage your profile and subjects.</p>
+            <h1>@localizer["Settings_Title"]</h1>
+            <p>@localizer["Settings_Subtitle"]</p>
         </div>
 
         @if (currentUser is not null)
         {
             <div class="settings-block">
-                <p class="settings-block-label">Profile</p>
+                <p class="settings-block-label">@localizer["Settings_Profile"]</p>
                 <div class="settings-card">
                     <div class="settings-row">
-                        <span class="settings-row-key">Display name</span>
+                        <span class="settings-row-key">@localizer["Settings_DisplayName"]</span>
                         <div class="settings-row-value">
                             <div class="settings-inline">
                                 <input type="text" class="settings-input" @bind="editedDisplayName" @bind:event="oninput" maxlength="100"/>
-                                <button class="button-primary button-accent" @onclick="SaveDisplayName">Save</button>
+                                <button class="button-primary button-accent" @onclick="SaveDisplayName">@localizer["Common_Save"]</button>
                             </div>
                             @if (saveMessage is not null)
                             {
@@ -38,18 +39,18 @@
                         </div>
                     </div>
                     <div class="settings-row">
-                        <span class="settings-row-key">Email</span>
+                        <span class="settings-row-key">@localizer["Settings_Email"]</span>
                         <span class="settings-row-val">@currentUser.Email</span>
                     </div>
                     <div class="settings-row settings-row-last">
-                        <span class="settings-row-key">Member since</span>
+                        <span class="settings-row-key">@localizer["Settings_MemberSince"]</span>
                         <span class="settings-row-val">@currentUser.CreatedAt.ToString("MMMM yyyy")</span>
                     </div>
                 </div>
             </div>
 
             <div class="settings-block">
-                <p class="settings-block-label">Subjects</p>
+                <p class="settings-block-label">@localizer["Settings_Subjects"]</p>
                 <div class="settings-card">
                     @foreach (var subject in subjects)
                     {
@@ -57,18 +58,18 @@
                             <span class="subject-name">@subject.Name</span>
                             @if (subject.IsSystem)
                             {
-                                <span class="subject-badge">system</span>
+                                <span class="subject-badge">@localizer["Settings_SystemBadge"]</span>
                             }
                             else
                             {
-                                <button class="button-primary button-danger" style="padding: 4px 10px; font-size: 12px;" @onclick="() => DeleteSubject(subject.Id)">Remove</button>
+                                <button class="button-primary button-danger" style="padding: 4px 10px; font-size: 12px;" @onclick="() => DeleteSubject(subject.Id)">@localizer["Common_Remove"]</button>
                             }
                         </div>
                     }
                     <div class="settings-add-subject">
                         <div class="settings-inline">
-                            <input type="text" class="settings-input" placeholder="New subject name" @bind="newSubjectName" @bind:event="oninput" maxlength="100"/>
-                            <button class="button-primary button-accent" @onclick="AddSubject">Add</button>
+                            <input type="text" class="settings-input" placeholder="@localizer["Settings_NewSubjectPlaceholder"]" @bind="newSubjectName" @bind:event="oninput" maxlength="100"/>
+                            <button class="button-primary button-accent" @onclick="AddSubject">@localizer["Common_Add"]</button>
                         </div>
                         @if (subjectError is not null)
                         {
@@ -79,13 +80,13 @@
             </div>
 
             <div class="settings-block">
-                <p class="settings-block-label">Data</p>
+                <p class="settings-block-label">@localizer["Settings_Data"]</p>
                 <div class="settings-card">
                     <div class="settings-row settings-row-last">
                         <div>
-                            <span class="settings-row-key">Export my data</span>
+                            <span class="settings-row-key">@localizer["Settings_ExportTitle"]</span>
                             <p style="font-size: 13px; color: var(--text-muted); margin-top: 3px;">
-                                Download all your tests and grades, including past graded ones.
+                                @localizer["Settings_ExportSub"]
                             </p>
                         </div>
                         <div class="settings-inline">
@@ -97,50 +98,52 @@
             </div>
 
             <div class="settings-block">
-                <p class="settings-block-label">Feedback</p>
+                <p class="settings-block-label">@localizer["Settings_Feedback"]</p>
                 <div class="settings-card">
                     <div class="settings-row settings-row-last">
                         <div>
-                            <span class="settings-row-key">Feedback &amp; feature requests</span>
+                            <span class="settings-row-key">@localizer["Settings_FeedbackTitle"]</span>
                             <p style="font-size: 13px; color: var(--text-muted); margin-top: 3px;">
-                                Report a bug or suggest an improvement.
+                                @localizer["Settings_FeedbackSub"]
                             </p>
                         </div>
-                        <a href="/feedback" class="button-primary button-accent" data-enhance-nav="false">Open</a>
+                        <a href="/feedback" class="button-primary button-accent" data-enhance-nav="false">@localizer["Common_Open"]</a>
                     </div>
                 </div>
             </div>
 
             <div class="settings-block">
-                <p class="settings-block-label">Account</p>
+                <p class="settings-block-label">@localizer["Settings_Account"]</p>
                 <div class="settings-card">
                     @if (!showDeleteConfirm)
                     {
                         <div class="settings-row settings-row-last">
                             <div>
-                                <span class="settings-row-key">Delete account</span>
+                                <span class="settings-row-key">@localizer["Settings_DeleteAccount"]</span>
                                 <p style="font-size: 13px; color: var(--text-muted); margin-top: 3px;">
-                                    Permanently removes your account and all test data.
+                                    @localizer["Settings_DeleteAccountSub"]
                                 </p>
                             </div>
                             <button class="button-primary button-danger" @onclick="ShowDeleteConfirm">
-                                Delete account
+                                @localizer["Settings_DeleteAccount"]
                             </button>
                         </div>
                     }
                     else
                     {
                         <div class="delete-confirm-zone">
-                            <p class="delete-confirm-title">Are you sure?</p>
+                            <p class="delete-confirm-title">@localizer["Settings_AreYouSure"]</p>
                             <p class="delete-confirm-sub">
-                                This will permanently delete your account, all @allTests.Count test@(allTests.Count == 1 ? "" : "s"), and all custom subjects. This cannot be undone.
+                                @(allTests.Count == 1
+                                    ? localizer["Settings_DeleteConfirmOne"]
+                                    : localizer["Settings_DeleteConfirmFmt", allTests.Count])
                             </p>
                             <div class="delete-confirm-actions">
                                 <button class="button-primary" @onclick="CancelDelete" disabled="@isDeleting">
-                                    Cancel
+                                    @localizer["Common_Cancel"]
                                 </button>
                                 <button class="button-primary button-danger" @onclick="ConfirmDeleteAccount" disabled="@isDeleting">
-                                    @(isDeleting ? "Deleting…" : "Yes, delete everything")
+                                    @(isDeleting ? localizer["Settings_Deleting"] : localizer["Settings_DeleteEverything"])
                                 </button>
                             </div>
                         </div>

@@ -2,7 +2,7 @@
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 @inherits AuthenticatedComponentBase
 @using WSIST.Engine
-<PageTitle>WSIST — Feedback</PageTitle>
+<PageTitle>WSIST — @localizer["Feedback_Title"]</PageTitle>
 
 <div class="page">
     <div class="top-row">
@@ -10,36 +10,37 @@
             <img src="/logo.svg" width="26" height="26" alt="WSIST logo"/>
             <span>WSIST</span>
         </div>
-        <a href="/" class="button-primary" data-enhance-nav="false">← Back</a>
-        <a href="/logout" class="button-primary button-danger" data-enhance-nav="false">Logout</a>
+        <LanguageToggle />
+        <a href="/" class="button-primary" data-enhance-nav="false">← @localizer["Common_Back"]</a>
+        <a href="/logout" class="button-primary button-danger" data-enhance-nav="false">@localizer["Common_Logout"]</a>
     </div>
 
     <div class="content px-4">
         <div class="settings-page-header">
-            <h1>Feedback</h1>
-            <p>Found a bug or have an idea? Let me know.</p>
+            <h1>@localizer["Feedback_Title"]</h1>
+            <p>@localizer["Feedback_Subtitle"]</p>
         </div>
 
         <div class="settings-block">
-            <p class="settings-block-label">Submit feedback</p>
+            <p class="settings-block-label">@localizer["Feedback_Submit"]</p>
             <div class="settings-card">
                 <div class="feedback-form">
-                    <label class="feedback-label" for="feedback-category">Category</label>
+                    <label class="feedback-label" for="feedback-category">@localizer["Feedback_Category"]</label>
                     <select id="feedback-category" class="settings-input" @bind="category">
-                        <option value="@WSIST.Engine.Feedback.FeedbackCategory.Bug">Bug</option>
-                        <option value="@WSIST.Engine.Feedback.FeedbackCategory.Feature">Feature request</option>
-                        <option value="@WSIST.Engine.Feedback.FeedbackCategory.Other">Other</option>
+                        <option value="@WSIST.Engine.Feedback.FeedbackCategory.Bug">@localizer["Feedback_CategoryBug"]</option>
+                        <option value="@WSIST.Engine.Feedback.FeedbackCategory.Feature">@localizer["Feedback_CategoryFeature"]</option>
+                        <option value="@WSIST.Engine.Feedback.FeedbackCategory.Other">@localizer["Feedback_CategoryOther"]</option>
                     </select>
 
-                    <label class="feedback-label" for="feedback-message">Message</label>
+                    <label class="feedback-label" for="feedback-message">@localizer["Feedback_Message"]</label>
                     <textarea id="feedback-message" class="settings-input feedback-textarea"
                               maxlength="4000" rows="6"
-                              placeholder="Describe the bug or your idea…"
+                              placeholder="@localizer["Feedback_MessagePlaceholder"]"
                               @bind="message" @bind:event="oninput"></textarea>
 
                     <div class="feedback-actions">
                         <button class="button-primary button-accent" @onclick="SubmitFeedback" disabled="@isSubmitting">
-                            @(isSubmitting ? "Sending…" : "Send feedback")
+                            @(isSubmitting ? localizer["Feedback_Sending"] : localizer["Feedback_Send"])
                         </button>
                     </div>
 
@@ -58,11 +59,11 @@
         @if (isAdmin)
         {
             <div class="settings-block">
-                <p class="settings-block-label">All submissions (admin)</p>
+                <p class="settings-block-label">@localizer["Feedback_AdminTitle"]</p>
                 <div class="settings-card">
                     @if (allFeedback.Count == 0)
                     {
-                        <p class="feedback-empty">No feedback submitted yet.</p>
+                        <p class="feedback-empty">@localizer["Feedback_Empty"]</p>
                     }
                     else
                     {
@@ -70,7 +71,7 @@
                         {
                             <div class="feedback-item">
                                 <div class="feedback-item-head">
-                                    <span class="subject-badge feedback-cat-@item.Category.ToString().ToLowerInvariant()">@item.Category</span>
+                                    <span class="subject-badge feedback-cat-@item.Category.ToString().ToLowerInvariant()">@localizer[$"Feedback_Category{item.Category}"]</span>
                                     <span class="feedback-meta">
                                         @item.SubmittedByName
                                         @if (!string.IsNullOrEmpty(item.SubmittedByEmail))
@@ -78,7 +79,7 @@
                                             <span class="feedback-email">(@item.SubmittedByEmail)</span>
                                         }
                                         · @item.CreatedAt.ToString("yyyy-MM-dd HH:mm") UTC
-                                        · @item.Status
+                                        · @localizer[$"Feedback_Status{item.Status}"]
                                     </span>
                                 </div>
                                 <p class="feedback-item-message">@item.Message</p>

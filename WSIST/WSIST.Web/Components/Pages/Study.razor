@@ -10,32 +10,33 @@
             <img src="/logo.svg" width="26" height="26" alt="WSIST logo"/>
             <span>WSIST</span>
         </div>
-        <a href="/" class="button-primary" data-enhance-nav="false">← Back</a>
-        <a href="/logout" class="button-primary button-danger" data-enhance-nav="false">Logout</a>
+        <LanguageToggle />
+        <a href="/" class="button-primary" data-enhance-nav="false">← @localizer["Common_Back"]</a>
+        <a href="/logout" class="button-primary button-danger" data-enhance-nav="false">@localizer["Common_Logout"]</a>
     </div>
 
     <div class="content px-4">
         <div class="study-header">
-            <h1>What should I study?</h1>
-            <p>Tell us how much time you have — we'll figure out the rest.</p>
+            <h1>@localizer["Study_Title"]</h1>
+            <p>@localizer["Study_Subtitle"]</p>
         </div>
 
         <div class="study-mode-toggle">
             <button class="study-mode-btn @(!weeklyMode ? "active" : "")" @onclick="() => weeklyMode = false">
-                Today
+                @localizer["Study_Today"]
             </button>
             <button class="study-mode-btn @(weeklyMode ? "active" : "")" @onclick="() => weeklyMode = true">
-                This week
+                @localizer["Study_ThisWeek"]
             </button>
         </div>
 
         @if (!weeklyMode)
         {
         <div class="study-input-card">
-            <label class="study-input-label">Hours available today</label>
+            <label class="study-input-label">@localizer["Study_HoursToday"]</label>
             <div class="study-input-row">
                 <input type="number" min="0.5" max="12" step="0.5" @bind="hoursAvailable"/>
-                <button class="button-primary button-accent" @onclick="Calculate">Calculate</button>
+                <button class="button-primary button-accent" @onclick="Calculate">@localizer["Study_Calculate"]</button>
             </div>
         </div>
 
@@ -45,14 +46,14 @@
             {
                 <div class="empty-state" style="margin-top: 2rem">
                     <p class="empty-state-icon">🎉</p>
-                    <p class="empty-state-title">You're all caught up</p>
-                    <p class="empty-state-sub">No upcoming tests — enjoy your free time.</p>
+                    <p class="empty-state-title">@localizer["Study_CaughtUpTitle"]</p>
+                    <p class="empty-state-sub">@localizer["Study_CaughtUpSub"]</p>
                 </div>
             }
             else
             {
                 <div class="study-results">
-                    <p class="study-results-label">Study these today</p>
+                    <p class="study-results-label">@localizer["Study_StudyTheseToday"]</p>
                     @foreach (var test in recommendations)
                     {
                         var score = calculator.CalculateTotalScore(test, allTests);
@@ -62,7 +63,7 @@
                                 <div>
                                     <h3 class="study-card-title">@test.Title</h3>
                                     <p class="study-card-subject">
-                                        @(subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? "Unknown") · in @days day@(days == 1 ? "" : "s")
+                                        @(subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? localizer["Common_Unknown"].Value) · @(days == 1 ? localizer["Common_InOneDay"] : localizer["Common_InDaysFmt", days])
                                     </p>
                                 </div>
                                 <span class="study-card-score">@score<span class="study-card-score-max">/40</span></span>
@@ -75,16 +76,16 @@
                             @if (studiedTestId == test.Id)
                             {
                                 <div class="studied-prompt">
-                                    <span class="studied-prompt-label">How's your understanding now?</span>
+                                    <span class="studied-prompt-label">@localizer["Study_HowUnderstanding"]</span>
                                     <div class="studied-prompt-row">
                                         <select class="studied-select" @bind="updatedUnderstanding">
                                             @foreach (var u in Enum.GetValues<Test.PersonalUnderstanding>())
                                             {
-                                                <option value="@u">@Test.UnderstandingHelper(u)</option>
+                                                <option value="@u">@localizer[$"Level_{u}"]</option>
                                             }
                                         </select>
-                                        <button class="button-primary button-accent" @onclick="() => SaveStudiedUnderstanding(test)">Save</button>
-                                        <button class="button-primary" @onclick="CancelStudiedPrompt">Cancel</button>
+                                        <button class="button-primary button-accent" @onclick="() => SaveStudiedUnderstanding(test)">@localizer["Common_Save"]</button>
+                                        <button class="button-primary" @onclick="CancelStudiedPrompt">@localizer["Common_Cancel"]</button>
                                     </div>
                                 </div>
                             }
@@ -92,7 +93,7 @@
                             {
                                 <div class="study-card-footer">
                                     <button class="button-primary studied-btn" @onclick="() => OpenStudiedPrompt(test)">
-                                        ✓ Studied it
+                                        ✓ @localizer["Study_StudiedIt"]
                                     </button>
                                 </div>
                             }
@@ -105,7 +106,7 @@
         else
         {
             <div class="study-input-card">
-                <label class="study-input-label">Hours available each day</label>
+                <label class="study-input-label">@localizer["Study_HoursEachDay"]</label>
                 <div class="weekly-hours-grid">
                     @foreach (var day in weeklyHours.Keys)
                     {
@@ -118,7 +119,7 @@
                     }
                 </div>
                 <button class="button-primary button-accent" style="align-self: flex-start; margin-top: 8px;" @onclick="CalculateWeekly">
-                    Plan my week
+                    @localizer["Study_PlanMyWeek"]
                 </button>
             </div>
 
@@ -132,7 +133,7 @@
                                 <span class="weekly-day-name">@DayLabel(date)</span>
                                 @if (!tests.Any())
                                 {
-                                    <span class="weekly-day-off">Day off</span>
+                                    <span class="weekly-day-off">@localizer["Study_DayOff"]</span>
                                 }
                             </div>
                             @if (tests.Any())
@@ -146,8 +147,8 @@
                                             <div class="weekly-test-info">
                                                 <span class="weekly-test-title">@test.Title</span>
                                                 <span class="weekly-test-meta">
-                                                    @(subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? "Unknown")
-                                                    · @days day@(days == 1 ? "" : "s") away
+                                                    @(subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? localizer["Common_Unknown"].Value)
+                                                    · @(days == 1 ? localizer["Study_OneDayAway"] : localizer["Study_DaysAwayFmt", days])
                                                 </span>
                                             </div>
                                             <span class="weekly-test-score @GetGradeClass(score / 40.0 * 6)">@score/40</span>

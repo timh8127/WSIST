@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Localization;
 using WSIST.Engine;
 
 namespace WSIST.Web.Components.Pages;
@@ -9,7 +10,8 @@ public partial class Study(
     TestManagement management,
     AuthenticationStateProvider authStateProvider,
     NavigationManager navigation,
-    PriorityCalculator calculator
+    PriorityCalculator calculator,
+    IStringLocalizer<SharedResource> localizer
 ) : AuthenticatedComponentBase(management, authStateProvider, navigation)
 {
     private List<Test> allTests = [];
@@ -52,10 +54,10 @@ public partial class Study(
         weeklyCalculated = true;
     }
 
-    private static string DayLabel(DateOnly date)
+    private string DayLabel(DateOnly date)
     {
         var today = DateOnly.FromDateTime(DateTime.Today);
-        return date == today ? "Today" : date.ToString("ddd d MMM");
+        return date == today ? localizer["Study_Today"] : date.ToString("ddd d MMM");
     }
 
     private void OpenStudiedPrompt(Test test)
@@ -97,7 +99,7 @@ public partial class Study(
         var understanding = calculator.CalculateUnderstandingScore(test.Understanding);
         var grade = calculator.CalculateGradeScore(test.Subject, allTests);
 
-        return $"Urgency: {urgency}/10 · Volume: {volume}/12 · Understanding: {understanding}/12 · Grade: {grade}/6";
+        return $"{localizer["Score_Urgency"]}: {urgency}/10 · {localizer["Score_Volume"]}: {volume}/12 · {localizer["Score_Understanding"]}: {understanding}/12 · {localizer["Score_Grade"]}: {grade}/6";
     }
 
     private string GetBecauseText(Test test)
@@ -112,15 +114,18 @@ public partial class Study(
         var subjectName =
             subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? test.Subject.ToString();
 
+        var understandingWord = localizer[$"Level_{test.Understanding}"].Value.ToLowerInvariant();
+        var volumeWord = localizer[$"Level_{test.Volume}"].Value.ToLowerInvariant();
+
         var parts = new List<string>
         {
-            $"you have {Test.UnderstandingHelper(test.Understanding).ToLower()} understanding",
-            $"the test has {Test.VolumeHelper(test.Volume).ToLower()} volume",
-            $"it's in {days} day{(days == 1 ? "" : "s")}",
+            localizer["Because_Understanding", understandingWord],
+            localizer["Because_Volume", volumeWord],
+            days == 1 ? localizer["Because_InOneDay"] : localizer["Because_InDaysFmt", days],
         };
 
         if (avgGrade > 0)
-            parts.Add($"your average grade in {subjectName} is {avgGrade:F1}");
+            parts.Add(localizer["Because_AvgGradeFmt", subjectName, avgGrade.ToString("F1")]);
 
         return string.Join(", ", parts);
     }

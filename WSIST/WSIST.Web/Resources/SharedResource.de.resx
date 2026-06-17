@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- ===== Common / shared ===== -->
+  <data name="Common_Back" xml:space="preserve"><value>Zurück</value></data>
+  <data name="Common_Logout" xml:space="preserve"><value>Abmelden</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Common_Save" xml:space="preserve"><value>Speichern</value></data>
+  <data name="Common_Add" xml:space="preserve"><value>Hinzufügen</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>Löschen</value></data>
+  <data name="Common_Edit" xml:space="preserve"><value>Bearbeiten</value></data>
+  <data name="Common_Remove" xml:space="preserve"><value>Entfernen</value></data>
+  <data name="Common_Open" xml:space="preserve"><value>Öffnen</value></data>
+  <data name="Common_Unknown" xml:space="preserve"><value>Unbekannt</value></data>
+  <data name="Common_Settings" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="Common_Study" xml:space="preserve"><value>Lernen</value></data>
+  <data name="Common_BackToHome" xml:space="preserve"><value>Zur Startseite</value></data>
+  <data name="Common_ContinueWithGoogle" xml:space="preserve"><value>Mit Google anmelden</value></data>
+  <data name="Common_Points" xml:space="preserve"><value>Pkt.</value></data>
+  <data name="Common_InOneDay" xml:space="preserve"><value>in 1 Tag</value></data>
+  <data name="Common_InDaysFmt" xml:space="preserve"><value>in {0} Tagen</value></data>
+
+  <!-- ===== Volume / understanding levels ===== -->
+  <data name="Level_VeryLow" xml:space="preserve"><value>Sehr niedrig</value></data>
+  <data name="Level_Low" xml:space="preserve"><value>Niedrig</value></data>
+  <data name="Level_Medium" xml:space="preserve"><value>Mittel</value></data>
+  <data name="Level_Average" xml:space="preserve"><value>Durchschnittlich</value></data>
+  <data name="Level_High" xml:space="preserve"><value>Hoch</value></data>
+  <data name="Level_VeryHigh" xml:space="preserve"><value>Sehr hoch</value></data>
+
+  <!-- ===== Subject validation (shared by Home modal + Settings) ===== -->
+  <data name="Subject_EmptyError" xml:space="preserve"><value>Der Fachname darf nicht leer sein.</value></data>
+  <data name="Subject_DuplicateError" xml:space="preserve"><value>Ein Fach mit diesem Namen existiert bereits.</value></data>
+
+  <!-- ===== Home ===== -->
+  <data name="Home_Title" xml:space="preserve"><value>Deine Prüfungen</value></data>
+  <data name="Home_Subtitle" xml:space="preserve"><value>Anstehende Prüfungen und Tests.</value></data>
+  <data name="Home_ShowPast" xml:space="preserve"><value>Vergangene anzeigen</value></data>
+  <data name="Home_HidePast" xml:space="preserve"><value>Vergangene ausblenden</value></data>
+  <data name="Home_AddTest" xml:space="preserve"><value>Prüfung hinzufügen</value></data>
+  <data name="Home_EnterMissingGrades" xml:space="preserve"><value>Fehlende Noten eintragen</value></data>
+  <data name="Home_StudyToday" xml:space="preserve"><value>Heute lernen</value></data>
+  <data name="Home_FullPlan" xml:space="preserve"><value>Ganzer Plan</value></data>
+  <data name="Home_NoUpcomingTitle" xml:space="preserve"><value>Keine anstehenden Prüfungen</value></data>
+  <data name="Home_NoUpcomingSub" xml:space="preserve"><value>Füge deine erste Prüfung hinzu, um loszulegen.</value></data>
+  <data name="Home_ColTitle" xml:space="preserve"><value>Titel</value></data>
+  <data name="Home_ColSubject" xml:space="preserve"><value>Fach</value></data>
+  <data name="Home_ColDate" xml:space="preserve"><value>Datum</value></data>
+  <data name="Home_ColVolume" xml:space="preserve"><value>Umfang</value></data>
+  <data name="Home_ColUnderstanding" xml:space="preserve"><value>Verständnis</value></data>
+  <data name="Home_Grades" xml:space="preserve"><value>Noten</value></data>
+  <data name="Home_GradeTrends" xml:space="preserve"><value>Notenverlauf</value></data>
+  <data name="Home_TestCountOne" xml:space="preserve"><value>1 Prüfung</value></data>
+  <data name="Home_TestCountFmt" xml:space="preserve"><value>{0} Prüfungen</value></data>
+
+  <!-- ===== Test modal ===== -->
+  <data name="Modal_AddTest" xml:space="preserve"><value>Prüfung hinzufügen</value></data>
+  <data name="Modal_EditTest" xml:space="preserve"><value>Prüfung bearbeiten</value></data>
+  <data name="Modal_Title" xml:space="preserve"><value>Titel</value></data>
+  <data name="Modal_TitlePlaceholder" xml:space="preserve"><value>z. B. Mathe-Prüfung</value></data>
+  <data name="Modal_Subject" xml:space="preserve"><value>Fach</value></data>
+  <data name="Modal_AddNewSubject" xml:space="preserve"><value>+ Neues Fach hinzufügen</value></data>
+  <data name="Modal_NewSubjectPlaceholder" xml:space="preserve"><value>Name des neuen Fachs</value></data>
+  <data name="Modal_DueDate" xml:space="preserve"><value>Fälligkeitsdatum</value></data>
+  <data name="Modal_Volume" xml:space="preserve"><value>Umfang</value></data>
+  <data name="Modal_Understanding" xml:space="preserve"><value>Verständnis</value></data>
+  <data name="Modal_Grade" xml:space="preserve"><value>Note</value></data>
+  <data name="Modal_GradeAfterDate" xml:space="preserve"><value>(verfügbar nach dem Prüfungsdatum)</value></data>
+  <data name="Modal_SaveChanges" xml:space="preserve"><value>Änderungen speichern</value></data>
+
+  <!-- ===== Study ===== -->
+  <data name="Study_Title" xml:space="preserve"><value>Was soll ich lernen?</value></data>
+  <data name="Study_Subtitle" xml:space="preserve"><value>Sag uns, wie viel Zeit du hast — den Rest übernehmen wir.</value></data>
+  <data name="Study_Today" xml:space="preserve"><value>Heute</value></data>
+  <data name="Study_ThisWeek" xml:space="preserve"><value>Diese Woche</value></data>
+  <data name="Study_HoursToday" xml:space="preserve"><value>Heute verfügbare Stunden</value></data>
+  <data name="Study_Calculate" xml:space="preserve"><value>Berechnen</value></data>
+  <data name="Study_CaughtUpTitle" xml:space="preserve"><value>Alles erledigt</value></data>
+  <data name="Study_CaughtUpSub" xml:space="preserve"><value>Keine anstehenden Prüfungen — genieße deine freie Zeit.</value></data>
+  <data name="Study_StudyTheseToday" xml:space="preserve"><value>Lerne diese heute</value></data>
+  <data name="Study_HowUnderstanding" xml:space="preserve"><value>Wie ist dein Verständnis jetzt?</value></data>
+  <data name="Study_StudiedIt" xml:space="preserve"><value>Gelernt</value></data>
+  <data name="Study_HoursEachDay" xml:space="preserve"><value>Pro Tag verfügbare Stunden</value></data>
+  <data name="Study_PlanMyWeek" xml:space="preserve"><value>Meine Woche planen</value></data>
+  <data name="Study_DayOff" xml:space="preserve"><value>Freier Tag</value></data>
+  <data name="Study_OneDayAway" xml:space="preserve"><value>noch 1 Tag</value></data>
+  <data name="Study_DaysAwayFmt" xml:space="preserve"><value>noch {0} Tage</value></data>
+  <data name="Score_Urgency" xml:space="preserve"><value>Dringlichkeit</value></data>
+  <data name="Score_Volume" xml:space="preserve"><value>Umfang</value></data>
+  <data name="Score_Understanding" xml:space="preserve"><value>Verständnis</value></data>
+  <data name="Score_Grade" xml:space="preserve"><value>Note</value></data>
+  <data name="Because_Understanding" xml:space="preserve"><value>dein Verständnis ist {0}</value></data>
+  <data name="Because_Volume" xml:space="preserve"><value>der Umfang ist {0}</value></data>
+  <data name="Because_InOneDay" xml:space="preserve"><value>sie ist in 1 Tag</value></data>
+  <data name="Because_InDaysFmt" xml:space="preserve"><value>sie ist in {0} Tagen</value></data>
+  <data name="Because_AvgGradeFmt" xml:space="preserve"><value>dein Notendurchschnitt in {0} ist {1}</value></data>
+
+  <!-- ===== Settings ===== -->
+  <data name="Settings_Title" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="Settings_Subtitle" xml:space="preserve"><value>Verwalte dein Profil und deine Fächer.</value></data>
+  <data name="Settings_Profile" xml:space="preserve"><value>Profil</value></data>
+  <data name="Settings_DisplayName" xml:space="preserve"><value>Anzeigename</value></data>
+  <data name="Settings_Saved" xml:space="preserve"><value>Gespeichert.</value></data>
+  <data name="Settings_Email" xml:space="preserve"><value>E-Mail</value></data>
+  <data name="Settings_MemberSince" xml:space="preserve"><value>Mitglied seit</value></data>
+  <data name="Settings_Subjects" xml:space="preserve"><value>Fächer</value></data>
+  <data name="Settings_SystemBadge" xml:space="preserve"><value>System</value></data>
+  <data name="Settings_NewSubjectPlaceholder" xml:space="preserve"><value>Name des neuen Fachs</value></data>
+  <data name="Settings_SubjectInUseError" xml:space="preserve"><value>Ein Fach mit zugeordneten Prüfungen kann nicht gelöscht werden. Lösche oder verschiebe diese Prüfungen zuerst.</value></data>
+  <data name="Settings_Data" xml:space="preserve"><value>Daten</value></data>
+  <data name="Settings_ExportTitle" xml:space="preserve"><value>Meine Daten exportieren</value></data>
+  <data name="Settings_ExportSub" xml:space="preserve"><value>Lade alle deine Prüfungen und Noten herunter, einschließlich vergangener benoteter.</value></data>
+  <data name="Settings_Feedback" xml:space="preserve"><value>Feedback</value></data>
+  <data name="Settings_FeedbackTitle" xml:space="preserve"><value>Feedback &amp; Funktionswünsche</value></data>
+  <data name="Settings_FeedbackSub" xml:space="preserve"><value>Melde einen Fehler oder schlage eine Verbesserung vor.</value></data>
+  <data name="Settings_Account" xml:space="preserve"><value>Konto</value></data>
+  <data name="Settings_DeleteAccount" xml:space="preserve"><value>Konto löschen</value></data>
+  <data name="Settings_DeleteAccountSub" xml:space="preserve"><value>Entfernt dein Konto und alle Prüfungsdaten dauerhaft.</value></data>
+  <data name="Settings_AreYouSure" xml:space="preserve"><value>Bist du sicher?</value></data>
+  <data name="Settings_DeleteConfirmOne" xml:space="preserve"><value>Dadurch werden dein Konto, 1 Prüfung und alle eigenen Fächer dauerhaft gelöscht. Dies kann nicht rückgängig gemacht werden.</value></data>
+  <data name="Settings_DeleteConfirmFmt" xml:space="preserve"><value>Dadurch werden dein Konto, alle {0} Prüfungen und alle eigenen Fächer dauerhaft gelöscht. Dies kann nicht rückgängig gemacht werden.</value></data>
+  <data name="Settings_DeleteEverything" xml:space="preserve"><value>Ja, alles löschen</value></data>
+  <data name="Settings_Deleting" xml:space="preserve"><value>Wird gelöscht…</value></data>
+  <data name="Language" xml:space="preserve"><value>Sprache</value></data>
+
+  <!-- ===== Feedback page ===== -->
+  <data name="Feedback_Title" xml:space="preserve"><value>Feedback</value></data>
+  <data name="Feedback_Subtitle" xml:space="preserve"><value>Fehler gefunden oder eine Idee? Lass es mich wissen.</value></data>
+  <data name="Feedback_Submit" xml:space="preserve"><value>Feedback einreichen</value></data>
+  <data name="Feedback_Category" xml:space="preserve"><value>Kategorie</value></data>
+  <data name="Feedback_CategoryBug" xml:space="preserve"><value>Fehler</value></data>
+  <data name="Feedback_CategoryFeature" xml:space="preserve"><value>Funktionswunsch</value></data>
+  <data name="Feedback_CategoryOther" xml:space="preserve"><value>Sonstiges</value></data>
+  <data name="Feedback_Message" xml:space="preserve"><value>Nachricht</value></data>
+  <data name="Feedback_MessagePlaceholder" xml:space="preserve"><value>Beschreibe den Fehler oder deine Idee…</value></data>
+  <data name="Feedback_Send" xml:space="preserve"><value>Feedback senden</value></data>
+  <data name="Feedback_Sending" xml:space="preserve"><value>Wird gesendet…</value></data>
+  <data name="Feedback_Thanks" xml:space="preserve"><value>Danke — dein Feedback wurde übermittelt.</value></data>
+  <data name="Feedback_AdminTitle" xml:space="preserve"><value>Alle Einsendungen (Admin)</value></data>
+  <data name="Feedback_Empty" xml:space="preserve"><value>Noch kein Feedback eingegangen.</value></data>
+  <data name="Feedback_EmptyError" xml:space="preserve"><value>Die Feedback-Nachricht darf nicht leer sein.</value></data>
+  <data name="Feedback_StatusOpen" xml:space="preserve"><value>Offen</value></data>
+  <data name="Feedback_StatusReviewed" xml:space="preserve"><value>Geprüft</value></data>
+  <data name="Feedback_StatusClosed" xml:space="preserve"><value>Geschlossen</value></data>
+
+  <!-- ===== Error / not-found pages ===== -->
+  <data name="NotFound_Title" xml:space="preserve"><value>Seite nicht gefunden</value></data>
+  <data name="NotFound_Sub" xml:space="preserve"><value>Die gesuchte Seite existiert nicht oder wurde verschoben.</value></data>
+  <data name="Error_Title" xml:space="preserve"><value>Etwas ist schiefgelaufen</value></data>
+  <data name="Error_Sub" xml:space="preserve"><value>Ein unerwarteter Fehler ist aufgetreten. Falls das weiterhin passiert, melde dich ab und wieder an.</value></data>
+</root>
