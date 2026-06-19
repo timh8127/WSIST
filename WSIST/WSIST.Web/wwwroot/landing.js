@@ -61,7 +61,41 @@
 
   var VOLUME_PTS        = [2, 4, 6, 8, 10, 12];
   var UNDERSTANDING_PTS = [12, 10, 8, 6, 4, 2];
-  var LEVEL_LABELS = ["Very low", "Low", "Medium", "Average", "High", "Very high"];
+
+  /* The playground runs entirely client-side, so its dynamic labels can't use
+     the server's IStringLocalizer. Mirror the two shipped languages here and
+     pick by <html lang>, which Program.cs sets from the current UI culture. */
+  var STRINGS = {
+    en: {
+      levels: ["Very low", "Low", "Medium", "Average", "High", "Very high"],
+      today: "today",
+      tomorrow: "tomorrow",
+      inDays: function (d) { return "in " + d + " days"; },
+      verdicts: [
+        "Drop everything — this is tonight.",
+        "High on the list. Start here.",
+        "On the radar — schedule it this week.",
+        "Breathe. You've got time.",
+      ],
+    },
+    de: {
+      levels: ["Sehr niedrig", "Niedrig", "Mittel", "Durchschnittlich", "Hoch", "Sehr hoch"],
+      today: "heute",
+      tomorrow: "morgen",
+      inDays: function (d) { return "in " + d + " Tagen"; },
+      verdicts: [
+        "Lass alles stehen — das ist für heute Abend.",
+        "Weit oben auf der Liste. Fang hier an.",
+        "Auf dem Schirm — plane sie diese Woche ein.",
+        "Durchatmen. Du hast Zeit.",
+      ],
+    },
+  };
+  var T =
+    (document.documentElement.lang || "en").slice(0, 2).toLowerCase() === "de"
+      ? STRINGS.de
+      : STRINGS.en;
+  var LEVEL_LABELS = T.levels;
 
   function urgencyScore(days){
     if (days <= 1)  return 10;
@@ -110,16 +144,16 @@
   }
 
   function dayLabel(d){
-    if (d === 0) return "today";
-    if (d === 1) return "tomorrow";
-    return "in " + d + " days";
+    if (d === 0) return T.today;
+    if (d === 1) return T.tomorrow;
+    return T.inDays(d);
   }
 
   function verdictFor(total){
-    if (total >= 30) return "Drop everything — this is tonight.";
-    if (total >= 22) return "High on the list. Start here.";
-    if (total >= 12) return "On the radar — schedule it this week.";
-    return "Breathe. You've got time.";
+    if (total >= 30) return T.verdicts[0];
+    if (total >= 22) return T.verdicts[1];
+    if (total >= 12) return T.verdicts[2];
+    return T.verdicts[3];
   }
 
   var lastVerdict = "";

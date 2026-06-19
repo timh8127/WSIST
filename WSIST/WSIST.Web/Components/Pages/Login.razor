@@ -1,7 +1,8 @@
 @page "/login-page"
 @layout EmptyLayout
 @using WSIST.Web.Components.Layout
-<PageTitle>WSIST — What should I study today?</PageTitle>
+@inject IStringLocalizer<SharedResource> Localizer
+<PageTitle>WSIST — @Localizer["Landing_HeroLine1"] @Localizer["Landing_HeroLine2Pre"]@Localizer["Landing_HeroLine2Em"]</PageTitle>
 
 <div class="landing">
 
@@ -10,13 +11,14 @@
         <div class="container nav-inner">
             <a class="logo" href="/login-page#top" data-enhance-nav="false" aria-label="WSIST home">
                 <span class="logo-word">WSIST<i>.</i></span>
-                <span class="logo-tag">what should I study today</span>
+                <span class="logo-tag">@Localizer["Landing_LogoTag"]</span>
             </a>
             <div class="nav-links">
-                <a href="/login-page#score" data-enhance-nav="false">The score</a>
-                <a href="/login-page#try" data-enhance-nav="false">Try it</a>
-                <a href="/login-page#how" data-enhance-nav="false">How it works</a>
-                <a class="btn btn-primary btn-sm" href="/login" data-enhance-nav="false">Sign in</a>
+                <a href="/login-page#score" data-enhance-nav="false">@Localizer["Landing_NavScore"]</a>
+                <a href="/login-page#try" data-enhance-nav="false">@Localizer["Landing_NavTry"]</a>
+                <a href="/login-page#how" data-enhance-nav="false">@Localizer["Landing_NavHow"]</a>
+                <LanguageToggle />
+                <a class="btn btn-primary btn-sm" href="/login" data-enhance-nav="false">@Localizer["Common_SignIn"]</a>
             </div>
         </div>
     </nav>
@@ -25,54 +27,52 @@
     <header class="hero" id="top">
         <div class="container hero-grid">
             <div class="hero-copy">
-                <p class="eyebrow r-up js-reveal">Free for students · Built in Zürich</p>
+                <p class="eyebrow r-up js-reveal">@Localizer["Landing_HeroEyebrow"]</p>
                 <h1>
-                    <span class="r-mask js-reveal" style="--d:.05s"><span>What should</span></span>
-                    <span class="r-mask js-reveal" style="--d:.14s"><span>I study <em>today?</em></span></span>
+                    <span class="r-mask js-reveal" style="--d:.05s"><span>@Localizer["Landing_HeroLine1"]</span></span>
+                    <span class="r-mask js-reveal" style="--d:.14s"><span>@Localizer["Landing_HeroLine2Pre"]<em>@Localizer["Landing_HeroLine2Em"]</em></span></span>
                 </h1>
                 <p class="sub r-up js-reveal" style="--d:.28s">
-                    Five subjects, three tests next week, one free evening. WSIST scores every
-                    upcoming test — urgency, volume, how well you get it, where your grades
-                    stand — and tells you exactly where tonight goes.
+                    @Localizer["Landing_HeroSub"]
                 </p>
                 <div class="hero-ctas r-up js-reveal" style="--d:.38s">
                     <a class="btn btn-primary" href="/login" data-enhance-nav="false">
                         <svg class="g-mark" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.3C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.5l6.2 5.3C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
-                        Continue with Google
+                        @Localizer["Common_ContinueWithGoogle"]
                     </a>
-                    <a class="btn btn-ghost" href="/login-page#score" data-enhance-nav="false">See the score ↓</a>
+                    <a class="btn btn-ghost" href="/login-page#score" data-enhance-nav="false">@Localizer["Landing_SeeScore"] ↓</a>
                 </div>
-                <p class="hero-note r-up js-reveal" style="--d:.46s"><b>Free</b> · no ads · your tests stay yours</p>
+                <p class="hero-note r-up js-reveal" style="--d:.46s"><b>@Localizer["Landing_HeroNoteBold"]</b> @Localizer["Landing_HeroNoteRest"]</p>
             </div>
 
             <div class="hero-visual" aria-hidden="true">
                 <div class="stack" id="stack">
                     <div class="card card-1 r-up js-reveal" style="--d:.35s">
-                        <span class="card-tag">Tonight's pick</span>
+                        <span class="card-tag">@Localizer["Landing_Card1Tag"]</span>
                         <div class="card-head">
                             <span class="card-title">Algebra II — Quadratics</span>
-                            <span class="card-score" style="color:var(--mint)">34 / 40 pts</span>
+                            <span class="card-score" style="color:var(--mint)">34 / 40 @Localizer["Common_Points"]</span>
                         </div>
-                        <p class="card-meta">Math · in 2 days</p>
-                        <p class="card-because"><b>Because:</b> you have low understanding, the test has very high volume, it's in 2 days.</p>
+                        <p class="card-meta">@Localizer["Demo_Math"] · @Localizer["Common_InDaysFmt", 2]</p>
+                        <p class="card-because"><b>@Localizer["Landing_Because"]</b> @Localizer["Landing_Card1Because"]</p>
                         <div class="card-bar"><i class="js-bar is-mint" data-w="85"></i></div>
                     </div>
                     <div class="card card-2 r-up js-reveal" style="--d:.48s">
                         <div class="card-head">
                             <span class="card-title">Vocabulaire — Unité 7</span>
-                            <span class="card-score">26 / 40 pts</span>
+                            <span class="card-score">26 / 40 @Localizer["Common_Points"]</span>
                         </div>
-                        <p class="card-meta">French · in 5 days</p>
-                        <p class="card-because"><b>Because:</b> medium understanding, high volume, your avg in French is 4.1.</p>
+                        <p class="card-meta">@Localizer["Demo_French"] · @Localizer["Common_InDaysFmt", 5]</p>
+                        <p class="card-because"><b>@Localizer["Landing_Because"]</b> @Localizer["Landing_Card2Because"]</p>
                         <div class="card-bar"><i class="js-bar" data-w="65"></i></div>
                     </div>
                     <div class="card card-3 r-up js-reveal" style="--d:.61s">
                         <div class="card-head">
                             <span class="card-title">Stoichiometry basics</span>
-                            <span class="card-score">19 / 40 pts</span>
+                            <span class="card-score">19 / 40 @Localizer["Common_Points"]</span>
                         </div>
-                        <p class="card-meta">Chemistry · in 9 days</p>
-                        <p class="card-because"><b>Because:</b> average understanding, medium volume, it's in 9 days.</p>
+                        <p class="card-meta">@Localizer["Demo_Chemistry"] · @Localizer["Common_InDaysFmt", 9]</p>
+                        <p class="card-because"><b>@Localizer["Landing_Because"]</b> @Localizer["Landing_Card3Because"]</p>
                         <div class="card-bar"><i class="js-bar" data-w="48"></i></div>
                     </div>
                 </div>
@@ -84,20 +84,20 @@
     <div class="marquee" aria-hidden="true">
         <div class="marquee-track">
             <span class="marquee-chunk">
-                <b>Math</b>&nbsp;· in 2 days ·&nbsp;<span class="pts">34 pts</span><em>✱</em>
-                <b>French</b>&nbsp;· in 5 days ·&nbsp;<span class="pts">26 pts</span><em>✱</em>
-                <b>Chemistry</b>&nbsp;· in 9 days ·&nbsp;<span class="pts">19 pts</span><em>✱</em>
-                <b>German</b>&nbsp;· in 12 days ·&nbsp;<span class="pts">14 pts</span><em>✱</em>
-                <b>English</b>&nbsp;· in 21 days ·&nbsp;<span class="pts">8 pts</span><em>✱</em>
-                <b>The highest score studies first</b><em>✱</em>
+                <b>@Localizer["Demo_Math"]</b>&nbsp;· @Localizer["Common_InDaysFmt", 2] ·&nbsp;<span class="pts">34 @Localizer["Common_Points"]</span><em>✱</em>
+                <b>@Localizer["Demo_French"]</b>&nbsp;· @Localizer["Common_InDaysFmt", 5] ·&nbsp;<span class="pts">26 @Localizer["Common_Points"]</span><em>✱</em>
+                <b>@Localizer["Demo_Chemistry"]</b>&nbsp;· @Localizer["Common_InDaysFmt", 9] ·&nbsp;<span class="pts">19 @Localizer["Common_Points"]</span><em>✱</em>
+                <b>@Localizer["Demo_German"]</b>&nbsp;· @Localizer["Common_InDaysFmt", 12] ·&nbsp;<span class="pts">14 @Localizer["Common_Points"]</span><em>✱</em>
+                <b>@Localizer["Demo_English"]</b>&nbsp;· @Localizer["Common_InDaysFmt", 21] ·&nbsp;<span class="pts">8 @Localizer["Common_Points"]</span><em>✱</em>
+                <b>@Localizer["Landing_HighestStudiesFirst"]</b><em>✱</em>
             </span>
             <span class="marquee-chunk">
-                <b>Math</b>&nbsp;· in 2 days ·&nbsp;<span class="pts">34 pts</span><em>✱</em>
-                <b>French</b>&nbsp;· in 5 days ·&nbsp;<span class="pts">26 pts</span><em>✱</em>
-                <b>Chemistry</b>&nbsp;· in 9 days ·&nbsp;<span class="pts">19 pts</span><em>✱</em>
-                <b>German</b>&nbsp;· in 12 days ·&nbsp;<span class="pts">14 pts</span><em>✱</em>
-                <b>English</b>&nbsp;· in 21 days ·&nbsp;<span class="pts">8 pts</span><em>✱</em>
-                <b>The highest score studies first</b><em>✱</em>
+                <b>@Localizer["Demo_Math"]</b>&nbsp;· @Localizer["Common_InDaysFmt", 2] ·&nbsp;<span class="pts">34 @Localizer["Common_Points"]</span><em>✱</em>
+                <b>@Localizer["Demo_French"]</b>&nbsp;· @Localizer["Common_InDaysFmt", 5] ·&nbsp;<span class="pts">26 @Localizer["Common_Points"]</span><em>✱</em>
+                <b>@Localizer["Demo_Chemistry"]</b>&nbsp;· @Localizer["Common_InDaysFmt", 9] ·&nbsp;<span class="pts">19 @Localizer["Common_Points"]</span><em>✱</em>
+                <b>@Localizer["Demo_German"]</b>&nbsp;· @Localizer["Common_InDaysFmt", 12] ·&nbsp;<span class="pts">14 @Localizer["Common_Points"]</span><em>✱</em>
+                <b>@Localizer["Demo_English"]</b>&nbsp;· @Localizer["Common_InDaysFmt", 21] ·&nbsp;<span class="pts">8 @Localizer["Common_Points"]</span><em>✱</em>
+                <b>@Localizer["Landing_HighestStudiesFirst"]</b><em>✱</em>
             </span>
         </div>
     </div>
@@ -107,53 +107,51 @@
         <div class="container ledger-wrap">
             <span class="ledger-watermark" aria-hidden="true">40</span>
             <div class="section-head">
-                <p class="eyebrow r-up js-reveal">The engine</p>
-                <h2 class="r-up js-reveal" style="--d:.08s">Your tests, <em>graded.</em></h2>
+                <p class="eyebrow r-up js-reveal">@Localizer["Landing_RubricEyebrow"]</p>
+                <h2 class="r-up js-reveal" style="--d:.08s">@Localizer["Landing_RubricTitlePre"]<em>@Localizer["Landing_RubricTitleEm"]</em></h2>
                 <p class="sub r-up js-reveal" style="--d:.16s">
-                    School grades you all year. WSIST turns the table — every upcoming test
-                    earns a priority score out of 40, built from four factors. No vibes,
-                    no guilt. Just arithmetic.
+                    @Localizer["Landing_RubricSub"]
                 </p>
             </div>
 
             <div class="ledger">
                 <div class="lrow r-up js-reveal">
                     <div class="lrow-name">
-                        <h3>Urgency</h3>
-                        <p>Tomorrow beats next month. Days left set the clock.</p>
+                        <h3>@Localizer["Score_Urgency"]</h3>
+                        <p>@Localizer["Landing_UrgencyDesc"]</p>
                     </div>
                     <p class="lrow-detail">≤1d +10&ensp;·&ensp;≤2d +8&ensp;·&ensp;≤7d +6&ensp;·&ensp;≤14d +4&ensp;·&ensp;≤30d +2</p>
-                    <div class="lrow-pts"><span class="num">+10</span><span class="lbl">pts max</span></div>
+                    <div class="lrow-pts"><span class="num">+10</span><span class="lbl">@Localizer["Landing_PtsMax"]</span></div>
                 </div>
 
                 <div class="lrow r-up js-reveal" style="--d:.07s">
                     <div class="lrow-name">
-                        <h3>Volume</h3>
-                        <p>Three chapters outweigh one worksheet.</p>
+                        <h3>@Localizer["Score_Volume"]</h3>
+                        <p>@Localizer["Landing_VolumeDesc"]</p>
                     </div>
-                    <p class="lrow-detail">very low +2&ensp;→&ensp;very high +12</p>
-                    <div class="lrow-pts"><span class="num">+12</span><span class="lbl">pts max</span></div>
+                    <p class="lrow-detail">@Localizer["Landing_VolumeDetail"]</p>
+                    <div class="lrow-pts"><span class="num">+12</span><span class="lbl">@Localizer["Landing_PtsMax"]</span></div>
                 </div>
 
                 <div class="lrow r-up js-reveal" style="--d:.14s">
                     <div class="lrow-name">
-                        <h3>Understanding</h3>
-                        <p>The less it clicks, the higher it climbs.</p>
+                        <h3>@Localizer["Score_Understanding"]</h3>
+                        <p>@Localizer["Landing_UnderstandingDesc"]</p>
                     </div>
-                    <p class="lrow-detail">very high +2&ensp;→&ensp;very low +12</p>
-                    <div class="lrow-pts"><span class="num">+12</span><span class="lbl">pts max</span></div>
+                    <p class="lrow-detail">@Localizer["Landing_UnderstandingDetail"]</p>
+                    <div class="lrow-pts"><span class="num">+12</span><span class="lbl">@Localizer["Landing_PtsMax"]</span></div>
                 </div>
 
                 <div class="lrow r-up js-reveal" style="--d:.21s">
                     <div class="lrow-name">
-                        <h3>Grade pull</h3>
-                        <p>Subjects where your average slips get a push.</p>
+                        <h3>@Localizer["Landing_GradePullName"]</h3>
+                        <p>@Localizer["Landing_GradePullDesc"]</p>
                     </div>
                     <p class="lrow-detail">Ø ≥5 +2&ensp;·&ensp;Ø ≥4 +4&ensp;·&ensp;Ø &lt;4 +6</p>
-                    <div class="lrow-pts"><span class="num">+6</span><span class="lbl">pts max</span></div>
+                    <div class="lrow-pts"><span class="num">+6</span><span class="lbl">@Localizer["Landing_PtsMax"]</span></div>
                 </div>
 
-                <p class="ledger-sum r-up js-reveal" style="--d:.28s">= <b>&nbsp;40 pts</b>&nbsp;— the highest score studies first</p>
+                <p class="ledger-sum r-up js-reveal" style="--d:.28s">= <b>&nbsp;40 @Localizer["Common_Points"]</b>&nbsp;— @Localizer["Landing_HighestStudiesFirst"]</p>
             </div>
         </div>
     </section>
@@ -162,11 +160,10 @@
     <section class="section" id="try" style="padding-top:0">
         <div class="container">
             <div class="section-head">
-                <p class="eyebrow r-up js-reveal">No-signup demo</p>
-                <h2 class="r-up js-reveal" style="--d:.08s">Run the <em>real</em> algorithm.</h2>
+                <p class="eyebrow r-up js-reveal">@Localizer["Landing_PlayEyebrow"]</p>
+                <h2 class="r-up js-reveal" style="--d:.08s">@Localizer["Landing_PlayTitlePre"]<em>@Localizer["Landing_PlayTitleEm"]</em>@Localizer["Landing_PlayTitlePost"]</h2>
                 <p class="sub r-up js-reveal" style="--d:.16s">
-                    These sliders feed the same scoring rules that run in production at
-                    wsist.forch.me. Move them and watch a test climb your list.
+                    @Localizer["Landing_PlaySub"]
                 </p>
             </div>
 
@@ -174,58 +171,58 @@
                 <div class="controls r-up js-reveal">
                     <div class="ctl">
                         <div class="ctl-head">
-                            <label for="in-days">Days until the test</label>
-                            <output id="out-days" for="in-days">in 2 days</output>
+                            <label for="in-days">@Localizer["Landing_CtlDays"]</label>
+                            <output id="out-days" for="in-days">@Localizer["Common_InDaysFmt", 2]</output>
                         </div>
                         <input type="range" id="in-days" min="0" max="35" step="1" value="2"/>
-                        <div class="ctl-scale"><span>today</span><span>5 weeks out</span></div>
+                        <div class="ctl-scale"><span>@Localizer["Landing_ScaleToday"]</span><span>@Localizer["Landing_Scale5Weeks"]</span></div>
                     </div>
 
                     <div class="ctl">
                         <div class="ctl-head">
-                            <label for="in-vol">Test volume</label>
-                            <output id="out-vol" for="in-vol">High</output>
+                            <label for="in-vol">@Localizer["Landing_CtlVol"]</label>
+                            <output id="out-vol" for="in-vol">@Localizer["Level_High"]</output>
                         </div>
                         <input type="range" id="in-vol" min="0" max="5" step="1" value="4"/>
-                        <div class="ctl-scale"><span>one worksheet</span><span>three chapters</span></div>
+                        <div class="ctl-scale"><span>@Localizer["Landing_ScaleWorksheet"]</span><span>@Localizer["Landing_ScaleChapters"]</span></div>
                     </div>
 
                     <div class="ctl">
                         <div class="ctl-head">
-                            <label for="in-und">Your understanding</label>
-                            <output id="out-und" for="in-und">Low</output>
+                            <label for="in-und">@Localizer["Landing_CtlUnd"]</label>
+                            <output id="out-und" for="in-und">@Localizer["Level_Low"]</output>
                         </div>
                         <input type="range" id="in-und" min="0" max="5" step="1" value="1"/>
-                        <div class="ctl-scale"><span>what even is this</span><span>could teach it</span></div>
+                        <div class="ctl-scale"><span>@Localizer["Landing_ScaleWhatEven"]</span><span>@Localizer["Landing_ScaleCouldTeach"]</span></div>
                     </div>
 
                     <div class="ctl">
                         <div class="ctl-head">
-                            <label for="in-avg">Your average in this subject</label>
+                            <label for="in-avg">@Localizer["Landing_CtlAvg"]</label>
                             <output id="out-avg" for="in-avg">Ø 4.2</output>
                         </div>
                         <input type="range" id="in-avg" min="1" max="6" step="0.1" value="4.2"/>
-                        <div class="ctl-scale"><span>1.0</span><span>6.0 — Swiss scale</span></div>
+                        <div class="ctl-scale"><span>1.0</span><span>@Localizer["Landing_Scale6Swiss"]</span></div>
                     </div>
                 </div>
 
                 <div class="result r-up js-reveal" style="--d:.12s" aria-live="polite">
-                    <p class="result-eyebrow">Priority score</p>
+                    <p class="result-eyebrow">@Localizer["Landing_ResultEyebrow"]</p>
                     <div class="result-score">
                         <span class="score-num" id="score-num">32</span>
-                        <span class="score-denom">/ 40 pts</span>
+                        <span class="score-denom">@Localizer["Landing_ResultDenom"]</span>
                     </div>
                     <div class="stackbar" aria-hidden="true">
                         <i class="seg-u" id="seg-u"></i><i class="seg-v" id="seg-v"></i><i class="seg-n" id="seg-n"></i><i class="seg-g" id="seg-g"></i>
                     </div>
                     <div class="chips" aria-hidden="true">
-                        <div class="chip"><span class="v" id="chip-u">+8</span><span class="k" style="--sw:var(--accent)">urgency</span></div>
-                        <div class="chip"><span class="v" id="chip-v">+10</span><span class="k" style="--sw:rgba(245,179,66,.68)">volume</span></div>
-                        <div class="chip"><span class="v" id="chip-n">+10</span><span class="k" style="--sw:rgba(245,179,66,.44)">understanding</span></div>
-                        <div class="chip"><span class="v" id="chip-g">+4</span><span class="k" style="--sw:rgba(245,179,66,.24)">grade pull</span></div>
+                        <div class="chip"><span class="v" id="chip-u">+8</span><span class="k" style="--sw:var(--accent)">@Localizer["Landing_ChipUrgency"]</span></div>
+                        <div class="chip"><span class="v" id="chip-v">+10</span><span class="k" style="--sw:rgba(245,179,66,.68)">@Localizer["Landing_ChipVolume"]</span></div>
+                        <div class="chip"><span class="v" id="chip-n">+10</span><span class="k" style="--sw:rgba(245,179,66,.44)">@Localizer["Landing_ChipUnderstanding"]</span></div>
+                        <div class="chip"><span class="v" id="chip-g">+4</span><span class="k" style="--sw:rgba(245,179,66,.24)">@Localizer["Landing_ChipGradePull"]</span></div>
                     </div>
-                    <p class="verdict" id="verdict">Drop everything — this is tonight.</p>
-                    <p class="result-foot">Same maths as the production engine</p>
+                    <p class="verdict" id="verdict">@Localizer["Landing_VerdictInitial"]</p>
+                    <p class="result-foot">@Localizer["Landing_ResultFoot"]</p>
                 </div>
             </div>
         </div>
@@ -235,23 +232,23 @@
     <section class="section" id="how" style="padding-top:0">
         <div class="container">
             <div class="section-head">
-                <p class="eyebrow r-up js-reveal">The routine</p>
-                <h2 class="r-up js-reveal" style="--d:.08s">Twenty seconds in, <em>one answer</em> out.</h2>
+                <p class="eyebrow r-up js-reveal">@Localizer["Landing_HowEyebrow"]</p>
+                <h2 class="r-up js-reveal" style="--d:.08s">@Localizer["Landing_HowTitlePre"]<em>@Localizer["Landing_HowTitleEm"]</em>@Localizer["Landing_HowTitlePost"]</h2>
             </div>
 
             <div class="steps">
                 <div class="step r-up js-reveal">
                     <span class="step-num" aria-hidden="true">01</span>
                     <div class="step-body">
-                        <h3>Add the test.</h3>
-                        <p>Title, subject, date, how big it is, how well you get it. Twenty seconds, once per test.</p>
+                        <h3>@Localizer["Landing_Step1Title"]</h3>
+                        <p>@Localizer["Landing_Step1Desc"]</p>
                     </div>
                     <div class="mock step-mock" aria-hidden="true">
-                        <p class="mock-label">Test title</p>
+                        <p class="mock-label">@Localizer["Landing_MockTestTitle"]</p>
                         <div class="mock-field">Algebra II — Quadratics</div>
-                        <p class="mock-label">Subject &nbsp;·&nbsp; Due date</p>
+                        <p class="mock-label">@Localizer["Landing_MockSubjectDue"]</p>
                         <div class="mock-row">
-                            <div class="mock-field" style="flex:1">Math ▾</div>
+                            <div class="mock-field" style="flex:1">@Localizer["Demo_Math"] ▾</div>
                             <div class="mock-field" style="flex:1">12.06.2026</div>
                         </div>
                     </div>
@@ -260,14 +257,14 @@
                 <div class="step r-up js-reveal">
                     <span class="step-num" aria-hidden="true">02</span>
                     <div class="step-body">
-                        <h3>Say how much time you have.</h3>
-                        <p>One input. “How many hours can you study today?” is the only question WSIST ever asks you back.</p>
+                        <h3>@Localizer["Landing_Step2Title"]</h3>
+                        <p>@Localizer["Landing_Step2Desc"]</p>
                     </div>
                     <div class="mock step-mock" aria-hidden="true">
-                        <p class="mock-label">How many hours can you study today?</p>
+                        <p class="mock-label">@Localizer["Landing_MockHours"]</p>
                         <div class="mock-row">
                             <div class="mock-field" style="width:90px;text-align:center">2.5</div>
-                            <span class="mock-btn">Calculate</span>
+                            <span class="mock-btn">@Localizer["Study_Calculate"]</span>
                         </div>
                     </div>
                 </div>
@@ -275,13 +272,13 @@
                 <div class="step r-up js-reveal">
                     <span class="step-num" aria-hidden="true">03</span>
                     <div class="step-body">
-                        <h3>Study the top of the list.</h3>
-                        <p>Every test ranked out of 40, with the reasons spelled out — so you trust the order instead of second-guessing it.</p>
+                        <h3>@Localizer["Landing_Step3Title"]</h3>
+                        <p>@Localizer["Landing_Step3Desc"]</p>
                     </div>
                     <div class="mock step-mock" aria-hidden="true">
-                        <div class="mock-rank"><span class="pos">1</span><span class="t">Algebra II</span><span class="s">34 pts</span><span class="b"><i style="width:85%"></i></span></div>
-                        <div class="mock-rank"><span class="pos">2</span><span class="t">Vocabulaire U7</span><span class="s">26 pts</span><span class="b"><i style="width:65%"></i></span></div>
-                        <div class="mock-rank"><span class="pos">3</span><span class="t">Stoichiometry</span><span class="s">19 pts</span><span class="b"><i style="width:48%"></i></span></div>
+                        <div class="mock-rank"><span class="pos">1</span><span class="t">Algebra II</span><span class="s">34 @Localizer["Common_Points"]</span><span class="b"><i style="width:85%"></i></span></div>
+                        <div class="mock-rank"><span class="pos">2</span><span class="t">Vocabulaire U7</span><span class="s">26 @Localizer["Common_Points"]</span><span class="b"><i style="width:65%"></i></span></div>
+                        <div class="mock-rank"><span class="pos">3</span><span class="t">Stoichiometry</span><span class="s">19 @Localizer["Common_Points"]</span><span class="b"><i style="width:48%"></i></span></div>
                     </div>
                 </div>
             </div>
@@ -292,33 +289,33 @@
     <section class="section" id="features" style="padding-top:0">
         <div class="container">
             <div class="section-head">
-                <p class="eyebrow r-up js-reveal">Also in the box</p>
-                <h2 class="r-up js-reveal" style="--d:.08s">The quiet parts.</h2>
+                <p class="eyebrow r-up js-reveal">@Localizer["Landing_FeatEyebrow"]</p>
+                <h2 class="r-up js-reveal" style="--d:.08s">@Localizer["Landing_FeatTitle"]</h2>
             </div>
             <div class="feat-grid">
                 <div class="feat r-up js-reveal">
-                    <h3>Grade overview per subject</h3>
-                    <p>Your averages on the dashboard, always current — so a slipping subject shows up before the report card does.</p>
+                    <h3>@Localizer["Landing_Feat1Title"]</h3>
+                    <p>@Localizer["Landing_Feat1Desc"]</p>
                 </div>
                 <div class="feat r-up js-reveal" style="--d:.06s">
-                    <h3>Your subjects, not a preset</h3>
-                    <p>Add the subjects your school actually teaches. Wirtschaft, Werkstatt, whatever — WSIST doesn't care, it just scores.</p>
+                    <h3>@Localizer["Landing_Feat2Title"]</h3>
+                    <p>@Localizer["Landing_Feat2Desc"]</p>
                 </div>
                 <div class="feat r-up js-reveal" style="--d:.12s">
-                    <h3>Every rank explains itself</h3>
-                    <p>Tap any card for its score breakdown. You always see why a test sits where it sits.</p>
+                    <h3>@Localizer["Landing_Feat3Title"]</h3>
+                    <p>@Localizer["Landing_Feat3Desc"]</p>
                 </div>
                 <div class="feat r-up js-reveal" style="--d:.18s">
-                    <h3>Sign in with Google</h3>
-                    <p>Nothing new to remember. Your school account works fine.</p>
+                    <h3>@Localizer["Landing_Feat4Title"]</h3>
+                    <p>@Localizer["Landing_Feat4Desc"]</p>
                 </div>
                 <div class="feat r-up js-reveal" style="--d:.24s">
-                    <h3>Private by default</h3>
-                    <p>Your tests and grades are visible to you alone, and you can delete them anytime. No ads, ever.</p>
+                    <h3>@Localizer["Landing_Feat5Title"]</h3>
+                    <p>@Localizer["Landing_Feat5Desc"]</p>
                 </div>
                 <div class="feat r-up js-reveal" style="--d:.3s">
-                    <h3>“WSIST sagt” <span class="soon">Soon</span></h3>
-                    <p>A daily study briefing in Swiss German, plus an Android app. In the works between exam weeks.</p>
+                    <h3>@Localizer["Landing_WsistSays"] <span class="soon">@Localizer["Landing_Soon"]</span></h3>
+                    <p>@Localizer["Landing_Feat6Desc"]</p>
                 </div>
             </div>
         </div>
@@ -328,22 +325,22 @@
     <section class="section manifesto">
         <div class="container manifesto">
             <blockquote class="r-up js-reveal">
-                Built between apprenticeship shifts and exam weeks — by a student who <b>needed it to exist.</b>
+                @Localizer["Landing_ManifestoPre"]<b>@Localizer["Landing_ManifestoBold"]</b>
             </blockquote>
-            <cite class="r-up js-reveal" style="--d:.12s">Tim · Informatik-Lehrling · Zürich</cite>
+            <cite class="r-up js-reveal" style="--d:.12s">@Localizer["Landing_ManifestoAttribution"]</cite>
         </div>
     </section>
 
     <!-- ============ FINAL CTA ============ -->
     <section class="section cta">
         <div class="container">
-            <h2 class="r-up js-reveal">Your next test is coming <em>either way.</em></h2>
+            <h2 class="r-up js-reveal">@Localizer["Landing_CtaTitlePre"]<em>@Localizer["Landing_CtaTitleEm"]</em></h2>
             <div class="cta-row r-up js-reveal" style="--d:.1s">
                 <a class="btn btn-primary" href="/login" data-enhance-nav="false">
                     <svg class="g-mark" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.3C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.5l6.2 5.3C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
-                    Continue with Google
+                    @Localizer["Common_ContinueWithGoogle"]
                 </a>
-                <span class="cta-small">Free · works in any browser</span>
+                <span class="cta-small">@Localizer["Landing_CtaSmall"]</span>
             </div>
         </div>
     </section>
@@ -351,13 +348,13 @@
     <!-- ============ FOOTER ============ -->
     <footer>
         <div class="container foot">
-            <span class="wm">WSIST<i>.</i> — what should I study today</span>
+            <span class="wm">WSIST<i>.</i> — @Localizer["Landing_LogoTag"]</span>
             <div class="foot-links">
                 <a href="https://wsist.forch.me">wsist.forch.me</a>
-                <a href="/privacy">Privacy</a>
-                <a href="/terms">Terms</a>
+                <a href="/privacy">@Localizer["Legal_Privacy"]</a>
+                <a href="/terms">@Localizer["Legal_Terms"]</a>
             </div>
-            <span>Made in Zürich · © 2026 Tim Hug</span>
+            <span>@Localizer["Landing_FooterMade"]</span>
         </div>
     </footer>
 </div>

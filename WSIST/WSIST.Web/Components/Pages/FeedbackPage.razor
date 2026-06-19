@@ -1,0 +1,122 @@
+@page "/feedback"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@inherits AuthenticatedComponentBase
+@using WSIST.Engine
+<PageTitle>WSIST — @localizer["Feedback_Title"]</PageTitle>
+
+<div class="page">
+    <div class="top-row">
+        <a href="/" class="title nav-brand" data-enhance-nav="false">
+            <img src="/logo.svg" width="26" height="26" alt="WSIST logo"/>
+            <span>WSIST</span>
+        </a>
+        <LanguageToggle />
+        <a href="/" class="button-primary" data-enhance-nav="false">← @localizer["Common_Back"]</a>
+        <a href="/logout" class="button-primary button-danger" data-enhance-nav="false">@localizer["Common_Logout"]</a>
+    </div>
+
+    <div class="content px-4">
+        <div class="settings-page-header">
+            <h1>@localizer["Feedback_Title"]</h1>
+            <p>@localizer["Feedback_Subtitle"]</p>
+        </div>
+
+        <div class="settings-block">
+            <p class="settings-block-label">@localizer["Feedback_Submit"]</p>
+            <div class="settings-card">
+                <div class="feedback-form">
+                    <label class="feedback-label" for="feedback-category">@localizer["Feedback_Category"]</label>
+                    <select id="feedback-category" class="settings-input" @bind="category">
+                        <option value="@WSIST.Engine.Feedback.FeedbackCategory.Bug">@localizer["Feedback_CategoryBug"]</option>
+                        <option value="@WSIST.Engine.Feedback.FeedbackCategory.Feature">@localizer["Feedback_CategoryFeature"]</option>
+                        <option value="@WSIST.Engine.Feedback.FeedbackCategory.Other">@localizer["Feedback_CategoryOther"]</option>
+                    </select>
+
+                    <label class="feedback-label" for="feedback-message">@localizer["Feedback_Message"]</label>
+                    <textarea id="feedback-message" class="settings-input feedback-textarea"
+                              maxlength="4000" rows="6"
+                              placeholder="@localizer["Feedback_MessagePlaceholder"]"
+                              @bind="message" @bind:event="oninput"></textarea>
+
+                    <div class="feedback-actions">
+                        <button class="button-primary button-accent" @onclick="SubmitFeedback" disabled="@isSubmitting">
+                            @(isSubmitting ? localizer["Feedback_Sending"] : localizer["Feedback_Send"])
+                        </button>
+                    </div>
+
+                    @if (submitError is not null)
+                    {
+                        <small class="settings-error">@submitError</small>
+                    }
+                    @if (submitMessage is not null)
+                    {
+                        <small class="settings-success">@submitMessage</small>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-block">
+            <p class="settings-block-label">@localizer["Feedback_YourSubmissions"]</p>
+            <div class="settings-card">
+                @if (myFeedback.Count == 0)
+                {
+                    <p class="feedback-empty">@localizer["Feedback_YourEmpty"]</p>
+                }
+                else
+                {
+                    @foreach (var item in myFeedback)
+                    {
+                        <div class="feedback-item">
+                            <div class="feedback-item-head">
+                                <span class="subject-badge feedback-cat-@item.Category.ToString().ToLowerInvariant()">@localizer[$"Feedback_Category{item.Category}"]</span>
+                                <span class="feedback-meta">@item.CreatedAt.ToString("yyyy-MM-dd HH:mm") UTC</span>
+                                <span class="feedback-status-tag">@localizer[$"Feedback_Status{item.Status}"]</span>
+                            </div>
+                            <p class="feedback-item-message">@item.Message</p>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        @if (isAdmin)
+        {
+            <div class="settings-block">
+                <p class="settings-block-label">@localizer["Feedback_AdminTitle"]</p>
+                <div class="settings-card">
+                    @if (allFeedback.Count == 0)
+                    {
+                        <p class="feedback-empty">@localizer["Feedback_Empty"]</p>
+                    }
+                    else
+                    {
+                        @foreach (var item in allFeedback)
+                        {
+                            <div class="feedback-item">
+                                <div class="feedback-item-head">
+                                    <span class="subject-badge feedback-cat-@item.Category.ToString().ToLowerInvariant()">@localizer[$"Feedback_Category{item.Category}"]</span>
+                                    <span class="feedback-meta">
+                                        @item.SubmittedByName
+                                        @if (!string.IsNullOrEmpty(item.SubmittedByEmail))
+                                        {
+                                            <span class="feedback-email">(@item.SubmittedByEmail)</span>
+                                        }
+                                        · @item.CreatedAt.ToString("yyyy-MM-dd HH:mm") UTC
+                                    </span>
+                                    <select class="feedback-status-select" @onchange="(e) => ChangeStatus(item.Id, e)" aria-label="@localizer["Feedback_StatusLabel"]">
+                                        @foreach (var st in Enum.GetValues<Feedback.FeedbackStatus>())
+                                        {
+                                            <option value="@st" selected="@(st == item.Status)">@localizer[$"Feedback_Status{st}"]</option>
+                                        }
+                                    </select>
+                                </div>
+                                <p class="feedback-item-message">@item.Message</p>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

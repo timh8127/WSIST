@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- ===== Common / shared ===== -->
+  <data name="Common_Back" xml:space="preserve"><value>Back</value></data>
+  <data name="Common_Logout" xml:space="preserve"><value>Logout</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Common_Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Common_Add" xml:space="preserve"><value>Add</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>Delete</value></data>
+  <data name="Common_Edit" xml:space="preserve"><value>Edit</value></data>
+  <data name="Common_Remove" xml:space="preserve"><value>Remove</value></data>
+  <data name="Common_Open" xml:space="preserve"><value>Open</value></data>
+  <data name="Common_Unknown" xml:space="preserve"><value>Unknown</value></data>
+  <data name="Common_Settings" xml:space="preserve"><value>Settings</value></data>
+  <data name="Common_Study" xml:space="preserve"><value>Study</value></data>
+  <data name="Common_BackToHome" xml:space="preserve"><value>Back to home</value></data>
+  <data name="Common_ContinueWithGoogle" xml:space="preserve"><value>Continue with Google</value></data>
+  <data name="Common_Points" xml:space="preserve"><value>pts</value></data>
+  <data name="Common_InOneDay" xml:space="preserve"><value>in 1 day</value></data>
+  <data name="Common_InDaysFmt" xml:space="preserve"><value>in {0} days</value></data>
+
+  <!-- ===== Volume / understanding levels ===== -->
+  <data name="Level_VeryLow" xml:space="preserve"><value>Very Low</value></data>
+  <data name="Level_Low" xml:space="preserve"><value>Low</value></data>
+  <data name="Level_Medium" xml:space="preserve"><value>Medium</value></data>
+  <data name="Level_Average" xml:space="preserve"><value>Average</value></data>
+  <data name="Level_High" xml:space="preserve"><value>High</value></data>
+  <data name="Level_VeryHigh" xml:space="preserve"><value>Very High</value></data>
+
+  <!-- ===== Subject validation (shared by Home modal + Settings) ===== -->
+  <data name="Subject_EmptyError" xml:space="preserve"><value>Subject name cannot be empty.</value></data>
+  <data name="Subject_DuplicateError" xml:space="preserve"><value>A subject with that name already exists.</value></data>
+
+  <!-- ===== Home ===== -->
+  <data name="Home_Title" xml:space="preserve"><value>Your tests</value></data>
+  <data name="Home_Subtitle" xml:space="preserve"><value>Upcoming exams and assessments.</value></data>
+  <data name="Home_ShowPast" xml:space="preserve"><value>Show past</value></data>
+  <data name="Home_HidePast" xml:space="preserve"><value>Hide past</value></data>
+  <data name="Home_AddTest" xml:space="preserve"><value>Add test</value></data>
+  <data name="Home_EnterMissingGrades" xml:space="preserve"><value>Enter missing grades</value></data>
+  <data name="Home_StudyToday" xml:space="preserve"><value>Study today</value></data>
+  <data name="Home_FullPlan" xml:space="preserve"><value>Full plan</value></data>
+  <data name="Home_NoUpcomingTitle" xml:space="preserve"><value>No upcoming tests</value></data>
+  <data name="Home_NoUpcomingSub" xml:space="preserve"><value>Add your first test to get started.</value></data>
+  <data name="Home_ColTitle" xml:space="preserve"><value>Title</value></data>
+  <data name="Home_ColSubject" xml:space="preserve"><value>Subject</value></data>
+  <data name="Home_ColDate" xml:space="preserve"><value>Date</value></data>
+  <data name="Home_ColVolume" xml:space="preserve"><value>Volume</value></data>
+  <data name="Home_ColUnderstanding" xml:space="preserve"><value>Understanding</value></data>
+  <data name="Home_Grades" xml:space="preserve"><value>Grades</value></data>
+  <data name="Home_GradeTrends" xml:space="preserve"><value>Grade trends</value></data>
+  <data name="Home_TestCountOne" xml:space="preserve"><value>1 test</value></data>
+  <data name="Home_TestCountFmt" xml:space="preserve"><value>{0} tests</value></data>
+
+  <!-- ===== Test modal ===== -->
+  <data name="Modal_AddTest" xml:space="preserve"><value>Add test</value></data>
+  <data name="Modal_EditTest" xml:space="preserve"><value>Edit test</value></data>
+  <data name="Modal_Title" xml:space="preserve"><value>Title</value></data>
+  <data name="Modal_TitlePlaceholder" xml:space="preserve"><value>e.g. Maths Exam</value></data>
+  <data name="Modal_Subject" xml:space="preserve"><value>Subject</value></data>
+  <data name="Modal_AddNewSubject" xml:space="preserve"><value>+ Add new subject</value></data>
+  <data name="Modal_NewSubjectPlaceholder" xml:space="preserve"><value>New subject name</value></data>
+  <data name="Modal_DueDate" xml:space="preserve"><value>Due date</value></data>
+  <data name="Modal_Volume" xml:space="preserve"><value>Volume</value></data>
+  <data name="Modal_Understanding" xml:space="preserve"><value>Understanding</value></data>
+  <data name="Modal_Grade" xml:space="preserve"><value>Grade</value></data>
+  <data name="Modal_GradeAfterDate" xml:space="preserve"><value>(available after test date)</value></data>
+  <data name="Modal_SaveChanges" xml:space="preserve"><value>Save changes</value></data>
+
+  <!-- ===== Study ===== -->
+  <data name="Study_Title" xml:space="preserve"><value>What should I study?</value></data>
+  <data name="Study_Subtitle" xml:space="preserve"><value>Tell us how much time you have — we'll figure out the rest.</value></data>
+  <data name="Study_Today" xml:space="preserve"><value>Today</value></data>
+  <data name="Study_ThisWeek" xml:space="preserve"><value>This week</value></data>
+  <data name="Study_HoursToday" xml:space="preserve"><value>Hours available today</value></data>
+  <data name="Study_Calculate" xml:space="preserve"><value>Calculate</value></data>
+  <data name="Study_CaughtUpTitle" xml:space="preserve"><value>You're all caught up</value></data>
+  <data name="Study_CaughtUpSub" xml:space="preserve"><value>No upcoming tests — enjoy your free time.</value></data>
+  <data name="Study_StudyTheseToday" xml:space="preserve"><value>Study these today</value></data>
+  <data name="Study_HowUnderstanding" xml:space="preserve"><value>How's your understanding now?</value></data>
+  <data name="Study_StudiedIt" xml:space="preserve"><value>Studied it</value></data>
+  <data name="Study_HoursEachDay" xml:space="preserve"><value>Hours available each day</value></data>
+  <data name="Study_PlanMyWeek" xml:space="preserve"><value>Plan my week</value></data>
+  <data name="Study_DayOff" xml:space="preserve"><value>Day off</value></data>
+  <data name="Study_OneDayAway" xml:space="preserve"><value>1 day away</value></data>
+  <data name="Study_DaysAwayFmt" xml:space="preserve"><value>{0} days away</value></data>
+  <data name="Score_Urgency" xml:space="preserve"><value>Urgency</value></data>
+  <data name="Score_Volume" xml:space="preserve"><value>Volume</value></data>
+  <data name="Score_Understanding" xml:space="preserve"><value>Understanding</value></data>
+  <data name="Score_Grade" xml:space="preserve"><value>Grade</value></data>
+  <data name="Because_Understanding" xml:space="preserve"><value>you have {0} understanding</value></data>
+  <data name="Because_Volume" xml:space="preserve"><value>the test has {0} volume</value></data>
+  <data name="Because_InOneDay" xml:space="preserve"><value>it's in 1 day</value></data>
+  <data name="Because_InDaysFmt" xml:space="preserve"><value>it's in {0} days</value></data>
+  <data name="Because_AvgGradeFmt" xml:space="preserve"><value>your average grade in {0} is {1}</value></data>
+
+  <!-- ===== Settings ===== -->
+  <data name="Settings_Title" xml:space="preserve"><value>Settings</value></data>
+  <data name="Settings_Subtitle" xml:space="preserve"><value>Manage your profile and subjects.</value></data>
+  <data name="Settings_Profile" xml:space="preserve"><value>Profile</value></data>
+  <data name="Settings_DisplayName" xml:space="preserve"><value>Display name</value></data>
+  <data name="Settings_Saved" xml:space="preserve"><value>Saved.</value></data>
+  <data name="Settings_Email" xml:space="preserve"><value>Email</value></data>
+  <data name="Settings_MemberSince" xml:space="preserve"><value>Member since</value></data>
+  <data name="Settings_Subjects" xml:space="preserve"><value>Subjects</value></data>
+  <data name="Settings_SystemBadge" xml:space="preserve"><value>system</value></data>
+  <data name="Settings_NewSubjectPlaceholder" xml:space="preserve"><value>New subject name</value></data>
+  <data name="Settings_SubjectInUseError" xml:space="preserve"><value>Cannot delete a subject that still has tests. Delete or reassign those tests first.</value></data>
+  <data name="Settings_Data" xml:space="preserve"><value>Data</value></data>
+  <data name="Settings_ExportTitle" xml:space="preserve"><value>Export my data</value></data>
+  <data name="Settings_ExportSub" xml:space="preserve"><value>Download all your tests and grades, including past graded ones.</value></data>
+  <data name="Settings_Feedback" xml:space="preserve"><value>Feedback</value></data>
+  <data name="Settings_FeedbackTitle" xml:space="preserve"><value>Feedback &amp; feature requests</value></data>
+  <data name="Settings_FeedbackSub" xml:space="preserve"><value>Report a bug or suggest an improvement.</value></data>
+  <data name="Settings_Account" xml:space="preserve"><value>Account</value></data>
+  <data name="Settings_DeleteAccount" xml:space="preserve"><value>Delete account</value></data>
+  <data name="Settings_DeleteAccountSub" xml:space="preserve"><value>Permanently removes your account and all test data.</value></data>
+  <data name="Settings_AreYouSure" xml:space="preserve"><value>Are you sure?</value></data>
+  <data name="Settings_DeleteConfirmOne" xml:space="preserve"><value>This will permanently delete your account, 1 test, and all custom subjects. This cannot be undone.</value></data>
+  <data name="Settings_DeleteConfirmFmt" xml:space="preserve"><value>This will permanently delete your account, all {0} tests, and all custom subjects. This cannot be undone.</value></data>
+  <data name="Settings_DeleteEverything" xml:space="preserve"><value>Yes, delete everything</value></data>
+  <data name="Settings_Deleting" xml:space="preserve"><value>Deleting…</value></data>
+  <data name="Language" xml:space="preserve"><value>Language</value></data>
+
+  <!-- ===== Feedback page ===== -->
+  <data name="Feedback_Title" xml:space="preserve"><value>Feedback</value></data>
+  <data name="Feedback_Subtitle" xml:space="preserve"><value>Found a bug or have an idea? Let me know.</value></data>
+  <data name="Feedback_Submit" xml:space="preserve"><value>Submit feedback</value></data>
+  <data name="Feedback_Category" xml:space="preserve"><value>Category</value></data>
+  <data name="Feedback_CategoryBug" xml:space="preserve"><value>Bug</value></data>
+  <data name="Feedback_CategoryFeature" xml:space="preserve"><value>Feature request</value></data>
+  <data name="Feedback_CategoryOther" xml:space="preserve"><value>Other</value></data>
+  <data name="Feedback_Message" xml:space="preserve"><value>Message</value></data>
+  <data name="Feedback_MessagePlaceholder" xml:space="preserve"><value>Describe the bug or your idea…</value></data>
+  <data name="Feedback_Send" xml:space="preserve"><value>Send feedback</value></data>
+  <data name="Feedback_Sending" xml:space="preserve"><value>Sending…</value></data>
+  <data name="Feedback_Thanks" xml:space="preserve"><value>Thanks — your feedback was submitted.</value></data>
+  <data name="Feedback_AdminTitle" xml:space="preserve"><value>All submissions (admin)</value></data>
+  <data name="Feedback_Empty" xml:space="preserve"><value>No feedback submitted yet.</value></data>
+  <data name="Feedback_EmptyError" xml:space="preserve"><value>Feedback message cannot be empty.</value></data>
+  <data name="Feedback_SubmitValidationError" xml:space="preserve"><value>Your feedback couldn't be submitted. Please check your message and try again.</value></data>
+  <data name="Feedback_YourSubmissions" xml:space="preserve"><value>Your feedback</value></data>
+  <data name="Feedback_YourEmpty" xml:space="preserve"><value>You haven't submitted any feedback yet.</value></data>
+  <data name="Feedback_StatusLabel" xml:space="preserve"><value>Status</value></data>
+  <data name="Feedback_StatusOpen" xml:space="preserve"><value>Open</value></data>
+  <data name="Feedback_StatusReviewed" xml:space="preserve"><value>Reviewed</value></data>
+  <data name="Feedback_StatusClosed" xml:space="preserve"><value>Closed</value></data>
+
+  <!-- ===== Shared legal / demo ===== -->
+  <data name="Common_SignIn" xml:space="preserve"><value>Sign in</value></data>
+  <data name="Legal_Privacy" xml:space="preserve"><value>Privacy</value></data>
+  <data name="Legal_Terms" xml:space="preserve"><value>Terms</value></data>
+  <data name="Demo_Math" xml:space="preserve"><value>Math</value></data>
+  <data name="Demo_French" xml:space="preserve"><value>French</value></data>
+  <data name="Demo_Chemistry" xml:space="preserve"><value>Chemistry</value></data>
+  <data name="Demo_German" xml:space="preserve"><value>German</value></data>
+  <data name="Demo_English" xml:space="preserve"><value>English</value></data>
+
+  <!-- ===== Landing page ===== -->
+  <data name="Landing_LogoTag" xml:space="preserve"><value>what should I study today</value></data>
+  <data name="Landing_NavScore" xml:space="preserve"><value>The score</value></data>
+  <data name="Landing_NavTry" xml:space="preserve"><value>Try it</value></data>
+  <data name="Landing_NavHow" xml:space="preserve"><value>How it works</value></data>
+  <data name="Landing_HeroEyebrow" xml:space="preserve"><value>Free for students · Built in Zürich</value></data>
+  <data name="Landing_HeroLine1" xml:space="preserve"><value>What should</value></data>
+  <data name="Landing_HeroLine2Pre" xml:space="preserve"><value>I study </value></data>
+  <data name="Landing_HeroLine2Em" xml:space="preserve"><value>today?</value></data>
+  <data name="Landing_HeroSub" xml:space="preserve"><value>Five subjects, three tests next week, one free evening. WSIST scores every upcoming test — urgency, volume, how well you get it, where your grades stand — and tells you exactly where tonight goes.</value></data>
+  <data name="Landing_SeeScore" xml:space="preserve"><value>See the score</value></data>
+  <data name="Landing_HeroNoteBold" xml:space="preserve"><value>Free</value></data>
+  <data name="Landing_HeroNoteRest" xml:space="preserve"><value>· no ads · your tests stay yours</value></data>
+  <data name="Landing_Card1Tag" xml:space="preserve"><value>Tonight's pick</value></data>
+  <data name="Landing_Because" xml:space="preserve"><value>Because:</value></data>
+  <data name="Landing_Card1Because" xml:space="preserve"><value>you have low understanding, the test has very high volume, it's in 2 days.</value></data>
+  <data name="Landing_Card2Because" xml:space="preserve"><value>medium understanding, high volume, your avg in French is 4.1.</value></data>
+  <data name="Landing_Card3Because" xml:space="preserve"><value>average understanding, medium volume, it's in 9 days.</value></data>
+  <data name="Landing_HighestStudiesFirst" xml:space="preserve"><value>The highest score studies first</value></data>
+  <data name="Landing_RubricEyebrow" xml:space="preserve"><value>The engine</value></data>
+  <data name="Landing_RubricTitlePre" xml:space="preserve"><value>Your tests, </value></data>
+  <data name="Landing_RubricTitleEm" xml:space="preserve"><value>graded.</value></data>
+  <data name="Landing_RubricSub" xml:space="preserve"><value>School grades you all year. WSIST turns the table — every upcoming test earns a priority score out of 40, built from four factors. No vibes, no guilt. Just arithmetic.</value></data>
+  <data name="Landing_UrgencyDesc" xml:space="preserve"><value>Tomorrow beats next month. Days left set the clock.</value></data>
+  <data name="Landing_PtsMax" xml:space="preserve"><value>pts max</value></data>
+  <data name="Landing_VolumeDesc" xml:space="preserve"><value>Three chapters outweigh one worksheet.</value></data>
+  <data name="Landing_VolumeDetail" xml:space="preserve"><value>very low +2 → very high +12</value></data>
+  <data name="Landing_UnderstandingDesc" xml:space="preserve"><value>The less it clicks, the higher it climbs.</value></data>
+  <data name="Landing_UnderstandingDetail" xml:space="preserve"><value>very high +2 → very low +12</value></data>
+  <data name="Landing_GradePullName" xml:space="preserve"><value>Grade pull</value></data>
+  <data name="Landing_GradePullDesc" xml:space="preserve"><value>Subjects where your average slips get a push.</value></data>
+  <data name="Landing_PlayEyebrow" xml:space="preserve"><value>No-signup demo</value></data>
+  <data name="Landing_PlayTitlePre" xml:space="preserve"><value>Run the </value></data>
+  <data name="Landing_PlayTitleEm" xml:space="preserve"><value>real</value></data>
+  <data name="Landing_PlayTitlePost" xml:space="preserve"><value> algorithm.</value></data>
+  <data name="Landing_PlaySub" xml:space="preserve"><value>These sliders feed the same scoring rules that run in production at wsist.forch.me. Move them and watch a test climb your list.</value></data>
+  <data name="Landing_CtlDays" xml:space="preserve"><value>Days until the test</value></data>
+  <data name="Landing_ScaleToday" xml:space="preserve"><value>today</value></data>
+  <data name="Landing_Scale5Weeks" xml:space="preserve"><value>5 weeks out</value></data>
+  <data name="Landing_CtlVol" xml:space="preserve"><value>Test volume</value></data>
+  <data name="Landing_ScaleWorksheet" xml:space="preserve"><value>one worksheet</value></data>
+  <data name="Landing_ScaleChapters" xml:space="preserve"><value>three chapters</value></data>
+  <data name="Landing_CtlUnd" xml:space="preserve"><value>Your understanding</value></data>
+  <data name="Landing_ScaleWhatEven" xml:space="preserve"><value>what even is this</value></data>
+  <data name="Landing_ScaleCouldTeach" xml:space="preserve"><value>could teach it</value></data>
+  <data name="Landing_CtlAvg" xml:space="preserve"><value>Your average in this subject</value></data>
+  <data name="Landing_Scale6Swiss" xml:space="preserve"><value>6.0 — Swiss scale</value></data>
+  <data name="Landing_ResultEyebrow" xml:space="preserve"><value>Priority score</value></data>
+  <data name="Landing_ResultDenom" xml:space="preserve"><value>/ 40 pts</value></data>
+  <data name="Landing_ChipUrgency" xml:space="preserve"><value>urgency</value></data>
+  <data name="Landing_ChipVolume" xml:space="preserve"><value>volume</value></data>
+  <data name="Landing_ChipUnderstanding" xml:space="preserve"><value>understanding</value></data>
+  <data name="Landing_ChipGradePull" xml:space="preserve"><value>grade pull</value></data>
+  <data name="Landing_ResultFoot" xml:space="preserve"><value>Same maths as the production engine</value></data>
+  <data name="Landing_VerdictInitial" xml:space="preserve"><value>Drop everything — this is tonight.</value></data>
+  <data name="Landing_HowEyebrow" xml:space="preserve"><value>The routine</value></data>
+  <data name="Landing_HowTitlePre" xml:space="preserve"><value>Twenty seconds in, </value></data>
+  <data name="Landing_HowTitleEm" xml:space="preserve"><value>one answer</value></data>
+  <data name="Landing_HowTitlePost" xml:space="preserve"><value> out.</value></data>
+  <data name="Landing_Step1Title" xml:space="preserve"><value>Add the test.</value></data>
+  <data name="Landing_Step1Desc" xml:space="preserve"><value>Title, subject, date, how big it is, how well you get it. Twenty seconds, once per test.</value></data>
+  <data name="Landing_MockTestTitle" xml:space="preserve"><value>Test title</value></data>
+  <data name="Landing_MockSubjectDue" xml:space="preserve"><value>Subject  ·  Due date</value></data>
+  <data name="Landing_Step2Title" xml:space="preserve"><value>Say how much time you have.</value></data>
+  <data name="Landing_Step2Desc" xml:space="preserve"><value>One input. “How many hours can you study today?” is the only question WSIST ever asks you back.</value></data>
+  <data name="Landing_MockHours" xml:space="preserve"><value>How many hours can you study today?</value></data>
+  <data name="Landing_Step3Title" xml:space="preserve"><value>Study the top of the list.</value></data>
+  <data name="Landing_Step3Desc" xml:space="preserve"><value>Every test ranked out of 40, with the reasons spelled out — so you trust the order instead of second-guessing it.</value></data>
+  <data name="Landing_FeatEyebrow" xml:space="preserve"><value>Also in the box</value></data>
+  <data name="Landing_FeatTitle" xml:space="preserve"><value>The quiet parts.</value></data>
+  <data name="Landing_Feat1Title" xml:space="preserve"><value>Grade overview per subject</value></data>
+  <data name="Landing_Feat1Desc" xml:space="preserve"><value>Your averages on the dashboard, always current — so a slipping subject shows up before the report card does.</value></data>
+  <data name="Landing_Feat2Title" xml:space="preserve"><value>Your subjects, not a preset</value></data>
+  <data name="Landing_Feat2Desc" xml:space="preserve"><value>Add the subjects your school actually teaches. Wirtschaft, Werkstatt, whatever — WSIST doesn't care, it just scores.</value></data>
+  <data name="Landing_Feat3Title" xml:space="preserve"><value>Every rank explains itself</value></data>
+  <data name="Landing_Feat3Desc" xml:space="preserve"><value>Tap any card for its score breakdown. You always see why a test sits where it sits.</value></data>
+  <data name="Landing_Feat4Title" xml:space="preserve"><value>Sign in with Google</value></data>
+  <data name="Landing_Feat4Desc" xml:space="preserve"><value>Nothing new to remember. Your school account works fine.</value></data>
+  <data name="Landing_Feat5Title" xml:space="preserve"><value>Private by default</value></data>
+  <data name="Landing_Feat5Desc" xml:space="preserve"><value>Your tests and grades are visible to you alone, and you can delete them anytime. No ads, ever.</value></data>
+  <data name="Landing_WsistSays" xml:space="preserve"><value>“WSIST says”</value></data>
+  <data name="Landing_Soon" xml:space="preserve"><value>Soon</value></data>
+  <data name="Landing_ManifestoAttribution" xml:space="preserve"><value>Tim · Computer Science Apprentice · Zürich</value></data>
+  <data name="Landing_Feat6Desc" xml:space="preserve"><value>A daily study briefing in Swiss German, plus an Android app. In the works between exam weeks.</value></data>
+  <data name="Landing_ManifestoPre" xml:space="preserve"><value>Built between apprenticeship shifts and exam weeks — by a student who </value></data>
+  <data name="Landing_ManifestoBold" xml:space="preserve"><value>needed it to exist.</value></data>
+  <data name="Landing_CtaTitlePre" xml:space="preserve"><value>Your next test is coming </value></data>
+  <data name="Landing_CtaTitleEm" xml:space="preserve"><value>either way.</value></data>
+  <data name="Landing_CtaSmall" xml:space="preserve"><value>Free · works in any browser</value></data>
+  <data name="Landing_FooterMade" xml:space="preserve"><value>Made in Zürich · © 2026 Tim Hug</value></data>
+
+  <!-- ===== Legal: shared ===== -->
+  <data name="Legal_LastUpdated" xml:space="preserve"><value>Last updated:</value></data>
+
+  <!-- ===== Privacy policy (section bodies rendered as MarkupString) ===== -->
+  <data name="Privacy_Title" xml:space="preserve"><value>Privacy Policy</value></data>
+  <data name="Privacy_Sec1" xml:space="preserve"><value>&lt;h2&gt;1. Who we are&lt;/h2&gt;
+&lt;p&gt;WSIST ("What Should I Study Today") is a personal study planning application developed and operated by Tim Hug, based in Switzerland. This privacy policy explains what personal data we collect, how we use it, and what rights you have.&lt;/p&gt;
+&lt;p&gt;Contact: &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt;&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec2" xml:space="preserve"><value>&lt;h2&gt;2. Data we collect&lt;/h2&gt;
+&lt;p&gt;When you sign in with Google, we receive and store the following data from Google's OAuth service:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Email address&lt;/strong&gt; — used to identify your account&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Display name&lt;/strong&gt; — shown in the application&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Google user ID&lt;/strong&gt; — used to link your Google account to your WSIST account&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We also store data you create while using the application:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Test entries (title, subject, due date, volume, understanding level, grade)&lt;/li&gt;
+&lt;li&gt;Custom subjects you create&lt;/li&gt;
+&lt;li&gt;Your display name if you update it in settings&lt;/li&gt;
+&lt;li&gt;Your account creation timestamp&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We do not collect location data, device identifiers, or any data beyond what is listed above.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec3" xml:space="preserve"><value>&lt;h2&gt;3. How we use your data&lt;/h2&gt;
+&lt;p&gt;Your data is used solely to provide the WSIST service:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Authenticating you when you log in&lt;/li&gt;
+&lt;li&gt;Storing and displaying your test entries&lt;/li&gt;
+&lt;li&gt;Calculating study recommendations and priority scores&lt;/li&gt;
+&lt;li&gt;Showing your grade overview&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We do not sell your data, share it with advertisers, or use it for any purpose other than providing the service.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec4" xml:space="preserve"><value>&lt;h2&gt;4. Legal basis for processing (GDPR / Swiss nDSG)&lt;/h2&gt;
+&lt;p&gt;We process your personal data on the basis of &lt;strong&gt;contract performance&lt;/strong&gt; (Art. 6(1)(b) GDPR) — processing is necessary to provide the service you have requested. By creating an account and using WSIST, you enter into a contract with us for the provision of the application.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec5" xml:space="preserve"><value>&lt;h2&gt;5. Third-party services&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Google OAuth:&lt;/strong&gt; Login is handled via Google's OAuth 2.0 service. When you authenticate, Google shares your profile data with us as described in section 2. Google's own privacy policy applies to the authentication process: &lt;a href="https://policies.google.com/privacy" target="_blank" rel="noopener"&gt;policies.google.com/privacy&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Railway:&lt;/strong&gt; The application is hosted on Railway (railway.app). Your data is stored on a MySQL database on their infrastructure. Railway's privacy policy applies to hosting: &lt;a href="https://railway.app/legal/privacy" target="_blank" rel="noopener"&gt;railway.app/legal/privacy&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Cloudflare:&lt;/strong&gt; The application is served behind Cloudflare's CDN. Cloudflare may process connection metadata (IP address, request headers) as part of its service. Cloudflare's privacy policy: &lt;a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener"&gt;cloudflare.com/privacypolicy&lt;/a&gt;.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec6" xml:space="preserve"><value>&lt;h2&gt;6. Data retention&lt;/h2&gt;
+&lt;p&gt;Your data is retained for as long as you have an active account. If you wish to delete your account and all associated data, contact us at &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt; and we will delete it within 30 days.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec7" xml:space="preserve"><value>&lt;h2&gt;7. Your rights&lt;/h2&gt;
+&lt;p&gt;Under the GDPR and Swiss nDSG, you have the following rights:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Access:&lt;/strong&gt; You can request a copy of all personal data we hold about you.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rectification:&lt;/strong&gt; You can correct inaccurate data via the Settings page or by contacting us.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Erasure:&lt;/strong&gt; You can request deletion of your account and all associated data.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Portability:&lt;/strong&gt; You can request your data in a machine-readable format.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Objection:&lt;/strong&gt; You can object to processing in certain circumstances.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To exercise any of these rights, contact us at &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt;. We will respond within 30 days.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec8" xml:space="preserve"><value>&lt;h2&gt;8. Cookies and sessions&lt;/h2&gt;
+&lt;p&gt;WSIST uses a single authentication cookie (.AspNetCore.Cookies) to maintain your login session. This cookie is strictly necessary for the application to function and does not track you across other websites. No analytics, advertising, or third-party tracking cookies are used.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec9" xml:space="preserve"><value>&lt;h2&gt;9. Security&lt;/h2&gt;
+&lt;p&gt;Your data is transmitted over HTTPS. Passwords are never stored — authentication is handled entirely by Google. Database access is restricted to the application only.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec10" xml:space="preserve"><value>&lt;h2&gt;10. Changes to this policy&lt;/h2&gt;
+&lt;p&gt;If we make material changes to this policy, we will update the "last updated" date at the top of this page. Continued use of WSIST after changes constitutes acceptance of the updated policy.&lt;/p&gt;</value></data>
+  <data name="Privacy_Sec11" xml:space="preserve"><value>&lt;h2&gt;11. Contact&lt;/h2&gt;
+&lt;p&gt;Questions about this privacy policy? Contact us at &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt;.&lt;/p&gt;</value></data>
+
+  <!-- ===== Terms of use (section bodies rendered as MarkupString) ===== -->
+  <data name="Terms_Title" xml:space="preserve"><value>Terms of Use</value></data>
+  <data name="Terms_Sec1" xml:space="preserve"><value>&lt;h2&gt;1. Acceptance of terms&lt;/h2&gt;
+&lt;p&gt;By accessing or using WSIST ("What Should I Study Today") at wsist.forch.me, you agree to be bound by these Terms of Use. If you do not agree, do not use the service.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec2" xml:space="preserve"><value>&lt;h2&gt;2. Description of service&lt;/h2&gt;
+&lt;p&gt;WSIST is a personal study planning tool that helps students track upcoming tests, estimate their preparedness, and determine what to study on a given day. The service is provided free of charge for personal, non-commercial use.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec3" xml:space="preserve"><value>&lt;h2&gt;3. Account and access&lt;/h2&gt;
+&lt;p&gt;Access to WSIST requires a Google account. By signing in, you authorise WSIST to receive your name and email address from Google as described in our &lt;a href="/privacy"&gt;Privacy Policy&lt;/a&gt;. You are responsible for keeping your Google account secure.&lt;/p&gt;
+&lt;p&gt;One account per person. You may not share your account with others or create accounts on behalf of third parties.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec4" xml:space="preserve"><value>&lt;h2&gt;4. Acceptable use&lt;/h2&gt;
+&lt;p&gt;You agree not to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Use WSIST for any unlawful purpose&lt;/li&gt;
+&lt;li&gt;Attempt to access other users' data&lt;/li&gt;
+&lt;li&gt;Attempt to reverse-engineer, disrupt, or overload the service&lt;/li&gt;
+&lt;li&gt;Use automated tools to scrape or extract data from the service&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="Terms_Sec5" xml:space="preserve"><value>&lt;h2&gt;5. Your content&lt;/h2&gt;
+&lt;p&gt;You own the data you enter into WSIST (test entries, subjects, grades). We do not claim any ownership over it. You grant us a limited licence to store and process it solely for the purpose of providing the service to you.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec6" xml:space="preserve"><value>&lt;h2&gt;6. Service availability&lt;/h2&gt;
+&lt;p&gt;WSIST is a personal project and is provided on an "as is" and "as available" basis. We make no guarantees about uptime, data preservation, or continued availability. We may modify or discontinue the service at any time without notice.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec7" xml:space="preserve"><value>&lt;h2&gt;7. Disclaimer of warranties&lt;/h2&gt;
+&lt;p&gt;To the fullest extent permitted by law, WSIST is provided without warranties of any kind, express or implied. We do not warrant that the service will be error-free, uninterrupted, or that the study recommendations it produces will lead to any particular academic outcome.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec8" xml:space="preserve"><value>&lt;h2&gt;8. Limitation of liability&lt;/h2&gt;
+&lt;p&gt;To the fullest extent permitted by applicable law, Tim Hug and the WSIST project shall not be liable for any indirect, incidental, or consequential damages arising from your use of or inability to use the service.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec9" xml:space="preserve"><value>&lt;h2&gt;9. Changes to terms&lt;/h2&gt;
+&lt;p&gt;We may update these terms at any time. The "last updated" date at the top of this page will reflect any changes. Continued use of WSIST after changes are posted constitutes acceptance of the updated terms.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec10" xml:space="preserve"><value>&lt;h2&gt;10. Governing law&lt;/h2&gt;
+&lt;p&gt;These terms are governed by the laws of Switzerland, without regard to conflict of law principles. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the courts of the Canton of Zurich, Switzerland.&lt;/p&gt;</value></data>
+  <data name="Terms_Sec11" xml:space="preserve"><value>&lt;h2&gt;11. Contact&lt;/h2&gt;
+&lt;p&gt;Questions about these terms? Contact us at &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt;.&lt;/p&gt;</value></data>
+
+  <!-- ===== Error / not-found pages ===== -->
+  <data name="NotFound_Title" xml:space="preserve"><value>Page not found</value></data>
+  <data name="NotFound_Sub" xml:space="preserve"><value>The page you're looking for doesn't exist or has been moved.</value></data>
+  <data name="Error_Title" xml:space="preserve"><value>Something went wrong</value></data>
+  <data name="Error_Sub" xml:space="preserve"><value>An unexpected error occurred. If this keeps happening, try logging out and back in.</value></data>
+</root>

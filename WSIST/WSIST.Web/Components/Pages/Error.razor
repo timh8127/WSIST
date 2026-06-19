@@ -1,13 +1,14 @@
 @page "/Error"
 @layout EmptyLayout
 @using WSIST.Web.Components.Layout
-<PageTitle>Error – WSIST</PageTitle>
+@inject IStringLocalizer<SharedResource> Localizer
+<PageTitle>@Localizer["Error_Title"] – WSIST</PageTitle>
 
 <div class="error-page">
     <div class="error-content">
         <span class="error-icon" aria-hidden="true">⚠</span>
-        <h1 class="error-title">Something went wrong</h1>
-        <p class="error-sub">An unexpected error occurred. If this keeps happening, try logging out and back in.</p>
-        <a href="/" class="button-primary button-accent" data-enhance-nav="false">← Back to home</a>
+        <h1 class="error-title">@Localizer["Error_Title"]</h1>
+        <p class="error-sub">@Localizer["Error_Sub"]</p>
+        <a href="/" class="button-primary button-accent" data-enhance-nav="false">← @Localizer["Common_BackToHome"]</a>
     </div>
 </div>

@@ -10,6 +10,7 @@ public class WsistContext : DbContext
     public DbSet<Test> Tests { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Subject> Subjects { get; set; }
+    public DbSet<Feedback> Feedbacks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -111,6 +112,27 @@ public class WsistContext : DbContext
             );
         });
 
+        modelBuilder.Entity<Feedback>(entity =>
+        {
+            entity.ToTable("Feedbacks");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Message).HasMaxLength(4000).IsRequired();
+            // Store enums as ints, consistent with Test.Volume/Understanding.
+            entity.Property(e => e.Category).HasConversion<int>();
+            entity.Property(e => e.Status).HasConversion<int>();
+
+            // Deleting a user removes their feedback too (they own the rows).
+            entity
+                .HasOne(f => f.User)
+                .WithMany()
+                .HasForeignKey(f => f.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // The admin listing orders newest-first; index the sort column.
+            entity.HasIndex(e => e.CreatedAt);
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.ToTable("Users");
@@ -118,6 +140,7 @@ public class WsistContext : DbContext
             entity.HasIndex(e => e.Email).IsUnique();
             entity.Property(e => e.GoogleId).HasMaxLength(100);
             entity.Property(e => e.DisplayName).HasMaxLength(100);
+            entity.Property(e => e.PreferredLanguage).HasMaxLength(5);
         });
     }
 }

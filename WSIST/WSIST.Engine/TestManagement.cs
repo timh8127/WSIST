@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace WSIST.Engine;
 
 public class TestManagement
@@ -185,6 +187,30 @@ public class TestManagement
         context.SaveChanges();
     }
 
+    public void UpdatePreferredLanguage(int userId, string? language)
+    {
+        var user = context.Users.Find(userId);
+        if (user is null)
+            return;
+        user.PreferredLanguage = language;
+        context.SaveChanges();
+    }
+
+    // Used by the request-localization provider to resolve a signed-in user's
+    // stored language without materializing the whole User entity. Async so the
+    // provider (which runs first on every authenticated request) never blocks on
+    // database I/O.
+    public Task<string?> GetPreferredLanguageByEmailAsync(
+        string email,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return context
+            .Users.Where(u => u.Email == email)
+            .Select(u => u.PreferredLanguage)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
     public User GetOrCreateUser(string email, string displayName, string googleId)
     {
         if (string.IsNullOrWhiteSpace(email))
@@ -255,6 +281,34 @@ public class TestManagement
                 );
             })
             .OrderBy(x => x.SubjectName)
+            .ToList();
+    }
+
+    /// <summary>
+    /// Every test belonging to the user — past and future, graded or not —
+    /// shaped for a data-portability export with subject names resolved and
+    /// enum values rendered to readable text. Strictly scoped to
+    /// <paramref name="userId"/>: another user's rows can never appear.
+    /// </summary>
+    public List<TestExportRow> GetTestExport(int userId)
+    {
+        var subjects = context
+            .Subjects.Where(s => s.IsSystem || s.UserId == userId)
+            .ToDictionary(s => s.Id, s => s.Name);
+
+        return context
+            .Tests.Where(t => t.UserId == userId)
+            .AsEnumerable()
+            .OrderBy(t => t.DueDate)
+            .ThenBy(t => t.Title)
+            .Select(t => new TestExportRow(
+                t.Title,
+                subjects.TryGetValue(t.Subject, out var name) ? name : t.Subject.ToString(),
+                t.DueDate,
+                Test.VolumeHelper(t.Volume),
+                Test.UnderstandingHelper(t.Understanding),
+                t.Grade
+            ))
             .ToList();
     }
 }

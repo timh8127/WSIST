@@ -11,30 +11,31 @@
             <span>WSIST</span>
         </div>
         <button class="button-primary" @onclick="Refresh">↻</button>
-        <a href="/settings" class="button-primary" data-enhance-nav="false">Settings</a>
-        <a href="/study" class="button-primary button-accent" data-enhance-nav="false">Study →</a>
-        <a href="/logout" class="button-primary button-danger" data-enhance-nav="false">Logout</a>
+        <LanguageToggle />
+        <a href="/settings" class="button-primary" data-enhance-nav="false">@localizer["Common_Settings"]</a>
+        <a href="/study" class="button-primary button-accent" data-enhance-nav="false">@localizer["Common_Study"] →</a>
+        <a href="/logout" class="button-primary button-danger" data-enhance-nav="false">@localizer["Common_Logout"]</a>
     </div>
 
     <div class="content px-4">
 
         <div class="home-header">
             <div>
-                <h1 class="home-title">Your tests</h1>
-                <p class="home-subtitle">Upcoming exams and assessments.</p>
+                <h1 class="home-title">@localizer["Home_Title"]</h1>
+                <p class="home-subtitle">@localizer["Home_Subtitle"]</p>
             </div>
             <div class="home-header-actions">
                 <button class="button-primary" @onclick="TogglePastTests">
-                    @(showPastTests ? "Hide past" : "Show past")
+                    @(showPastTests ? localizer["Home_HidePast"] : localizer["Home_ShowPast"])
                 </button>
-                <button class="button-primary button-accent" @onclick="OpenAddTestModal">+ Add test</button>
+                <button class="button-primary button-accent" @onclick="OpenAddTestModal">+ @localizer["Home_AddTest"]</button>
             </div>
         </div>
 
         @if (MissingGrades.Any())
         {
             <div class="missing-grades-strip">
-                <span class="missing-grades-label">⏳ Enter missing grades</span>
+                <span class="missing-grades-label">⏳ @localizer["Home_EnterMissingGrades"]</span>
                 <div class="missing-grades-list">
                     @foreach (var test in MissingGrades)
                     {
@@ -53,15 +54,15 @@
             var days = topRecommendation.DueDate.DayNumber - DateOnly.FromDateTime(DateTime.Today).DayNumber;
             <div class="recommendation-widget">
                 <div class="recommendation-widget-inner">
-                    <div class="recommendation-widget-label">Study today</div>
+                    <div class="recommendation-widget-label">@localizer["Home_StudyToday"]</div>
                     <div class="recommendation-widget-body">
                         <div>
                             <div class="recommendation-widget-title">@topRecommendation.Title</div>
                             <div class="recommendation-widget-meta">
-                                @(subjects.FirstOrDefault(s => s.Id == topRecommendation.Subject)?.Name ?? "Unknown") · in @days day@(days == 1 ? "" : "s") · @score/40 pts
+                                @(subjects.FirstOrDefault(s => s.Id == topRecommendation.Subject)?.Name ?? localizer["Common_Unknown"].Value) · @(days == 1 ? localizer["Common_InOneDay"] : localizer["Common_InDaysFmt", days]) · @score/40 @localizer["Common_Points"]
                             </div>
                         </div>
-                        <a href="/study" class="button-primary button-accent" data-enhance-nav="false" style="flex-shrink:0">Full plan →</a>
+                        <a href="/study" class="button-primary button-accent" data-enhance-nav="false" style="flex-shrink:0">@localizer["Home_FullPlan"] →</a>
                     </div>
                     <div class="study-card-bar-bg">
                         <div class="study-card-bar" style="width: @(score / 40.0 * 100)%"></div>
@@ -75,8 +76,8 @@
             {
                 <div class="empty-state">
                     <p class="empty-state-icon">📋</p>
-                    <p class="empty-state-title">No upcoming tests</p>
-                    <p class="empty-state-sub">Add your first test to get started.</p>
+                    <p class="empty-state-title">@localizer["Home_NoUpcomingTitle"]</p>
+                    <p class="empty-state-sub">@localizer["Home_NoUpcomingSub"]</p>
                 </div>
             }
             else
@@ -84,11 +85,11 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Subject</th>
-                            <th>Date</th>
-                            <th>Volume</th>
-                            <th>Understanding</th>
+                            <th>@localizer["Home_ColTitle"]</th>
+                            <th>@localizer["Home_ColSubject"]</th>
+                            <th>@localizer["Home_ColDate"]</th>
+                            <th>@localizer["Home_ColVolume"]</th>
+                            <th>@localizer["Home_ColUnderstanding"]</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -97,13 +98,13 @@
                         {
                             <tr>
                                 <td class="td-title">@test.Title</td>
-                                <td class="td-muted">@(subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? "Unknown")</td>
+                                <td class="td-muted">@(subjects.FirstOrDefault(s => s.Id == test.Subject)?.Name ?? localizer["Common_Unknown"].Value)</td>
                                 <td class="td-muted">@test.DueDate.ToShortDateString()</td>
-                                <td class="td-muted">@Test.VolumeHelper(test.Volume)</td>
-                                <td class="td-muted">@Test.UnderstandingHelper(test.Understanding)</td>
+                                <td class="td-muted">@localizer[$"Level_{test.Volume}"]</td>
+                                <td class="td-muted">@localizer[$"Level_{test.Understanding}"]</td>
                                 <td class="td-actions">
-                                    <button class="button-primary" @onclick="() => OpenEditTestModal(test)">Edit</button>
-                                    <button class="button-primary button-danger" @onclick="() => DeleteTest(test.Id)">Delete</button>
+                                    <button class="button-primary" @onclick="() => OpenEditTestModal(test)">@localizer["Common_Edit"]</button>
+                                    <button class="button-primary button-danger" @onclick="() => DeleteTest(test.Id)">@localizer["Common_Delete"]</button>
                                 </td>
                             </tr>
                         }
@@ -118,7 +119,7 @@
         @if (subjectAverages.Any())
         {
             <div class="grade-overview">
-                <h2 class="grade-overview-title">Grades</h2>
+                <h2 class="grade-overview-title">@localizer["Home_Grades"]</h2>
                 <div class="grade-overview-cards">
                     @foreach (var (subject, avg) in subjectAverages.OrderBy(x => x.Value))
                     {
@@ -138,7 +139,7 @@
         @if (gradeHistory.Any())
         {
             <div class="grade-trends">
-                <h2 class="grade-overview-title">Grade trends</h2>
+                <h2 class="grade-overview-title">@localizer["Home_GradeTrends"]</h2>
                 <div class="grade-trend-grid">
                     @foreach (var (subjectId, history) in gradeHistory)
                     {
@@ -184,7 +185,7 @@
                                 }
                             </svg>
                             <div class="grade-trend-footer">
-                                <span class="grade-trend-count">@history.Count test@(history.Count == 1 ? "" : "s")</span>
+                                <span class="grade-trend-count">@(history.Count == 1 ? localizer["Home_TestCountOne"] : localizer["Home_TestCountFmt", history.Count])</span>
                                 <span class="grade-trend-delta @(trend >= 0 ? "delta-up" : "delta-down")">
                                     @(trend >= 0 ? "↑" : "↓") @Math.Abs(trend).ToString("F1")
                                 </span>
@@ -200,16 +201,16 @@
             <div class="wsist-modal">
                 <div class="wsist-modal-content">
                     <div class="wsist-modal-header">
-                        <h2 class="wsist-modal-title">@(Mode == Modes.AddTest ? "Add test" : "Edit test")</h2>
+                        <h2 class="wsist-modal-title">@(Mode == Modes.AddTest ? localizer["Modal_AddTest"] : localizer["Modal_EditTest"])</h2>
                         <button class="wsist-modal-close" @onclick="CloseModal">×</button>
                     </div>
                     <form @onsubmit="ModalSubmit">
                         <div class="form-group">
-                            <label>Title</label>
-                            <input type="text" @bind="@temporaryTest.Title" placeholder="e.g. Maths Exam"/>
+                            <label>@localizer["Modal_Title"]</label>
+                            <input type="text" @bind="@temporaryTest.Title" placeholder="@localizer["Modal_TitlePlaceholder"]"/>
                         </div>
                         <div class="form-group">
-                            <label>Subject</label>
+                            <label>@localizer["Modal_Subject"]</label>
                             @if (!addingSubject)
                             {
                                 <select @bind="temporaryTest.Subject" @bind:after="OnSubjectSelectionChanged">
@@ -217,17 +218,17 @@
                                     {
                                         <option value="@subject.Id">@subject.Name</option>
                                     }
-                                    <option value="@AddNewSubjectValue">+ Add new subject</option>
+                                    <option value="@AddNewSubjectValue">@localizer["Modal_AddNewSubject"]</option>
                                 </select>
                             }
                             else
                             {
                                 <div class="inline-subject">
                                     <div class="inline-subject-row">
-                                        <input type="text" placeholder="New subject name" maxlength="100"
+                                        <input type="text" placeholder="@localizer["Modal_NewSubjectPlaceholder"]" maxlength="100"
                                                @bind="newSubjectName" @bind:event="oninput"/>
-                                        <button type="button" class="button-primary button-accent" @onclick="ConfirmAddSubject">Add</button>
-                                        <button type="button" class="button-primary" @onclick="CancelAddSubject">Cancel</button>
+                                        <button type="button" class="button-primary button-accent" @onclick="ConfirmAddSubject">@localizer["Common_Add"]</button>
+                                        <button type="button" class="button-primary" @onclick="CancelAddSubject">@localizer["Common_Cancel"]</button>
                                     </div>
                                     @if (subjectError is not null)
                                     {
@@ -237,37 +238,37 @@
                             }
                         </div>
                         <div class="form-group">
-                            <label>Due date</label>
+                            <label>@localizer["Modal_DueDate"]</label>
                             <input type="date" @bind="@temporaryTest.DueDate"/>
                         </div>
                         <div class="form-group">
-                            <label>Volume</label>
+                            <label>@localizer["Modal_Volume"]</label>
                             <select @bind="temporaryTest.Volume">
                                 @foreach (var v in Enum.GetValues<Test.TestVolume>())
                                 {
-                                    <option value="@v">@Test.VolumeHelper(v)</option>
+                                    <option value="@v">@localizer[$"Level_{v}"]</option>
                                 }
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Understanding</label>
+                            <label>@localizer["Modal_Understanding"]</label>
                             <select @bind="temporaryTest.Understanding">
                                 @foreach (var u in Enum.GetValues<Test.PersonalUnderstanding>())
                                 {
-                                    <option value="@u">@Test.UnderstandingHelper(u)</option>
+                                    <option value="@u">@localizer[$"Level_{u}"]</option>
                                 }
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Grade @(temporaryTest.DueDate > DateOnly.FromDateTime(DateTime.Today) ? "(available after test date)" : "")</label>
+                            <label>@localizer["Modal_Grade"] @(temporaryTest.DueDate > DateOnly.FromDateTime(DateTime.Today) ? localizer["Modal_GradeAfterDate"].Value : "")</label>
                             <input type="number" min="1" max="6" step="0.1"
                                    @bind="temporaryTest.Grade"
                                    disabled="@(temporaryTest.DueDate > DateOnly.FromDateTime(DateTime.Today))"/>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="button-primary" @onclick="CloseModal">Cancel</button>
+                            <button type="button" class="button-primary" @onclick="CloseModal">@localizer["Common_Cancel"]</button>
                             <button type="submit" class="button-primary button-accent">
-                                @(Mode == Modes.AddTest ? "Add test" : "Save changes")
+                                @(Mode == Modes.AddTest ? localizer["Modal_AddTest"] : localizer["Modal_SaveChanges"])
                             </button>
                         </div>
                     </form>

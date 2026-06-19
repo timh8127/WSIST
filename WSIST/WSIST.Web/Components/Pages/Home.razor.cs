@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Localization;
 using WSIST.Engine;
 
 namespace WSIST.Web.Components.Pages;
@@ -8,7 +9,8 @@ public partial class Home(
     TestManagement management,
     AuthenticationStateProvider authStateProvider,
     NavigationManager navigation,
-    PriorityCalculator calculator
+    PriorityCalculator calculator,
+    IStringLocalizer<SharedResource> localizer
 ) : AuthenticatedComponentBase(management, authStateProvider, navigation)
 {
     private List<Test> allTests = [];
@@ -154,12 +156,12 @@ public partial class Home(
         }
         catch (ArgumentException)
         {
-            subjectError = "Subject name cannot be empty.";
+            subjectError = localizer["Subject_EmptyError"];
             return;
         }
         catch (SubjectAlreadyExistsException)
         {
-            subjectError = "A subject with that name already exists.";
+            subjectError = localizer["Subject_DuplicateError"];
             return;
         }
 

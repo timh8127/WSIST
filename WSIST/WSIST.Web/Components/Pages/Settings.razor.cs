@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Localization;
 using WSIST.Engine;
 
 namespace WSIST.Web.Components.Pages;
@@ -7,7 +8,8 @@ namespace WSIST.Web.Components.Pages;
 public partial class Settings(
     TestManagement management,
     AuthenticationStateProvider authStateProvider,
-    NavigationManager navigation
+    NavigationManager navigation,
+    IStringLocalizer<SharedResource> localizer
 ) : AuthenticatedComponentBase(management, authStateProvider, navigation)
 {
     private User? currentUser;
@@ -35,7 +37,7 @@ public partial class Settings(
             return;
         management.UpdateDisplayName(CurrentUserId, editedDisplayName);
         currentUser = management.GetUser(CurrentUserId);
-        saveMessage = "Saved.";
+        saveMessage = localizer["Settings_Saved"];
         StateHasChanged();
     }
 
@@ -51,12 +53,12 @@ public partial class Settings(
         }
         catch (ArgumentException)
         {
-            subjectError = "Subject name cannot be empty.";
+            subjectError = localizer["Subject_EmptyError"];
             return;
         }
         catch (SubjectAlreadyExistsException)
         {
-            subjectError = "A subject with that name already exists.";
+            subjectError = localizer["Subject_DuplicateError"];
             return;
         }
 
@@ -70,8 +72,7 @@ public partial class Settings(
         subjectError = null;
         if (!management.RemoveCustomSubject(subjectId, CurrentUserId))
         {
-            subjectError =
-                "Cannot delete a subject that still has tests. Delete or reassign those tests first.";
+            subjectError = localizer["Settings_SubjectInUseError"];
             StateHasChanged();
             return;
         }
