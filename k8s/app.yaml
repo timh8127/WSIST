@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wsist-app
+  namespace: wsist
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wsist-app
+  template:
+    metadata:
+      labels:
+        app: wsist-app
+    spec:
+      containers:
+        - name: wsist-app
+          image: ghcr.io/timh8127/wsist:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production
+            - name: ASPNETCORE_URLS
+              value: http://+:8080
+            - name: Google__ClientId
+              valueFrom:
+                secretKeyRef:
+                  name: wsist-app-secret
+                  key: Google__ClientId
+            - name: Google__ClientSecret
+              valueFrom:
+                secretKeyRef:
+                  name: wsist-app-secret
+                  key: Google__ClientSecret
+            - name: Admin__Email
+              valueFrom:
+                secretKeyRef:
+                  name: wsist-app-secret
+                  key: Admin__Email
+            - name: ConnectionStrings__DatabaseConnection
+              valueFrom:
+                secretKeyRef:
+                  name: wsist-app-secret
+                  key: ConnectionStrings__DatabaseConnection
+          readinessProbe:
+            httpGet:
+              path: /login-page
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /login-page
+              port: 8080
+            initialDelaySeconds: 40
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wsist-app
+  namespace: wsist
+spec:
+  selector:
+    app: wsist-app
+  ports:
+    - port: 8080
+      targetPort: 8080
