@@ -4,6 +4,10 @@ on:
   push:
     branches: [ main ]
 
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,21 +18,23 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
 
       - name: Set image tag
         id: tag
         run: echo "sha=${GITHUB_SHA::8}" >> $GITHUB_OUTPUT
 
       - name: Log in to ghcr.io
-        uses: docker/login-action@v3
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
         with:
           context: .
           push: true
@@ -37,18 +43,30 @@ jobs:
             ghcr.io/timh8127/wsist:latest
 
       - name: Connect to Tailnet
-        uses: tailscale/github-action@v2
+        uses: tailscale/github-action@4e4c49acaa9818630ce0bd7a564372c17e33fb4d # v2
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
           version: latest
 
+      - name: Copy manifests to host
+        uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1
+        with:
+          host: ${{ secrets.K3S_HOST }}
+          username: ${{ secrets.K3S_USER }}
+          key: ${{ secrets.K3S_SSH_KEY }}
+          source: "k8s/*.yaml"
+          target: "/tmp/wsist-deploy"
+          strip_components: 1
+          rm: true
+
       - name: Deploy
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1
         with:
           host: ${{ secrets.K3S_HOST }}
           username: ${{ secrets.K3S_USER }}
           key: ${{ secrets.K3S_SSH_KEY }}
           script: |
+            kubectl apply -f /tmp/wsist-deploy/ -n wsist
             kubectl set image deployment/wsist-app \
               wsist-app=ghcr.io/timh8127/wsist:${{ steps.tag.outputs.sha }} \
               -n wsist

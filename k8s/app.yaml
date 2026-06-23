@@ -13,10 +13,30 @@ spec:
       labels:
         app: wsist-app
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1654
+        runAsGroup: 1654
+        fsGroup: 1654
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: wsist-app
           image: ghcr.io/timh8127/wsist:latest
           imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
           ports:
             - containerPort: 8080
           env:
@@ -44,6 +64,9 @@ spec:
                 secretKeyRef:
                   name: wsist-app-secret
                   key: ConnectionStrings__DatabaseConnection
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
           readinessProbe:
             httpGet:
               path: /login-page
@@ -60,6 +83,9 @@ spec:
             periodSeconds: 20
             timeoutSeconds: 5
             failureThreshold: 3
+      volumes:
+        - name: tmp
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service

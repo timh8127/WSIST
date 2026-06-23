@@ -76,6 +76,18 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 5
             timeoutSeconds: 3
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
   volumeClaimTemplates:
     - metadata:
         name: mysql-data
