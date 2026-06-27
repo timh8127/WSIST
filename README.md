@@ -2,7 +2,7 @@
 
 WSIST is a Blazor Server study planner that helps students decide what to focus on each day. Enter your upcoming tests, rate your understanding and the workload, and WSIST ranks them by priority — so you always know what matters most right now.
 
-Live at **[wsist.forch.me](https://wsist.forch.me)**
+Live at **[app.wsist.ch](https://app.wsist.ch)**
 
 ---
 
@@ -121,7 +121,7 @@ dotnet test WSIST/WSIST.UnitTests
 
 ## Legal
 
-Privacy policy and Terms of Use are available at [wsist.forch.me/privacy](https://wsist.forch.me/privacy) and [wsist.forch.me/terms](https://wsist.forch.me/terms).
+Privacy policy and Terms of Use are available at [app.wsist.ch/privacy](https://app.wsist.ch/privacy) and [app.wsist.ch/terms](https://app.wsist.ch/terms).
 
 ---
 
