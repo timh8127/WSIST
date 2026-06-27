@@ -250,7 +250,7 @@
   <data name="Landing_PlayTitlePre" xml:space="preserve"><value>Run the </value></data>
   <data name="Landing_PlayTitleEm" xml:space="preserve"><value>real</value></data>
   <data name="Landing_PlayTitlePost" xml:space="preserve"><value> algorithm.</value></data>
-  <data name="Landing_PlaySub" xml:space="preserve"><value>These sliders feed the same scoring rules that run in production at wsist.forch.me. Move them and watch a test climb your list.</value></data>
+  <data name="Landing_PlaySub" xml:space="preserve"><value>These sliders feed the same scoring rules that run in production at app.wsist.ch. Move them and watch a test climb your list.</value></data>
   <data name="Landing_CtlDays" xml:space="preserve"><value>Days until the test</value></data>
   <data name="Landing_ScaleToday" xml:space="preserve"><value>today</value></data>
   <data name="Landing_Scale5Weeks" xml:space="preserve"><value>5 weeks out</value></data>
@@ -313,7 +313,7 @@
   <data name="Privacy_Title" xml:space="preserve"><value>Privacy Policy</value></data>
   <data name="Privacy_Sec1" xml:space="preserve"><value>&lt;h2&gt;1. Who we are&lt;/h2&gt;
 &lt;p&gt;WSIST ("What Should I Study Today") is a personal study planning application developed and operated by Tim Hug, based in Switzerland. This privacy policy explains what personal data we collect, how we use it, and what rights you have.&lt;/p&gt;
-&lt;p&gt;Contact: &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt;&lt;/p&gt;</value></data>
+&lt;p&gt;Contact: &lt;a href="mailto:privacy@wsist.ch"&gt;privacy@wsist.ch&lt;/a&gt;&lt;/p&gt;</value></data>
   <data name="Privacy_Sec2" xml:space="preserve"><value>&lt;h2&gt;2. Data we collect&lt;/h2&gt;
 &lt;p&gt;When you sign in with Google, we receive and store the following data from Google's OAuth service:&lt;/p&gt;
 &lt;ul&gt;
@@ -342,10 +342,9 @@
 &lt;p&gt;We process your personal data on the basis of &lt;strong&gt;contract performance&lt;/strong&gt; (Art. 6(1)(b) GDPR) — processing is necessary to provide the service you have requested. By creating an account and using WSIST, you enter into a contract with us for the provision of the application.&lt;/p&gt;</value></data>
   <data name="Privacy_Sec5" xml:space="preserve"><value>&lt;h2&gt;5. Third-party services&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Google OAuth:&lt;/strong&gt; Login is handled via Google's OAuth 2.0 service. When you authenticate, Google shares your profile data with us as described in section 2. Google's own privacy policy applies to the authentication process: &lt;a href="https://policies.google.com/privacy" target="_blank" rel="noopener"&gt;policies.google.com/privacy&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Railway:&lt;/strong&gt; The application is hosted on Railway (railway.app). Your data is stored on a MySQL database on their infrastructure. Railway's privacy policy applies to hosting: &lt;a href="https://railway.app/legal/privacy" target="_blank" rel="noopener"&gt;railway.app/legal/privacy&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Cloudflare:&lt;/strong&gt; The application is served behind Cloudflare's CDN. Cloudflare may process connection metadata (IP address, request headers) as part of its service. Cloudflare's privacy policy: &lt;a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener"&gt;cloudflare.com/privacypolicy&lt;/a&gt;.&lt;/p&gt;</value></data>
+&lt;p&gt;&lt;strong&gt;Cloudflare:&lt;/strong&gt; The application is served behind Cloudflare's CDN and Tunnel. Cloudflare may process connection metadata (IP address, request headers) as part of its service. Cloudflare's privacy policy: &lt;a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener"&gt;cloudflare.com/privacypolicy&lt;/a&gt;.&lt;/p&gt;</value></data>
   <data name="Privacy_Sec6" xml:space="preserve"><value>&lt;h2&gt;6. Data retention&lt;/h2&gt;
-&lt;p&gt;Your data is retained for as long as you have an active account. If you wish to delete your account and all associated data, contact us at &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt; and we will delete it within 30 days.&lt;/p&gt;</value></data>
+&lt;p&gt;Your data is retained for as long as you have an active account. If you wish to delete your account and all associated data, contact us at &lt;a href="mailto:privacy@wsist.ch"&gt;privacy@wsist.ch&lt;/a&gt; and we will delete it within 30 days.&lt;/p&gt;</value></data>
   <data name="Privacy_Sec7" xml:space="preserve"><value>&lt;h2&gt;7. Your rights&lt;/h2&gt;
 &lt;p&gt;Under the GDPR and Swiss nDSG, you have the following rights:&lt;/p&gt;
 &lt;ul&gt;
@@ -355,7 +354,7 @@
 &lt;li&gt;&lt;strong&gt;Portability:&lt;/strong&gt; You can request your data in a machine-readable format.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Objection:&lt;/strong&gt; You can object to processing in certain circumstances.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;To exercise any of these rights, contact us at &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt;. We will respond within 30 days.&lt;/p&gt;</value></data>
+&lt;p&gt;To exercise any of these rights, contact us at &lt;a href="mailto:privacy@wsist.ch"&gt;privacy@wsist.ch&lt;/a&gt;. We will respond within 30 days.&lt;/p&gt;</value></data>
   <data name="Privacy_Sec8" xml:space="preserve"><value>&lt;h2&gt;8. Cookies and sessions&lt;/h2&gt;
 &lt;p&gt;WSIST uses a single authentication cookie (.AspNetCore.Cookies) to maintain your login session. This cookie is strictly necessary for the application to function and does not track you across other websites. No analytics, advertising, or third-party tracking cookies are used.&lt;/p&gt;</value></data>
   <data name="Privacy_Sec9" xml:space="preserve"><value>&lt;h2&gt;9. Security&lt;/h2&gt;
@@ -363,12 +362,12 @@
   <data name="Privacy_Sec10" xml:space="preserve"><value>&lt;h2&gt;10. Changes to this policy&lt;/h2&gt;
 &lt;p&gt;If we make material changes to this policy, we will update the "last updated" date at the top of this page. Continued use of WSIST after changes constitutes acceptance of the updated policy.&lt;/p&gt;</value></data>
   <data name="Privacy_Sec11" xml:space="preserve"><value>&lt;h2&gt;11. Contact&lt;/h2&gt;
-&lt;p&gt;Questions about this privacy policy? Contact us at &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt;.&lt;/p&gt;</value></data>
+&lt;p&gt;Questions about this privacy policy? Contact us at &lt;a href="mailto:privacy@wsist.ch"&gt;privacy@wsist.ch&lt;/a&gt;.&lt;/p&gt;</value></data>
 
   <!-- ===== Terms of use (section bodies rendered as MarkupString) ===== -->
   <data name="Terms_Title" xml:space="preserve"><value>Terms of Use</value></data>
   <data name="Terms_Sec1" xml:space="preserve"><value>&lt;h2&gt;1. Acceptance of terms&lt;/h2&gt;
-&lt;p&gt;By accessing or using WSIST ("What Should I Study Today") at wsist.forch.me, you agree to be bound by these Terms of Use. If you do not agree, do not use the service.&lt;/p&gt;</value></data>
+&lt;p&gt;By accessing or using WSIST ("What Should I Study Today") at app.wsist.ch, you agree to be bound by these Terms of Use. If you do not agree, do not use the service.&lt;/p&gt;</value></data>
   <data name="Terms_Sec2" xml:space="preserve"><value>&lt;h2&gt;2. Description of service&lt;/h2&gt;
 &lt;p&gt;WSIST is a personal study planning tool that helps students track upcoming tests, estimate their preparedness, and determine what to study on a given day. The service is provided free of charge for personal, non-commercial use.&lt;/p&gt;</value></data>
   <data name="Terms_Sec3" xml:space="preserve"><value>&lt;h2&gt;3. Account and access&lt;/h2&gt;
@@ -395,7 +394,7 @@
   <data name="Terms_Sec10" xml:space="preserve"><value>&lt;h2&gt;10. Governing law&lt;/h2&gt;
 &lt;p&gt;These terms are governed by the laws of Switzerland, without regard to conflict of law principles. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the courts of the Canton of Zurich, Switzerland.&lt;/p&gt;</value></data>
   <data name="Terms_Sec11" xml:space="preserve"><value>&lt;h2&gt;11. Contact&lt;/h2&gt;
-&lt;p&gt;Questions about these terms? Contact us at &lt;a href="mailto:privacy@wsist.forch.me"&gt;privacy@wsist.forch.me&lt;/a&gt;.&lt;/p&gt;</value></data>
+&lt;p&gt;Questions about these terms? Contact us at &lt;a href="mailto:privacy@wsist.ch"&gt;privacy@wsist.ch&lt;/a&gt;.&lt;/p&gt;</value></data>
 
   <!-- ===== Error / not-found pages ===== -->
   <data name="NotFound_Title" xml:space="preserve"><value>Page not found</value></data>
