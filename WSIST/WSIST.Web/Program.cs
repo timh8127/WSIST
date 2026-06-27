@@ -92,16 +92,76 @@ app.UseAntiforgery();
 app.Use(
     async (context, next) =>
     {
+        var host = context.Request.Host.Host;
+        var path = context.Request.Path.Value ?? "/";
         var isAuthenticated = context.User?.Identity?.IsAuthenticated ?? false;
-        var protectedPaths = new[] { "/", "/study", "/settings", "/feedback" };
+
+        // wsist.ch — marketing/landing site
+        if (host == "wsist.ch" || host == "www.wsist.ch")
+        {
+            // Rewrite root to /login-page internally so the landing page renders
+            // at wsist.ch/ without showing /login-page in the browser URL bar.
+            if (path == "/")
+            {
+                context.Request.Path = "/login-page";
+                await next();
+                return;
+            }
+            // Allow OAuth flow, legal pages, and the login-page route through.
+            // Redirect anything else (e.g. /study, /settings) to the landing.
+            var allowedOnMarketing = new[]
+            {
+                "/login",
+                "/login-page",
+                "/privacy",
+                "/terms",
+                "/signin-google",
+            };
+            if (
+                !allowedOnMarketing.Any(p => path.StartsWith(p, StringComparison.OrdinalIgnoreCase))
+            )
+            {
+                context.Response.Redirect("https://wsist.ch/", permanent: false);
+                return;
+            }
+            await next();
+            return;
+        }
+
+        // app.wsist.ch — the authenticated app
+        if (host == "app.wsist.ch")
+        {
+            var protectedPaths = new[] { "/", "/study", "/settings", "/feedback" };
+            if (protectedPaths.Contains(path, StringComparer.OrdinalIgnoreCase) && !isAuthenticated)
+            {
+                // Send unauthenticated users to the landing site
+                context.Response.Redirect("https://wsist.ch/");
+                return;
+            }
+            await next();
+            return;
+        }
+
+        // wsist.forch.me — permanent redirect to the app
+        if (host == "wsist.forch.me")
+        {
+            context.Response.Redirect(
+                $"https://app.wsist.ch{path}{context.Request.QueryString}",
+                permanent: true
+            );
+            return;
+        }
+
+        // Local development — existing behaviour
+        var localProtectedPaths = new[] { "/", "/study", "/settings", "/feedback" };
         if (
-            protectedPaths.Contains(context.Request.Path.Value, StringComparer.OrdinalIgnoreCase)
-            && !isAuthenticated
+            localProtectedPaths.Contains(path, StringComparer.OrdinalIgnoreCase) && !isAuthenticated
         )
         {
             context.Response.Redirect("/login-page");
             return;
         }
+
         await next();
     }
 );
