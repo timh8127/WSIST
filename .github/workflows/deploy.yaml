@@ -33,5 +33,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/timh8127/wsist:${{ steps.tag.outputs.sha }}
             ghcr.io/timh8127/wsist:latest
+            ghcr.io/timh8127/wsist:1.0.${{ github.run_number }}
