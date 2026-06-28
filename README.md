@@ -127,4 +127,4 @@ Privacy policy and Terms of Use are available at [app.wsist.ch/privacy](https://
 
 ## Author
 
-Tim Hug — Informatiker EFZ, Applikationsentwicklung apprenticeship project
+Tim Hug — Informatiker EFZ, Applikationsentwicklung apprenticeship project - Note that this project was worked in with the help of Claude and Claude Code.
