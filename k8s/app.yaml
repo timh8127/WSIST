@@ -12,6 +12,10 @@ spec:
     metadata:
       labels:
         app: wsist-app
+      annotations:
+        keel.sh/policy: force
+        keel.sh/trigger: poll
+        keel.sh/pollSchedule: "@every 1m"
     spec:
       securityContext:
         runAsNonRoot: true
