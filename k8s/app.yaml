@@ -3,6 +3,10 @@ kind: Deployment
 metadata:
   name: wsist-app
   namespace: wsist
+  annotations:
+    keel.sh/policy: force
+    keel.sh/trigger: poll
+    keel.sh/pollSchedule: "@every 1m"
 spec:
   replicas: 1
   selector:
@@ -12,10 +16,6 @@ spec:
     metadata:
       labels:
         app: wsist-app
-      annotations:
-        keel.sh/policy: force
-        keel.sh/trigger: poll
-        keel.sh/pollSchedule: "@every 1m"
     spec:
       securityContext:
         runAsNonRoot: true
