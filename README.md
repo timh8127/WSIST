@@ -128,3 +128,4 @@ Privacy policy and Terms of Use are available at [app.wsist.ch/privacy](https://
 ## Author
 
 Tim Hug — Informatiker EFZ, Applikationsentwicklung apprenticeship project.
+# test
