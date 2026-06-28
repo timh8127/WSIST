@@ -116,6 +116,15 @@ app.Use(
                 "/privacy",
                 "/terms",
                 "/signin-google",
+                "/_framework",
+                "/_content",
+                "/_blazor",
+                "/app.css",
+                "/landing.css",
+                "/landing.js",
+                "/logo.svg",
+                "/favicon",
+                "/WSIST.Web.styles.css",
             };
             if (
                 !allowedOnMarketing.Any(p => path.StartsWith(p, StringComparison.OrdinalIgnoreCase))
