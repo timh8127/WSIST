@@ -210,7 +210,7 @@
                     <form @onsubmit="ModalSubmit">
                         <div class="form-group">
                             <label>@localizer["Modal_Title"]</label>
-                            <input type="text" @bind="@temporaryTest.Title" placeholder="@localizer["Modal_TitlePlaceholder"]"/>
+                            <input type="text" @bind="@temporaryTest.Title" placeholder="@localizer["Modal_TitlePlaceholder"]" required/>
                         </div>
                         <div class="form-group">
                             <label>@localizer["Modal_Subject"]</label>
