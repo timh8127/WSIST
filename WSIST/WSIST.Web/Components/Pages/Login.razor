@@ -2,7 +2,17 @@
 @layout EmptyLayout
 @using WSIST.Web.Components.Layout
 @inject IStringLocalizer<SharedResource> Localizer
-<PageTitle>WSIST — @Localizer["Landing_HeroLine1"] @Localizer["Landing_HeroLine2Pre"]@Localizer["Landing_HeroLine2Em"]</PageTitle>
+<PageTitle>WSIST — What Should I Study Today?</PageTitle>
+<HeadContent>
+    <meta name="description" content="WSIST scores every upcoming test by urgency, volume, your understanding and your grades — then tells you exactly what to study today. Free, built in Zürich." />
+    <meta property="og:title" content="WSIST — What Should I Study Today?" />
+    <meta property="og:description" content="Every test scored out of 40. The highest score studies first." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wsist.ch" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="WSIST — What Should I Study Today?" />
+    <meta name="twitter:description" content="Every test scored out of 40. The highest score studies first." />
+</HeadContent>
 
 <div class="landing">
 
