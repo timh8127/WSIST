@@ -113,7 +113,7 @@ public partial class Home(
 
     public void OpenAddTestModal()
     {
-        temporaryTest = new Test { Title = "Some Test" };
+        temporaryTest = new Test { Title = string.Empty };
         Mode = Modes.AddTest;
         temporaryTest.DueDate = DateOnly.FromDateTime(DateTime.Today);
         // Default to a real subject rather than the int default (0), which is
