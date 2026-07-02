@@ -116,6 +116,7 @@
   <data name="Modal_EditTest" xml:space="preserve"><value>Prüfung bearbeiten</value></data>
   <data name="Modal_Title" xml:space="preserve"><value>Titel</value></data>
   <data name="Modal_TitlePlaceholder" xml:space="preserve"><value>z. B. Mathe-Prüfung</value></data>
+  <data name="Modal_TitleEmptyError" xml:space="preserve"><value>Der Titel darf nicht leer sein.</value></data>
   <data name="Modal_Subject" xml:space="preserve"><value>Fach</value></data>
   <data name="Modal_AddNewSubject" xml:space="preserve"><value>+ Neues Fach hinzufügen</value></data>
   <data name="Modal_NewSubjectPlaceholder" xml:space="preserve"><value>Name des neuen Fachs</value></data>

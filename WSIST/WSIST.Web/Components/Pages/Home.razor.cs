@@ -90,6 +90,7 @@ public partial class Home(
     private bool addingSubject;
     private string newSubjectName = string.Empty;
     private string? subjectError;
+    private string? titleError;
     private int lastSubjectId;
 
     private void OpenEditTestModal(Test test)
@@ -107,6 +108,7 @@ public partial class Home(
             Grade = test.Grade,
         };
         lastSubjectId = test.Subject;
+        titleError = null;
         ResetInlineSubject();
         showModal = true;
     }
@@ -120,6 +122,7 @@ public partial class Home(
         // the "+ Add new subject" sentinel, not a valid subject id.
         temporaryTest.Subject = subjects.FirstOrDefault()?.Id ?? AddNewSubjectValue;
         lastSubjectId = temporaryTest.Subject;
+        titleError = null;
         ResetInlineSubject();
         showModal = true;
     }
@@ -196,6 +199,16 @@ public partial class Home(
         // submit the whole form with the sentinel subject id; ignore it.
         if (addingSubject)
             return;
+        // The browser's `required` only rejects truly empty input; a
+        // whitespace-only title would still reach the engine and throw.
+        var title = temporaryTest.Title.Trim();
+        if (title.Length == 0)
+        {
+            titleError = localizer["Modal_TitleEmptyError"];
+            return;
+        }
+        titleError = null;
+        temporaryTest.Title = title;
         switch (Mode)
         {
             case Modes.AddTest:

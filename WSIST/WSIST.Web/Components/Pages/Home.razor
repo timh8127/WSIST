@@ -211,6 +211,10 @@
                         <div class="form-group">
                             <label>@localizer["Modal_Title"]</label>
                             <input type="text" @bind="@temporaryTest.Title" placeholder="@localizer["Modal_TitlePlaceholder"]" required/>
+                            @if (titleError is not null)
+                            {
+                                <small class="settings-error">@titleError</small>
+                            }
                         </div>
                         <div class="form-group">
                             <label>@localizer["Modal_Subject"]</label>
