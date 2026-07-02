@@ -78,6 +78,9 @@
                     <p class="empty-state-icon">📋</p>
                     <p class="empty-state-title">@localizer["Home_NoUpcomingTitle"]</p>
                     <p class="empty-state-sub">@localizer["Home_NoUpcomingSub"]</p>
+                    <button class="button-primary button-accent" style="margin-top: 8px;" @onclick="OpenAddTestModal">
+                        + @localizer["Home_AddTest"]
+                    </button>
                 </div>
             }
             else
@@ -207,7 +210,11 @@
                     <form @onsubmit="ModalSubmit">
                         <div class="form-group">
                             <label>@localizer["Modal_Title"]</label>
-                            <input type="text" @bind="@temporaryTest.Title" placeholder="@localizer["Modal_TitlePlaceholder"]"/>
+                            <input type="text" @bind="@temporaryTest.Title" placeholder="@localizer["Modal_TitlePlaceholder"]" required/>
+                            @if (titleError is not null)
+                            {
+                                <small class="settings-error">@titleError</small>
+                            }
                         </div>
                         <div class="form-group">
                             <label>@localizer["Modal_Subject"]</label>
@@ -262,6 +269,7 @@
                         <div class="form-group">
                             <label>@localizer["Modal_Grade"] @(temporaryTest.DueDate > DateOnly.FromDateTime(DateTime.Today) ? localizer["Modal_GradeAfterDate"].Value : "")</label>
                             <input type="number" min="1" max="6" step="0.1"
+                                   placeholder="1.0 – 6.0"
                                    @bind="temporaryTest.Grade"
                                    disabled="@(temporaryTest.DueDate > DateOnly.FromDateTime(DateTime.Today))"/>
                         </div>

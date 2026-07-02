@@ -116,6 +116,7 @@
   <data name="Modal_EditTest" xml:space="preserve"><value>Edit test</value></data>
   <data name="Modal_Title" xml:space="preserve"><value>Title</value></data>
   <data name="Modal_TitlePlaceholder" xml:space="preserve"><value>e.g. Maths Exam</value></data>
+  <data name="Modal_TitleEmptyError" xml:space="preserve"><value>Title cannot be empty.</value></data>
   <data name="Modal_Subject" xml:space="preserve"><value>Subject</value></data>
   <data name="Modal_AddNewSubject" xml:space="preserve"><value>+ Add new subject</value></data>
   <data name="Modal_NewSubjectPlaceholder" xml:space="preserve"><value>New subject name</value></data>
@@ -344,7 +345,7 @@
 &lt;p&gt;&lt;strong&gt;Google OAuth:&lt;/strong&gt; Login is handled via Google's OAuth 2.0 service. When you authenticate, Google shares your profile data with us as described in section 2. Google's own privacy policy applies to the authentication process: &lt;a href="https://policies.google.com/privacy" target="_blank" rel="noopener"&gt;policies.google.com/privacy&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Cloudflare:&lt;/strong&gt; The application is served behind Cloudflare's CDN and Tunnel. Cloudflare may process connection metadata (IP address, request headers) as part of its service. Cloudflare's privacy policy: &lt;a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener"&gt;cloudflare.com/privacypolicy&lt;/a&gt;.&lt;/p&gt;</value></data>
   <data name="Privacy_Sec6" xml:space="preserve"><value>&lt;h2&gt;6. Data retention&lt;/h2&gt;
-&lt;p&gt;Your data is retained for as long as you have an active account. If you wish to delete your account and all associated data, contact us at &lt;a href="mailto:privacy@wsist.ch"&gt;privacy@wsist.ch&lt;/a&gt; and we will delete it within 30 days.&lt;/p&gt;</value></data>
+&lt;p&gt;Your data is retained for as long as you have an active account. You can delete your account and all associated data at any time via &lt;strong&gt;Settings → Delete account&lt;/strong&gt; inside the app. You can also contact us at &lt;a href="mailto:privacy@wsist.ch"&gt;privacy@wsist.ch&lt;/a&gt; and we will delete it within 30 days.&lt;/p&gt;</value></data>
   <data name="Privacy_Sec7" xml:space="preserve"><value>&lt;h2&gt;7. Your rights&lt;/h2&gt;
 &lt;p&gt;Under the GDPR and Swiss nDSG, you have the following rights:&lt;/p&gt;
 &lt;ul&gt;

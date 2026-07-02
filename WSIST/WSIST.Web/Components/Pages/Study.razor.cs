@@ -124,6 +124,8 @@ public partial class Study(
             days == 1 ? localizer["Because_InOneDay"] : localizer["Because_InDaysFmt", days],
         };
 
+        // The average grade line represents the grade pull scoring factor.
+        // When avgGrade > 0, grade pull contributes +2/+4/+6 to the total score.
         if (avgGrade > 0)
             parts.Add(localizer["Because_AvgGradeFmt", subjectName, avgGrade.ToString("F1")]);
 
