@@ -246,7 +246,7 @@
   <data name="Landing_UnderstandingDesc" xml:space="preserve"><value>The less it clicks, the higher it climbs.</value></data>
   <data name="Landing_UnderstandingDetail" xml:space="preserve"><value>very high +2 → very low +12</value></data>
   <data name="Landing_GradePullName" xml:space="preserve"><value>Grade pull</value></data>
-  <data name="Landing_GradePullDesc" xml:space="preserve"><value>Subjects where your average slips get a push.</value></data>
+  <data name="Landing_GradePullDesc" xml:space="preserve"><value>Subjects where your average slips get a push. On the Swiss 1–6 scale, where 4 is passing.</value></data>
   <data name="Landing_PlayEyebrow" xml:space="preserve"><value>No-signup demo</value></data>
   <data name="Landing_PlayTitlePre" xml:space="preserve"><value>Run the </value></data>
   <data name="Landing_PlayTitleEm" xml:space="preserve"><value>real</value></data>

@@ -246,7 +246,7 @@
   <data name="Landing_UnderstandingDesc" xml:space="preserve"><value>Je weniger es sitzt, desto weiter steigt sie.</value></data>
   <data name="Landing_UnderstandingDetail" xml:space="preserve"><value>sehr hoch +2 → sehr niedrig +12</value></data>
   <data name="Landing_GradePullName" xml:space="preserve"><value>Notendruck</value></data>
-  <data name="Landing_GradePullDesc" xml:space="preserve"><value>Fächer, in denen dein Schnitt abrutscht, bekommen einen Schub.</value></data>
+  <data name="Landing_GradePullDesc" xml:space="preserve"><value>Fächer, in denen dein Schnitt abrutscht, bekommen einen Schub. Auf der Schweizer Notenskala von 1–6, wobei 4 die Bestehensgrenze ist.</value></data>
   <data name="Landing_PlayEyebrow" xml:space="preserve"><value>Demo ohne Anmeldung</value></data>
   <data name="Landing_PlayTitlePre" xml:space="preserve"><value>Lass den </value></data>
   <data name="Landing_PlayTitleEm" xml:space="preserve"><value>echten</value></data>
