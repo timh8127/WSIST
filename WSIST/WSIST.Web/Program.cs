@@ -99,20 +99,18 @@ app.Use(
         // wsist.ch — marketing/landing site
         if (host == "wsist.ch" || host == "www.wsist.ch")
         {
-            // Redirect root to /login-page explicitly. A server-side rewrite would
-            // leave the browser URL at "/", where the Blazor client router matches
-            // Home.razor and issues its own client-side redirect anyway.
-            if (path == "/")
+            // The landing page lives at the root (Login.razor, @page "/").
+            // /login-page is the retired old URL — send stale links home.
+            if (string.Equals(path, "/login-page", StringComparison.OrdinalIgnoreCase))
             {
-                context.Response.Redirect("https://wsist.ch/login-page", permanent: false);
+                context.Response.Redirect("https://wsist.ch/", permanent: true);
                 return;
             }
-            // Allow OAuth flow, legal pages, and the login-page route through.
+            // Allow the root, OAuth flow, legal pages, and static assets through.
             // Redirect anything else (e.g. /study, /settings) to the landing.
             var allowedOnMarketing = new[]
             {
                 "/login",
-                "/login-page",
                 "/privacy",
                 "/terms",
                 "/signin-google",
@@ -127,7 +125,10 @@ app.Use(
                 "/WSIST.Web.styles.css",
             };
             if (
-                !allowedOnMarketing.Any(p => path.StartsWith(p, StringComparison.OrdinalIgnoreCase))
+                path != "/"
+                && !allowedOnMarketing.Any(p =>
+                    path.StartsWith(p, StringComparison.OrdinalIgnoreCase)
+                )
             )
             {
                 context.Response.Redirect("https://wsist.ch/", permanent: false);
@@ -140,7 +141,15 @@ app.Use(
         // app.wsist.ch — the authenticated app
         if (host == "app.wsist.ch")
         {
-            var protectedPaths = new[] { "/", "/study", "/settings", "/feedback" };
+            // The dashboard lives at /home; the app host serves nothing at the root.
+            if (path == "/")
+            {
+                context.Response.Redirect(
+                    isAuthenticated ? "https://app.wsist.ch/home" : "https://wsist.ch/"
+                );
+                return;
+            }
+            var protectedPaths = new[] { "/home", "/study", "/settings", "/feedback" };
             if (protectedPaths.Contains(path, StringComparer.OrdinalIgnoreCase) && !isAuthenticated)
             {
                 // Send unauthenticated users to the landing site
@@ -162,12 +171,12 @@ app.Use(
         }
 
         // Local development — existing behaviour
-        var localProtectedPaths = new[] { "/", "/study", "/settings", "/feedback" };
+        var localProtectedPaths = new[] { "/home", "/study", "/settings", "/feedback" };
         if (
             localProtectedPaths.Contains(path, StringComparer.OrdinalIgnoreCase) && !isAuthenticated
         )
         {
-            context.Response.Redirect("/login-page");
+            context.Response.Redirect("/");
             return;
         }
 
@@ -182,7 +191,7 @@ app.MapGet(
     "/login",
     () =>
         Results.Challenge(
-            new AuthenticationProperties { RedirectUri = "/" },
+            new AuthenticationProperties { RedirectUri = "/home" },
             [GoogleDefaults.AuthenticationScheme]
         )
 );
@@ -192,7 +201,7 @@ app.MapGet(
         async (HttpContext ctx) =>
         {
             await ctx.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Results.Redirect("/login-page");
+            return Results.Redirect("/");
         }
     )
     .AllowAnonymous();

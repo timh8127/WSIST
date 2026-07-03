@@ -73,7 +73,7 @@ spec:
               mountPath: /tmp
           readinessProbe:
             httpGet:
-              path: /login-page
+              path: /
               port: 8080
             initialDelaySeconds: 20
             periodSeconds: 10
@@ -81,7 +81,7 @@ spec:
             failureThreshold: 3
           livenessProbe:
             httpGet:
-              path: /login-page
+              path: /
               port: 8080
             initialDelaySeconds: 40
             periodSeconds: 20
