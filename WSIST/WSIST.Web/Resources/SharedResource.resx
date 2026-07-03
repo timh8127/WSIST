@@ -228,7 +228,7 @@
   <data name="Landing_HeroSub" xml:space="preserve"><value>Five subjects, three tests next week, one free evening. WSIST scores every upcoming test — urgency, volume, how well you get it, where your grades stand — and tells you exactly where tonight goes.</value></data>
   <data name="Landing_SeeScore" xml:space="preserve"><value>See the score</value></data>
   <data name="Landing_HeroNoteBold" xml:space="preserve"><value>Free</value></data>
-  <data name="Landing_HeroNoteRest" xml:space="preserve"><value>· no ads · your tests stay yours</value></data>
+  <data name="Landing_HeroNoteRest" xml:space="preserve"><value>· no ads · we only use your name and email · your tests stay yours</value></data>
   <data name="Landing_Card1Tag" xml:space="preserve"><value>Tonight's pick</value></data>
   <data name="Landing_Because" xml:space="preserve"><value>Because:</value></data>
   <data name="Landing_Card1Because" xml:space="preserve"><value>you have low understanding, the test has very high volume, it's in 2 days.</value></data>
@@ -303,7 +303,7 @@
   <data name="Landing_ManifestoBold" xml:space="preserve"><value>needed it to exist.</value></data>
   <data name="Landing_CtaTitlePre" xml:space="preserve"><value>Your next test is coming </value></data>
   <data name="Landing_CtaTitleEm" xml:space="preserve"><value>either way.</value></data>
-  <data name="Landing_CtaSmall" xml:space="preserve"><value>Free · works in any browser</value></data>
+  <data name="Landing_CtaSmall" xml:space="preserve"><value>Free · works in any browser · only your name and email used</value></data>
   <data name="Landing_FooterMade" xml:space="preserve"><value>Made in Zürich · © 2026 Tim Hug</value></data>
 
   <!-- ===== Legal: shared ===== -->

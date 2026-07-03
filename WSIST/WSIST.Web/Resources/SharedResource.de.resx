@@ -228,7 +228,7 @@
   <data name="Landing_HeroSub" xml:space="preserve"><value>Fünf Fächer, drei Prüfungen nächste Woche, ein freier Abend. WSIST bewertet jede anstehende Prüfung — Dringlichkeit, Umfang, wie gut du sie verstehst, wie deine Noten stehen — und sagt dir genau, was heute Abend dran ist.</value></data>
   <data name="Landing_SeeScore" xml:space="preserve"><value>Punktzahl ansehen</value></data>
   <data name="Landing_HeroNoteBold" xml:space="preserve"><value>Kostenlos</value></data>
-  <data name="Landing_HeroNoteRest" xml:space="preserve"><value>· keine Werbung · deine Prüfungen bleiben deine</value></data>
+  <data name="Landing_HeroNoteRest" xml:space="preserve"><value>· keine Werbung · wir verwenden nur deinen Namen und deine E-Mail · deine Prüfungen bleiben deine</value></data>
   <data name="Landing_Card1Tag" xml:space="preserve"><value>Heutige Wahl</value></data>
   <data name="Landing_Because" xml:space="preserve"><value>Weil:</value></data>
   <data name="Landing_Card1Because" xml:space="preserve"><value>du verstehst es kaum, die Prüfung hat sehr viel Stoff, sie ist in 2 Tagen.</value></data>
@@ -303,7 +303,7 @@
   <data name="Landing_ManifestoBold" xml:space="preserve"><value>wollte, dass es existiert.</value></data>
   <data name="Landing_CtaTitlePre" xml:space="preserve"><value>Deine nächste Prüfung kommt </value></data>
   <data name="Landing_CtaTitleEm" xml:space="preserve"><value>so oder so.</value></data>
-  <data name="Landing_CtaSmall" xml:space="preserve"><value>Kostenlos · läuft in jedem Browser</value></data>
+  <data name="Landing_CtaSmall" xml:space="preserve"><value>Kostenlos · läuft in jedem Browser · nur Name und E-Mail werden verwendet</value></data>
   <data name="Landing_FooterMade" xml:space="preserve"><value>Erstellt in Zürich · © 2026 Tim Hug</value></data>
 
   <!-- ===== Legal: shared ===== -->
