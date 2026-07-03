@@ -785,17 +785,6 @@ html{
   margin-bottom:8px;
 }
 .landing .feat p{color:var(--mist);font-size:.94rem;max-width:42ch}
-.landing .soon{
-  font-family:var(--mono);
-  font-size:.58rem;
-  font-weight:600;
-  letter-spacing:.18em;
-  padding:4px 9px;
-  border-radius:99px;
-  border:1px solid var(--mint-soft);
-  background:var(--mint-soft);
-  color:var(--mint);
-}
 
 /* ---------- manifesto ---------- */
 
