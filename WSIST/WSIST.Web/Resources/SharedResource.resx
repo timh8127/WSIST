@@ -228,7 +228,7 @@
   <data name="Landing_HeroSub" xml:space="preserve"><value>Five subjects, three tests next week, one free evening. WSIST scores every upcoming test — urgency, volume, how well you get it, where your grades stand — and tells you exactly where tonight goes.</value></data>
   <data name="Landing_SeeScore" xml:space="preserve"><value>See the score</value></data>
   <data name="Landing_HeroNoteBold" xml:space="preserve"><value>Free</value></data>
-  <data name="Landing_HeroNoteRest" xml:space="preserve"><value>· no ads · your tests stay yours</value></data>
+  <data name="Landing_HeroNoteRest" xml:space="preserve"><value>· no ads · we only use your name and email · your tests stay yours</value></data>
   <data name="Landing_Card1Tag" xml:space="preserve"><value>Tonight's pick</value></data>
   <data name="Landing_Because" xml:space="preserve"><value>Because:</value></data>
   <data name="Landing_Card1Because" xml:space="preserve"><value>you have low understanding, the test has very high volume, it's in 2 days.</value></data>
@@ -246,7 +246,7 @@
   <data name="Landing_UnderstandingDesc" xml:space="preserve"><value>The less it clicks, the higher it climbs.</value></data>
   <data name="Landing_UnderstandingDetail" xml:space="preserve"><value>very high +2 → very low +12</value></data>
   <data name="Landing_GradePullName" xml:space="preserve"><value>Grade pull</value></data>
-  <data name="Landing_GradePullDesc" xml:space="preserve"><value>Subjects where your average slips get a push.</value></data>
+  <data name="Landing_GradePullDesc" xml:space="preserve"><value>Subjects where your average slips get a push. On the Swiss 1–6 scale, where 4 is passing.</value></data>
   <data name="Landing_PlayEyebrow" xml:space="preserve"><value>No-signup demo</value></data>
   <data name="Landing_PlayTitlePre" xml:space="preserve"><value>Run the </value></data>
   <data name="Landing_PlayTitleEm" xml:space="preserve"><value>real</value></data>
@@ -296,15 +296,14 @@
   <data name="Landing_Feat4Desc" xml:space="preserve"><value>Nothing new to remember. Your school account works fine.</value></data>
   <data name="Landing_Feat5Title" xml:space="preserve"><value>Private by default</value></data>
   <data name="Landing_Feat5Desc" xml:space="preserve"><value>Your tests and grades are visible to you alone, and you can delete them anytime. No ads, ever.</value></data>
-  <data name="Landing_WsistSays" xml:space="preserve"><value>“WSIST says”</value></data>
-  <data name="Landing_Soon" xml:space="preserve"><value>Soon</value></data>
   <data name="Landing_ManifestoAttribution" xml:space="preserve"><value>Tim · Computer Science Apprentice · Zürich</value></data>
-  <data name="Landing_Feat6Desc" xml:space="preserve"><value>A daily study briefing in Swiss German, plus an Android app. In the works between exam weeks.</value></data>
+  <data name="Landing_Feat6Title" xml:space="preserve"><value>Export your data anytime</value></data>
+  <data name="Landing_Feat6Desc" xml:space="preserve"><value>Download all your tests and grades as CSV or JSON whenever you want. Your data stays yours.</value></data>
   <data name="Landing_ManifestoPre" xml:space="preserve"><value>Built between apprenticeship shifts and exam weeks — by a student who </value></data>
   <data name="Landing_ManifestoBold" xml:space="preserve"><value>needed it to exist.</value></data>
   <data name="Landing_CtaTitlePre" xml:space="preserve"><value>Your next test is coming </value></data>
   <data name="Landing_CtaTitleEm" xml:space="preserve"><value>either way.</value></data>
-  <data name="Landing_CtaSmall" xml:space="preserve"><value>Free · works in any browser</value></data>
+  <data name="Landing_CtaSmall" xml:space="preserve"><value>Free · works in any browser · only your name and email used</value></data>
   <data name="Landing_FooterMade" xml:space="preserve"><value>Made in Zürich · © 2026 Tim Hug</value></data>
 
   <!-- ===== Legal: shared ===== -->

@@ -228,7 +228,7 @@
   <data name="Landing_HeroSub" xml:space="preserve"><value>Fünf Fächer, drei Prüfungen nächste Woche, ein freier Abend. WSIST bewertet jede anstehende Prüfung — Dringlichkeit, Umfang, wie gut du sie verstehst, wie deine Noten stehen — und sagt dir genau, was heute Abend dran ist.</value></data>
   <data name="Landing_SeeScore" xml:space="preserve"><value>Punktzahl ansehen</value></data>
   <data name="Landing_HeroNoteBold" xml:space="preserve"><value>Kostenlos</value></data>
-  <data name="Landing_HeroNoteRest" xml:space="preserve"><value>· keine Werbung · deine Prüfungen bleiben deine</value></data>
+  <data name="Landing_HeroNoteRest" xml:space="preserve"><value>· keine Werbung · wir verwenden nur deinen Namen und deine E-Mail · deine Prüfungen bleiben deine</value></data>
   <data name="Landing_Card1Tag" xml:space="preserve"><value>Heutige Wahl</value></data>
   <data name="Landing_Because" xml:space="preserve"><value>Weil:</value></data>
   <data name="Landing_Card1Because" xml:space="preserve"><value>du verstehst es kaum, die Prüfung hat sehr viel Stoff, sie ist in 2 Tagen.</value></data>
@@ -246,7 +246,7 @@
   <data name="Landing_UnderstandingDesc" xml:space="preserve"><value>Je weniger es sitzt, desto weiter steigt sie.</value></data>
   <data name="Landing_UnderstandingDetail" xml:space="preserve"><value>sehr hoch +2 → sehr niedrig +12</value></data>
   <data name="Landing_GradePullName" xml:space="preserve"><value>Notendruck</value></data>
-  <data name="Landing_GradePullDesc" xml:space="preserve"><value>Fächer, in denen dein Schnitt abrutscht, bekommen einen Schub.</value></data>
+  <data name="Landing_GradePullDesc" xml:space="preserve"><value>Fächer, in denen dein Schnitt abrutscht, bekommen einen Schub. Auf der Schweizer Notenskala von 1–6, wobei 4 die Bestehensgrenze ist.</value></data>
   <data name="Landing_PlayEyebrow" xml:space="preserve"><value>Demo ohne Anmeldung</value></data>
   <data name="Landing_PlayTitlePre" xml:space="preserve"><value>Lass den </value></data>
   <data name="Landing_PlayTitleEm" xml:space="preserve"><value>echten</value></data>
@@ -296,15 +296,14 @@
   <data name="Landing_Feat4Desc" xml:space="preserve"><value>Nichts Neues zu merken. Dein Schulkonto funktioniert problemlos.</value></data>
   <data name="Landing_Feat5Title" xml:space="preserve"><value>Privat von Haus aus</value></data>
   <data name="Landing_Feat5Desc" xml:space="preserve"><value>Deine Prüfungen und Noten sind nur für dich sichtbar, und du kannst sie jederzeit löschen. Keine Werbung, niemals.</value></data>
-  <data name="Landing_WsistSays" xml:space="preserve"><value>„WSIST sagt“</value></data>
-  <data name="Landing_Soon" xml:space="preserve"><value>Bald</value></data>
   <data name="Landing_ManifestoAttribution" xml:space="preserve"><value>Tim · Informatik-Lehrling · Zürich</value></data>
-  <data name="Landing_Feat6Desc" xml:space="preserve"><value>Ein tägliches Lern-Briefing auf Schweizerdeutsch, dazu eine Android-App. Entsteht zwischen den Prüfungswochen.</value></data>
+  <data name="Landing_Feat6Title" xml:space="preserve"><value>Daten jederzeit exportieren</value></data>
+  <data name="Landing_Feat6Desc" xml:space="preserve"><value>Lade alle deine Prüfungen und Noten als CSV oder JSON herunter, wann immer du möchtest. Deine Daten bleiben deine.</value></data>
   <data name="Landing_ManifestoPre" xml:space="preserve"><value>Entstanden zwischen Lehrlingsschichten und Prüfungswochen — von einem Schüler, der </value></data>
   <data name="Landing_ManifestoBold" xml:space="preserve"><value>wollte, dass es existiert.</value></data>
   <data name="Landing_CtaTitlePre" xml:space="preserve"><value>Deine nächste Prüfung kommt </value></data>
   <data name="Landing_CtaTitleEm" xml:space="preserve"><value>so oder so.</value></data>
-  <data name="Landing_CtaSmall" xml:space="preserve"><value>Kostenlos · läuft in jedem Browser</value></data>
+  <data name="Landing_CtaSmall" xml:space="preserve"><value>Kostenlos · läuft in jedem Browser · nur Name und E-Mail werden verwendet</value></data>
   <data name="Landing_FooterMade" xml:space="preserve"><value>Erstellt in Zürich · © 2026 Tim Hug</value></data>
 
   <!-- ===== Legal: shared ===== -->
