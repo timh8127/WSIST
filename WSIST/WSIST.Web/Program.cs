@@ -99,12 +99,12 @@ app.Use(
         // wsist.ch — marketing/landing site
         if (host == "wsist.ch" || host == "www.wsist.ch")
         {
-            // Rewrite root to /login-page internally so the landing page renders
-            // at wsist.ch/ without showing /login-page in the browser URL bar.
+            // Redirect root to /login-page explicitly. A server-side rewrite would
+            // leave the browser URL at "/", where the Blazor client router matches
+            // Home.razor and issues its own client-side redirect anyway.
             if (path == "/")
             {
-                context.Request.Path = "/login-page";
-                await next();
+                context.Response.Redirect("https://wsist.ch/login-page", permanent: false);
                 return;
             }
             // Allow OAuth flow, legal pages, and the login-page route through.
