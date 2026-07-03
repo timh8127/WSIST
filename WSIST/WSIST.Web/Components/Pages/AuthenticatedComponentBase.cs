@@ -25,7 +25,7 @@ public abstract class AuthenticatedComponentBase(
 
         if (user?.Identity?.IsAuthenticated != true)
         {
-            navigation.NavigateTo("/login-page", forceLoad: true);
+            navigation.NavigateTo("/", forceLoad: true);
             return;
         }
 
@@ -37,7 +37,7 @@ public abstract class AuthenticatedComponentBase(
         {
             // Without an email we can't resolve a user; treat the session as
             // unauthenticated instead of leaving CurrentUserId at 0.
-            navigation.NavigateTo("/login-page", forceLoad: true);
+            navigation.NavigateTo("/", forceLoad: true);
             return;
         }
 
