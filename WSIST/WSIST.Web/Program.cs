@@ -101,7 +101,7 @@ app.Use(
         {
             // The landing page lives at the root (Login.razor, @page "/").
             // /login-page is the retired old URL — send stale links home.
-            if (path == "/login-page")
+            if (string.Equals(path, "/login-page", StringComparison.OrdinalIgnoreCase))
             {
                 context.Response.Redirect("https://wsist.ch/", permanent: true);
                 return;
