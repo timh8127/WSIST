@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace WSIST.Engine;
 
-public class WsistContext : DbContext
+public class WsistContext : DbContext, IDataProtectionKeyContext
 {
     public WsistContext(DbContextOptions<WsistContext> options)
         : base(options) { }
@@ -11,6 +12,10 @@ public class WsistContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Subject> Subjects { get; set; }
     public DbSet<Feedback> Feedbacks { get; set; }
+
+    // Persists ASP.NET Core DataProtection keys so auth cookies survive pod
+    // restarts; without this every deploy logs all users out.
+    public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
