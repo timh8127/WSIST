@@ -5,6 +5,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +45,15 @@ var connStr =
 builder.Services.AddDbContext<WsistContext>(options =>
     options.UseMySql(connStr, ServerVersion.AutoDetect(connStr))
 );
+
+// Keys must outlive the pod: by default they live in memory, so every restart
+// (each Keel auto-deploy) minted new keys and invalidated all auth cookies,
+// logging everyone out. The fixed application name keeps keys valid even if
+// the assembly name changes between deployments.
+builder
+    .Services.AddDataProtection()
+    .PersistKeysToDbContext<WsistContext>()
+    .SetApplicationName("wsist");
 
 builder
     .Services.AddAuthentication(options =>

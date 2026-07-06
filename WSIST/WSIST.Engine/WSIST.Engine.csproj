@@ -12,5 +12,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.17" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.17" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
+    <!-- Held at 9.x alongside EF Core (see above); provides the
+         DataProtectionKey entity persisted via WsistContext. -->
+    <PackageReference
+      Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore"
+      Version="9.0.17"
+    />
   </ItemGroup>
 </Project>
