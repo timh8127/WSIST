@@ -1,14 +1,17 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace WSIST.Engine;
 
 public class TestManagement
 {
     private readonly WsistContext context;
+    private readonly IMemoryCache cache;
 
-    public TestManagement(WsistContext context)
+    public TestManagement(WsistContext context, IMemoryCache cache)
     {
         this.context = context;
+        this.cache = cache;
     }
 
     public List<Test> LoadAllTests(int userId) =>
@@ -135,7 +138,7 @@ public class TestManagement
         {
             context.SaveChanges();
         }
-        catch (Microsoft.EntityFrameworkCore.DbUpdateException)
+        catch (DbUpdateException)
         {
             // A concurrent request inserted the same (UserId, Name) between our
             // Any() check and SaveChanges; the unique index (see WsistContext)
@@ -194,21 +197,28 @@ public class TestManagement
             return;
         user.PreferredLanguage = language;
         context.SaveChanges();
+        cache.Remove($"lang:{user.Email}"); // invalidate cache
     }
 
     // Used by the request-localization provider to resolve a signed-in user's
     // stored language without materializing the whole User entity. Async so the
     // provider (which runs first on every authenticated request) never blocks on
     // database I/O.
-    public Task<string?> GetPreferredLanguageByEmailAsync(
+    public async Task<string?> GetPreferredLanguageByEmailAsync(
         string email,
-        CancellationToken cancellationToken = default
-    )
+        CancellationToken cancellationToken = default)
     {
-        return context
-            .Users.Where(u => u.Email == email)
+        var cacheKey = $"lang:{email}";
+        if (cache.TryGetValue(cacheKey, out string? lang))
+            return lang;
+
+        lang = await context.Users
+            .Where(u => u.Email == email)
             .Select(u => u.PreferredLanguage)
             .FirstOrDefaultAsync(cancellationToken);
+
+        cache.Set(cacheKey, lang, TimeSpan.FromMinutes(10));
+        return lang;
     }
 
     public User GetOrCreateUser(string email, string displayName, string googleId)
@@ -233,7 +243,7 @@ public class TestManagement
             context.SaveChanges();
             return user;
         }
-        catch (Microsoft.EntityFrameworkCore.DbUpdateException)
+        catch (DbUpdateException)
         {
             // A concurrent request created the same user between our check and
             // the insert (unique index on Email) — fetch the winner instead.

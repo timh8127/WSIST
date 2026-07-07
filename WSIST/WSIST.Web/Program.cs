@@ -82,6 +82,7 @@ builder.Services.AddScoped<TestManagement>();
 builder.Services.AddScoped<FeedbackManagement>();
 builder.Services.AddScoped<PriorityCalculator>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddMemoryCache();
 builder.Services.AddCascadingAuthenticationState();
 
 var app = builder.Build();
