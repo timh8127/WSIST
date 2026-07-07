@@ -2,7 +2,7 @@
 
 WSIST is a Blazor Server study planner that helps students decide what to focus on each day. Enter your upcoming tests, rate your understanding and the workload, and WSIST ranks them by priority — so you always know what matters most right now.
 
-Live at **[app.wsist.ch](https://app.wsist.ch)**
+Live at **[wsist.ch](https://wsist.ch)**
 
 ---
 
